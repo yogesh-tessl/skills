@@ -105,3 +105,37 @@ pip install "paddlex[ocr]"  # For table mode (--table-mode)
 brew install tesseract && pip install pytesseract
 pip install easyocr
 ```
+
+## PaddleOCR Usage Examples
+
+```bash
+# Basic OCR for scanned PDF (Chinese)
+python scripts/gateway.py --input scan.pdf --pdf-backend paddleocr
+
+# With table recognition (best for documents with tables)
+python scripts/gateway.py --input scan.pdf --pdf-backend paddleocr --table-mode
+
+# Convert Simplified Chinese to Traditional
+python scripts/gateway.py --input scan.pdf --pdf-backend paddleocr --to-traditional
+
+# GPU acceleration (requires NVIDIA CUDA)
+python scripts/gateway.py --input scan.pdf --pdf-backend paddleocr --use-gpu
+```
+
+## Performance Reference
+
+| Mode | Speed | Model Size | Best For |
+|------|-------|------------|----------|
+| paddleocr | ~15-20s | ~10MB | Scanned PDFs, Chinese |
+| paddleocr --table-mode | ~25-30s | ~200MB | Documents with tables |
+| marker | ~30-60s | ~1.3GB | Complex layouts |
+| pymupdf4llm | ~1-2s | None | Text-based PDFs |
+
+## Recent Updates
+
+- **2025-01-05**: Integrated PaddleOCR (from imagepdf2txt) as new backend
+  - Added `--pdf-backend paddleocr` for scanned PDFs
+  - Added `--table-mode` for PPStructureV3 table recognition
+  - Added `--to-traditional` for Simplified→Traditional Chinese (OpenCC)
+  - Added `--use-gpu` for GPU acceleration
+  - Auto-install dependency instructions in this file
