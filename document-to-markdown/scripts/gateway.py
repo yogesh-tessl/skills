@@ -789,13 +789,13 @@ def main():
     )
     parser.add_argument(
         "--pdf-backend",
-        choices=["auto", "pymupdf4llm", "marker", "markitdown"],
+        choices=["auto", "pymupdf4llm", "marker", "markitdown", "paddleocr"],
         default="auto",
         help="PDF conversion backend (default: auto)"
     )
     parser.add_argument(
         "--ocr-backend",
-        choices=["auto", "tesseract", "surya", "easyocr"],
+        choices=["auto", "tesseract", "surya", "easyocr", "paddleocr"],
         default="auto",
         help="OCR backend for images (default: auto)"
     )
@@ -844,6 +844,21 @@ def main():
         help="Output format: 'human' (clean, readable) or 'rag' (preserves structure for LLM/RAG)"
     )
     parser.add_argument(
+        "--table-mode",
+        action="store_true",
+        help="Enable table recognition mode (PaddleOCR PPStructureV3)"
+    )
+    parser.add_argument(
+        "--use-gpu",
+        action="store_true",
+        help="Use GPU acceleration for PaddleOCR (requires NVIDIA CUDA)"
+    )
+    parser.add_argument(
+        "--to-traditional",
+        action="store_true",
+        help="Convert Simplified Chinese to Traditional Chinese (Taiwan)"
+    )
+    parser.add_argument(
         "--json",
         action="store_true",
         help="Output result as JSON (for agent integration)"
@@ -866,6 +881,9 @@ def main():
                 output_format=args.format,
                 dpi=args.dpi,
                 write_images=args.write_images,
+                table_mode=args.table_mode,
+                use_gpu=args.use_gpu,
+                to_traditional=args.to_traditional,
             )
 
             # Print summary to stderr
@@ -902,6 +920,9 @@ def main():
                 include_frontmatter=args.frontmatter,
                 clean_output=not args.no_cleanup,
                 output_format=args.format,
+                table_mode=args.table_mode,
+                use_gpu=args.use_gpu,
+                to_traditional=args.to_traditional,
             )
 
             # Print warnings to stderr

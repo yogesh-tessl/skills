@@ -13,5 +13,20 @@ markitdown>=0.0.1
 # pytesseract  # Requires Tesseract installed: brew install tesseract
 # easyocr      # Deep learning OCR
 
+# Optional: PaddleOCR for scanned PDFs (better Chinese support)
+# Install system dependency first: brew install poppler
+# Models are downloaded automatically on first use (~10MB for basic OCR)
+# paddlepaddle>=3.0.0        # CPU version
+# paddlepaddle-gpu>=3.0.0    # GPU version (requires NVIDIA CUDA)
+# paddleocr>=2.9.0
+# pdf2image
+# lxml
+# prettytable
+# opencc-python-reimplemented  # Simplified to Traditional Chinese conversion
+#
+# Optional: Table recognition mode (--table-mode)
+# Requires additional dependencies (~200MB models downloaded on first use)
+# paddlex[ocr]
+
 # Configuration
 pyyaml>=6.0

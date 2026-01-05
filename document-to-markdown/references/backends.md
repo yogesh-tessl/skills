@@ -53,6 +53,52 @@ Fallback option using Microsoft's converter.
 | Best For | Simple PDFs, fallback |
 | Limitations | Less structure preservation |
 
+### PaddleOCR
+
+Lightweight OCR engine optimized for Chinese and scanned documents.
+
+| Attribute | Value |
+|-----------|-------|
+| Speed | Medium (~3-8 seconds) |
+| Model Size | ~10MB (auto-downloaded on first use) |
+| Best For | Scanned PDFs, Chinese documents, tables |
+| GPU Support | NVIDIA CUDA |
+| Limitations | Requires poppler system dependency |
+
+**When to use:**
+- PDF is scanned/image-based
+- Document contains Chinese text
+- Need table recognition (`--table-mode`)
+- Want faster alternative to Marker
+
+**Installation:**
+```bash
+# System dependency
+brew install poppler
+
+# Python packages (CPU)
+pip install paddlepaddle paddleocr pdf2image lxml prettytable
+
+# For GPU (requires CUDA)
+pip install paddlepaddle-gpu paddleocr pdf2image lxml prettytable
+
+# For Simplified to Traditional Chinese conversion
+pip install opencc-python-reimplemented
+
+# For table recognition mode (--table-mode)
+pip install "paddlex[ocr]"
+```
+
+**Note:** Models are automatically downloaded on first use:
+- Basic OCR: ~10MB
+- Table mode (PPStructureV3): ~200MB additional
+
+**Options:**
+- `--table-mode`: Enable table recognition with PPStructureV3
+- `--use-gpu`: Use GPU acceleration
+- `--to-traditional`: Convert Simplified Chinese to Traditional (Taiwan)
+- `--lang`: OCR language (ch, en, japan, etc.)
+
 ---
 
 ## OCR Backends (Images)
@@ -114,6 +160,16 @@ Deep learning based, good multilingual support.
 ```bash
 pip install easyocr
 ```
+
+### PaddleOCR
+
+See PDF Backends section for full details. Also works for standalone images.
+
+| Attribute | Value |
+|-----------|-------|
+| Speed | Medium |
+| Model Size | <10MB |
+| Best For | Chinese text, complex layouts |
 
 ---
 

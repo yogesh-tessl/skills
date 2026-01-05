@@ -81,6 +81,13 @@ def convert_with_markitdown(pdf_path: Path, **kwargs) -> str:
     return result.text_content
 
 
+def convert_with_paddleocr(pdf_path: Path, **kwargs) -> str:
+    """Convert PDF using PaddleOCR (good for scanned PDFs and Chinese)."""
+    from convert_paddle import convert_with_paddleocr as paddle_convert
+    content, _ = paddle_convert(pdf_path, **kwargs)
+    return content
+
+
 def is_content_sufficient(content: str, threshold: int = 100) -> bool:
     """Check if extracted content is sufficient (not a scanned PDF)."""
     if not content:
@@ -142,6 +149,7 @@ def convert_pdf(
         "pymupdf4llm": convert_with_pymupdf4llm,
         "marker": convert_with_marker,
         "markitdown": convert_with_markitdown,
+        "paddleocr": convert_with_paddleocr,
     }
 
     if backend == "auto":
@@ -216,7 +224,7 @@ def main():
     )
     parser.add_argument(
         "--backend", "-b",
-        choices=["auto", "pymupdf4llm", "marker", "markitdown"],
+        choices=["auto", "pymupdf4llm", "marker", "markitdown", "paddleocr"],
         default="auto",
         help="Conversion backend (default: auto)"
     )

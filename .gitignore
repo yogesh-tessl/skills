@@ -20,4 +20,5 @@ Thumbs.db
 *.md
 !README.md
 !SKILL.md
+!CLAUDE.md
 !references/*.md

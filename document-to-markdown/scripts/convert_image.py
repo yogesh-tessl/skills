@@ -68,6 +68,15 @@ def convert_with_easyocr(image_path: Path, **kwargs) -> str:
         raise ImportError("easyocr not installed. Run: pip install easyocr")
 
 
+def convert_with_paddleocr(image_path: Path, **kwargs) -> str:
+    """Convert image using PaddleOCR (good for Chinese)."""
+    try:
+        from convert_paddle import ocr_single_image
+        return ocr_single_image(image_path, **kwargs)
+    except ImportError:
+        raise ImportError("paddleocr not installed. Run: pip install paddlepaddle paddleocr")
+
+
 def convert_image(
     image_path: Path,
     backend: str = "auto",
@@ -88,6 +97,7 @@ def convert_image(
         "surya": convert_with_surya,
         "tesseract": convert_with_tesseract,
         "easyocr": convert_with_easyocr,
+        "paddleocr": convert_with_paddleocr,
     }
 
     if backend == "auto":
@@ -125,7 +135,7 @@ def main():
     )
     parser.add_argument(
         "--backend", "-b",
-        choices=["auto", "surya", "tesseract", "easyocr"],
+        choices=["auto", "surya", "tesseract", "easyocr", "paddleocr"],
         default="auto",
         help="OCR backend (default: auto)"
     )

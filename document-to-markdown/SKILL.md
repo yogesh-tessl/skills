@@ -53,7 +53,11 @@ python scripts/gateway.py --input-dir <folder> --output-dir <out> [--recursive] 
 | `--recursive` | Include subdirectories in batch |
 | `--parallel N` | Process N files concurrently |
 | `--frontmatter` | Add YAML metadata header |
-| `--pdf-backend marker` | For scanned PDFs |
+| `--pdf-backend marker` | For scanned PDFs (slow, 1.3GB models) |
+| `--pdf-backend paddleocr` | For scanned PDFs + Chinese (fast, <10MB) |
+| `--table-mode` | Enable table recognition (requires `paddlex[ocr]`) |
+| `--use-gpu` | GPU acceleration for PaddleOCR |
+| `--to-traditional` | Convert Simplified to Traditional Chinese |
 | `--pages 1-10` | Convert specific pages only |
 
 ## Workflow
