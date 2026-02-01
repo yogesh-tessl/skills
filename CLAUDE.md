@@ -20,16 +20,31 @@ skills/
 │   │   └── convert_paddle.py # PaddleOCR module
 │   └── references/         # Backend and troubleshooting docs
 │
-└── excalidraw/             # Diagram creation skill
-    ├── SKILL.md            # Main skill instructions
-    ├── ELEMENTS.md         # Element type reference
-    ├── PALETTES.md         # Color palette definitions
-    ├── STYLES.md           # Visual style guide
-    ├── LIBRARIES.md        # Component library reference
-    ├── IT-DIAGRAMS.md      # IT diagram templates
-    ├── TEMPLATES.md        # General templates
-    ├── libraries/          # 27+ pre-downloaded .excalidrawlib files
-    └── examples/           # Example diagrams
+├── excalidraw/             # Diagram creation skill
+│   ├── SKILL.md            # Main skill instructions
+│   ├── ELEMENTS.md         # Element type reference
+│   ├── PALETTES.md         # Color palette definitions
+│   ├── STYLES.md           # Visual style guide
+│   ├── LIBRARIES.md        # Component library reference
+│   ├── IT-DIAGRAMS.md      # IT diagram templates
+│   ├── TEMPLATES.md        # General templates
+│   ├── libraries/          # 27+ pre-downloaded .excalidrawlib files
+│   └── examples/           # Example diagrams
+│
+└── smart-water-treatment/  # Water treatment AI system architect
+    ├── SKILL.md            # Six-dimension framework, workflow, response modes
+    └── references/         # Domain-specific reference files
+        ├── framework.md    # Detailed six-dimension operating framework
+        ├── semiconductor.md # SEMI standards, UPW specs
+        ├── municipal.md    # Drinking/wastewater standards
+        ├── industrial.md   # Cooling, boiler, ZLD
+        ├── desalination.md # SWRO/BWRO, ERDs, concentrate management
+        ├── reuse.md        # Reclaimed water, potable reuse
+        ├── technologies.md # Treatment technology encyclopedia
+        ├── troubleshooting.md # Diagnostic frameworks
+        ├── ai-and-control.md # PINNs, MPC, edge deployment
+        ├── cybersecurity-and-sustainability.md # IEC 62443, ESG
+        └── delivery-and-ops.md # ISA-101 HMI, GitOps, knowledge engineering
 ```
 
 ## Skill Architecture
@@ -100,6 +115,13 @@ No build/test commands - this skill is instruction-only. The `.excalidrawlib` fi
   - `TEMPLATES.md` - General purpose diagram templates
 - **Quality standards**: 60-30-10 color rule, 20px grid alignment, WCAG AA contrast (≥4.5:1)
 
+### smart-water-treatment
+
+Knowledge-only skill (no scripts). Uses progressive disclosure: lean SKILL.md with six-dimension summary table, detailed framework in `references/framework.md`, and 10 domain-specific reference files loaded on demand.
+
+- **Design pattern**: Compact SKILL.md (~97 lines) with workflow + response modes; all domain detail in `references/`
+- **Key invariants**: Physics-first verification, AI-over-PID (never bypass), fit-for-purpose design, operator-centered delivery
+
 ## Installation
 
 Skills are installed via skills-cli or manual copy:
@@ -109,8 +131,10 @@ Skills are installed via skills-cli or manual copy:
 pip install git+https://github.com/kcchien/skills-cli.git
 skills-cli install --repo https://github.com/kcchien/skills --skills document-to-markdown
 skills-cli install --repo https://github.com/kcchien/skills --skills excalidraw
+skills-cli install --repo https://github.com/kcchien/skills --skills smart-water-treatment
 
 # Manual
 cp -r skills/document-to-markdown ~/.claude/skills/
 cp -r skills/excalidraw ~/.claude/skills/
+cp -r skills/smart-water-treatment ~/.claude/skills/
 ```
