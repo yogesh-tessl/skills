@@ -9,42 +9,36 @@ This repository contains custom skills for Claude Code. Skills are folders of in
 ## Repository Structure
 
 ```
-skills/
-├── document-to-markdown/   # Document/URL to Markdown converter
-│   ├── SKILL.md            # Skill instructions (entry point)
-│   ├── CLAUDE.md           # Skill-specific development guide
-│   ├── scripts/            # Python conversion scripts
-│   │   ├── gateway.py      # Main entry point, routing, batch processing
-│   │   ├── convert_pdf.py  # PDF backends (pymupdf4llm, marker, paddleocr)
-│   │   ├── convert_image.py # OCR backends (tesseract, surya, easyocr)
-│   │   └── convert_paddle.py # PaddleOCR module
-│   └── references/         # Backend and troubleshooting docs
-│
-├── excalidraw/             # Diagram creation skill
-│   ├── SKILL.md            # Main skill instructions
-│   ├── ELEMENTS.md         # Element type reference
-│   ├── PALETTES.md         # Color palette definitions
-│   ├── STYLES.md           # Visual style guide
-│   ├── LIBRARIES.md        # Component library reference
-│   ├── IT-DIAGRAMS.md      # IT diagram templates
-│   ├── TEMPLATES.md        # General templates
-│   ├── libraries/          # 27+ pre-downloaded .excalidrawlib files
-│   └── examples/           # Example diagrams
-│
-└── smart-water-treatment/  # Water treatment AI system architect
-    ├── SKILL.md            # Six-dimension framework, workflow, response modes
-    └── references/         # Domain-specific reference files
-        ├── framework.md    # Detailed six-dimension operating framework
-        ├── semiconductor.md # SEMI standards, UPW specs
-        ├── municipal.md    # Drinking/wastewater standards
-        ├── industrial.md   # Cooling, boiler, ZLD
-        ├── desalination.md # SWRO/BWRO, ERDs, concentrate management
-        ├── reuse.md        # Reclaimed water, potable reuse
-        ├── technologies.md # Treatment technology encyclopedia
-        ├── troubleshooting.md # Diagnostic frameworks
-        ├── ai-and-control.md # PINNs, MPC, edge deployment
-        ├── cybersecurity-and-sustainability.md # IEC 62443, ESG
-        └── delivery-and-ops.md # ISA-101 HMI, GitOps, knowledge engineering
+skills/                          ← git repo root
+├── packages/                    ← all skill folders (symlink target)
+│   ├── docx/
+│   ├── document-to-markdown/
+│   │   ├── SKILL.md
+│   │   ├── CLAUDE.md
+│   │   ├── scripts/
+│   │   └── references/
+│   ├── excalidraw/
+│   │   ├── SKILL.md
+│   │   ├── libraries/
+│   │   └── examples/
+│   ├── frontend-design/
+│   ├── pdf/
+│   ├── planning-with-files/
+│   ├── quality-check/
+│   ├── remotion-best-practices/
+│   ├── skill-creator/
+│   ├── smart-water-treatment/
+│   │   ├── SKILL.md
+│   │   └── references/
+│   ├── theme-factory/
+│   ├── ui-ux-pro-max/
+│   ├── web-to-markdown/
+│   └── xlsx/
+├── screenshots/
+├── install.sh
+├── CLAUDE.md
+├── README.md
+└── .gitignore
 ```
 
 ## Skill Architecture
@@ -77,16 +71,16 @@ metadata:
 
 ```bash
 # Install dependencies
-pip install -r document-to-markdown/requirements.txt
+pip install -r packages/document-to-markdown/requirements.txt
 
 # Run single file conversion
-python document-to-markdown/scripts/gateway.py --input <file> --json
+python packages/document-to-markdown/scripts/gateway.py --input <file> --json
 
 # Batch processing
-python document-to-markdown/scripts/gateway.py --input-dir <folder> --output-dir <out> --parallel 4
+python packages/document-to-markdown/scripts/gateway.py --input-dir <folder> --output-dir <out> --parallel 4
 
 # Test with specific backend
-python document-to-markdown/scripts/gateway.py --input doc.pdf --pdf-backend paddleocr
+python packages/document-to-markdown/scripts/gateway.py --input doc.pdf --pdf-backend paddleocr
 ```
 
 ### excalidraw
@@ -133,8 +127,11 @@ skills-cli install --repo https://github.com/kcchien/skills --skills document-to
 skills-cli install --repo https://github.com/kcchien/skills --skills excalidraw
 skills-cli install --repo https://github.com/kcchien/skills --skills smart-water-treatment
 
-# Manual
-cp -r skills/document-to-markdown ~/.claude/skills/
-cp -r skills/excalidraw ~/.claude/skills/
-cp -r skills/smart-water-treatment ~/.claude/skills/
+# Manual (symlink approach)
+bash skills/install.sh
+
+# Or copy individual skills
+cp -r skills/packages/document-to-markdown ~/.claude/skills/
+cp -r skills/packages/excalidraw ~/.claude/skills/
+cp -r skills/packages/smart-water-treatment ~/.claude/skills/
 ```

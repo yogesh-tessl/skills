@@ -144,8 +144,8 @@ skills-cli install --repo https://github.com/kcchien/skills --skills excalidraw
 
 ```bash
 git clone https://github.com/kcchien/skills.git
-cp -r skills/document-to-markdown ~/.claude/skills/
-cp -r skills/excalidraw ~/.claude/skills/
+cp -r skills/packages/document-to-markdown ~/.claude/skills/
+cp -r skills/packages/excalidraw ~/.claude/skills/
 ```
 
 That's it! Claude will automatically discover the skill and handle dependencies when needed.
@@ -302,8 +302,8 @@ skills-cli install --repo https://github.com/kcchien/skills --skills excalidraw
 
 ```bash
 git clone https://github.com/kcchien/skills.git
-cp -r skills/document-to-markdown ~/.claude/skills/
-cp -r skills/excalidraw ~/.claude/skills/
+cp -r skills/packages/document-to-markdown ~/.claude/skills/
+cp -r skills/packages/excalidraw ~/.claude/skills/
 ```
 
 完成！Claude 會自動探索此技能，並在需要時處理相依套件。

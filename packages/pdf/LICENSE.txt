@@ -1,0 +1,16 @@
+Anthropic Proprietary License
+
+Copyright (c) 2024 Anthropic, PBC
+
+All rights reserved.
+
+Use of these materials is governed by your agreement with Anthropic, or the
+Anthropic Consumer Terms of Service or Commercial Terms of Service (as
+applicable) if no separate agreement exists.
+
+Users cannot extract or retain copies outside authorized services.
+Reproduction, derivative works, distribution, and reverse engineering are
+prohibited.
+
+Anthropic retains all right, title, and interest in these materials, including
+all copyrights, patents, and other intellectual property rights.
