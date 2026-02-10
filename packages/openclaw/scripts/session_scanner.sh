@@ -78,21 +78,35 @@ fi
 
 # --- Secret Patterns ---
 # These are well-known credential patterns
-declare -A SECRET_PATTERNS
-SECRET_PATTERNS=(
-  ["AWS Access Key"]='AKIA[A-Z0-9]{16}'
-  ["AWS Secret Key"]='(aws_secret_access_key|AWS_SECRET_ACCESS_KEY|SecretAccessKey)["\s:=]+[A-Za-z0-9/+=]{40}'
-  ["GitHub PAT"]='ghp_[a-zA-Z0-9]{36}'
-  ["GitHub OAuth"]='gho_[a-zA-Z0-9]{36}'
-  ["Anthropic API Key"]='sk-ant-[a-zA-Z0-9_-]{20,}'
-  ["OpenAI API Key"]='sk-[a-zA-Z0-9]{20,}'
-  ["Slack Bot Token"]='xoxb-[0-9]+-[a-zA-Z0-9]+'
-  ["Slack App Token"]='xapp-[0-9]+-[a-zA-Z0-9]+'
-  ["Discord Bot Token"]='[MN][A-Za-z0-9]{23,}\.[a-zA-Z0-9_-]{6}\.[a-zA-Z0-9_-]{27,}'
-  ["Private Key"]='-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----'
-  ["Generic Bearer"]='Bearer [a-zA-Z0-9._-]{20,}'
-  ["Telegram Bot Token"]='[0-9]{8,}:[A-Za-z0-9_-]{35}'
-  ["Google API Key"]='AIza[A-Za-z0-9_-]{35}'
+SECRET_LABELS=(
+  "AWS Access Key"
+  "AWS Secret Key"
+  "GitHub PAT"
+  "GitHub OAuth"
+  "Anthropic API Key"
+  "OpenAI API Key"
+  "Slack Bot Token"
+  "Slack App Token"
+  "Discord Bot Token"
+  "Private Key"
+  "Generic Bearer"
+  "Telegram Bot Token"
+  "Google API Key"
+)
+SECRET_REGEXES=(
+  'AKIA[A-Z0-9]{16}'
+  '(aws_secret_access_key|AWS_SECRET_ACCESS_KEY|SecretAccessKey)["\s:=]+[A-Za-z0-9/+=]{40}'
+  'ghp_[a-zA-Z0-9]{36}'
+  'gho_[a-zA-Z0-9]{36}'
+  'sk-ant-[a-zA-Z0-9_-]{20,}'
+  'sk-[a-zA-Z0-9]{20,}'
+  'xoxb-[0-9]+-[a-zA-Z0-9]+'
+  'xapp-[0-9]+-[a-zA-Z0-9]+'
+  '[MN][A-Za-z0-9]{23,}\.[a-zA-Z0-9_-]{6}\.[a-zA-Z0-9_-]{27,}'
+  '-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----'
+  'Bearer [a-zA-Z0-9._-]{20,}'
+  '[0-9]{8,}:[A-Za-z0-9_-]{35}'
+  'AIza[A-Za-z0-9_-]{35}'
 )
 
 # --- Scan each file ---
@@ -104,9 +118,10 @@ for sf in "${SESSION_FILES[@]}"; do
   file_hits=0
   file_size=$(du -h "$sf" 2>/dev/null | cut -f1)
 
-  for label in "${!SECRET_PATTERNS[@]}"; do
-    pattern="${SECRET_PATTERNS[$label]}"
-    hit_count=$(grep -cE "$pattern" "$sf" 2>/dev/null || echo "0")
+  for i in "${!SECRET_LABELS[@]}"; do
+    label="${SECRET_LABELS[$i]}"
+    pattern="${SECRET_REGEXES[$i]}"
+    hit_count=$(grep -cE "$pattern" "$sf" 2>/dev/null || true)
     if [[ "$hit_count" -gt 0 ]]; then
       if [[ $file_hits -eq 0 ]]; then
         echo ""
@@ -125,7 +140,7 @@ for sf in "${SESSION_FILES[@]}"; do
   # Deep mode: additional checks
   if $DEEP; then
     # Check for IP addresses
-    ip_count=$(grep -coE '\b([0-9]{1,3}\.){3}[0-9]{1,3}\b' "$sf" 2>/dev/null || echo "0")
+    ip_count=$(grep -cE '\b([0-9]{1,3}\.){3}[0-9]{1,3}\b' "$sf" 2>/dev/null || true)
     if [[ "$ip_count" -gt 10 ]]; then
       if [[ $file_hits -eq 0 ]]; then
         echo ""
@@ -135,13 +150,13 @@ for sf in "${SESSION_FILES[@]}"; do
     fi
 
     # Check for base64-encoded blobs (potential encoded secrets)
-    b64_count=$(grep -coE '[A-Za-z0-9+/]{40,}={0,2}' "$sf" 2>/dev/null || echo "0")
+    b64_count=$(grep -cE '[A-Za-z0-9+/]{40,}={0,2}' "$sf" 2>/dev/null || true)
     if [[ "$b64_count" -gt 5 ]]; then
       note "  ${b64_count} base64-like strings found (may contain encoded secrets)"
     fi
 
     # Check for file paths that reveal infrastructure
-    path_count=$(grep -coE '(/home/[a-z]|/Users/[A-Z]|/etc/|/var/|C:\\Users\\)' "$sf" 2>/dev/null || echo "0")
+    path_count=$(grep -cE '(/home/[a-z]|/Users/[A-Z]|/etc/|/var/|C:\\Users\\)' "$sf" 2>/dev/null || true)
     if [[ "$path_count" -gt 0 ]]; then
       note "  ${path_count} file path references (infrastructure exposure)"
     fi

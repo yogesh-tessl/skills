@@ -11,6 +11,10 @@ This repository contains custom skills for Claude Code. Skills are folders of in
 ```
 skills/                          ← git repo root
 ├── packages/                    ← all skill folders (symlink target)
+│   ├── .system/                 ← system-level tools (hidden)
+│   │   ├── skill-creator/
+│   │   └── skill-installer/
+│   ├── aipoint-brand-guide/
 │   ├── docx/
 │   ├── document-to-markdown/
 │   │   ├── SKILL.md
@@ -22,6 +26,11 @@ skills/                          ← git repo root
 │   │   ├── libraries/
 │   │   └── examples/
 │   ├── frontend-design/
+│   ├── model-thinking/
+│   ├── openclaw/
+│   │   ├── SKILL.md
+│   │   ├── scripts/
+│   │   └── references/
 │   ├── pdf/
 │   ├── planning-with-files/
 │   ├── quality-check/
@@ -32,7 +41,8 @@ skills/                          ← git repo root
 │   │   └── references/
 │   ├── theme-factory/
 │   ├── ui-ux-pro-max/
-│   ├── web-to-markdown/
+│   ├── vscode-extension-uiux/
+│   ├── web-design-guidelines/
 │   └── xlsx/
 ├── screenshots/
 ├── install.sh

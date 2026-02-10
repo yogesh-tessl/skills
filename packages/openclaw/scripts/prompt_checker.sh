@@ -73,7 +73,7 @@ if [[ -f "$CONFIG_FILE" ]]; then
   config_content=$(cat "$CONFIG_FILE")
 
   # Check for repoRoot (which loads bootstrap files)
-  repo_roots=$(echo "$config_content" | grep -oE '"repoRoot"\s*:\s*"[^"]*"' | grep -oE '"[^"]*"$' | tr -d '"')
+  repo_roots=$(echo "$config_content" | grep -oE '"repoRoot"\s*:\s*"[^"]*"' | grep -oE '"[^"]*"$' | tr -d '"' || true)
   for rr in $repo_roots; do
     rr_expanded="${rr/#\~/$HOME}"
     if [[ -d "$rr_expanded" ]]; then
@@ -174,7 +174,7 @@ for pf in "${PROMPT_FILES[@]}"; do
     'amazonaws\.com' \
     '\.internal' \
     'localhost:[0-9]'; do
-    matches=$(echo "$content" | grep -cE "$infra_pattern" 2>/dev/null || echo "0")
+    matches=$(echo "$content" | grep -cE "$infra_pattern" 2>/dev/null || true)
     if [[ "$matches" -gt 0 ]]; then
       note "Contains infrastructure references (${infra_pattern}) — ${matches} occurrence(s). Verify these aren't sensitive."
     fi

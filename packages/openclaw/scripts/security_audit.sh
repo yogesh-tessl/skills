@@ -4,16 +4,22 @@
 # Usage: bash security_audit.sh [--state-dir PATH]
 #
 # Checks:
-#   1. File/directory permissions
-#   2. Credential exposure (tokens/keys in config)
-#   3. Network binding & auth configuration
-#   4. Sandbox & tool policy settings
-#   5. DM policy & group access openness
-#   6. Log redaction settings
-#   7. Plugin/extension review
-#   8. Gateway process exposure
-#   9. Listening port checks
-#  10. Sensitive files in synced/shared folders
+#   1. Version & CVE vulnerability
+#   2. File/directory permissions
+#   3. Credential exposure (tokens/keys in config)
+#   4. Network binding & auth configuration
+#   5. Sandbox & tool policy settings
+#   6. DM policy & group access openness
+#   7. Log redaction settings
+#   8. Plugin/extension review
+#   9. Skill supply chain security
+#  10. Control UI security
+#  11. Reverse proxy configuration
+#  12. Gateway process exposure
+#  13. Sensitive files in synced/shared folders
+#  14. Session transcript secret scan
+#
+# Maps to OWASP Agentic Top 10 (ASI01-ASI10) and NIST CSF functions.
 
 set -euo pipefail
 
@@ -57,6 +63,7 @@ header "OpenClaw Security Audit"
 echo "State directory: ${STATE_DIR}"
 echo "Config file:     ${CONFIG_FILE}"
 echo "Date:            $(date -u '+%Y-%m-%dT%H:%M:%SZ')"
+echo "Framework:       OWASP Agentic Top 10 + NIST CSF"
 echo ""
 
 if [[ ! -d "${STATE_DIR}" ]]; then
@@ -70,8 +77,57 @@ if [[ ! -f "${CONFIG_FILE}" ]]; then
   critical "Config file ${CONFIG_FILE} not found."
 fi
 
-# --- 1. File Permissions ---
-header "1. File & Directory Permissions"
+# Read config once
+config_content=""
+if [[ -f "${CONFIG_FILE}" ]]; then
+  config_content=$(cat "${CONFIG_FILE}" 2>/dev/null || echo "")
+fi
+
+# --- 1. Version & CVE Check [NIST: Identify] ---
+header "1. Version & Known Vulnerabilities"
+
+oc_version=""
+if command -v openclaw &>/dev/null; then
+  oc_version=$(openclaw --version 2>/dev/null | grep -oE '[0-9]{4}\.[0-9]+\.[0-9]+' | head -1 || true)
+fi
+
+if [[ -z "$oc_version" ]]; then
+  # Try npm
+  oc_version=$(npm list -g openclaw 2>/dev/null | grep -oE '[0-9]{4}\.[0-9]+\.[0-9]+' | head -1 || true)
+fi
+
+if [[ -z "$oc_version" ]]; then
+  warning "Could not determine OpenClaw version. Manual check required."
+else
+  info "OpenClaw version: ${oc_version}"
+
+  # Parse version components: YYYY.M.P
+  IFS='.' read -r oc_year oc_minor oc_patch <<< "$oc_version"
+
+  # CVE-2026-25253, CVE-2026-24763, CVE-2026-25157: Fixed in 2026.1.29
+  if [[ "$oc_year" -lt 2026 ]]; then
+    critical "Version ${oc_version} is VULNERABLE to CVE-2026-25253 (CVSS 8.8), CVE-2026-24763, CVE-2026-25157"
+    echo "         Update immediately: npm install -g openclaw@latest"
+  elif [[ "$oc_year" -eq 2026 && "$oc_minor" -lt 1 ]]; then
+    critical "Version ${oc_version} is VULNERABLE to CVE-2026-25253 (CVSS 8.8), CVE-2026-24763, CVE-2026-25157"
+    echo "         Update immediately: npm install -g openclaw@latest"
+  elif [[ "$oc_year" -eq 2026 && "$oc_minor" -eq 1 && "$oc_patch" -lt 29 ]]; then
+    critical "Version ${oc_version} is VULNERABLE to CVE-2026-25253 (CVSS 8.8), CVE-2026-24763, CVE-2026-25157"
+    echo "         Update immediately: npm install -g openclaw@latest"
+  else
+    pass "Version ${oc_version} includes CVE-2026-25253/24763/25157 patches"
+  fi
+
+  # Check for safety scanner (v2026.2.6+)
+  if [[ "$oc_year" -eq 2026 && "$oc_minor" -ge 2 && "$oc_patch" -ge 6 ]] || [[ "$oc_year" -gt 2026 ]] || [[ "$oc_year" -eq 2026 && "$oc_minor" -gt 2 ]]; then
+    pass "Version includes skill/plugin safety scanner (v2026.2.6+)"
+  else
+    warning "Version ${oc_version} lacks skill safety scanner. Recommend upgrading to >= 2026.2.6"
+  fi
+fi
+
+# --- 2. File Permissions [NIST: Protect] ---
+header "2. File & Directory Permissions"
 
 check_perms() {
   local path="$1"
@@ -116,14 +172,16 @@ while IFS= read -r -d '' auth_file; do
   check_perms "$auth_file" "600" "Auth profile: ${auth_file#${STATE_DIR}/}"
 done < <(find "${STATE_DIR}/agents" -name "auth-profiles.json" -print0 2>/dev/null)
 
-# --- 2. Credential Exposure in Config ---
-header "2. Credential Exposure in Config"
+# Check .env file
+if [[ -f "${STATE_DIR}/.env" ]]; then
+  check_perms "${STATE_DIR}/.env" "600" "Environment file (.env)"
+fi
+
+# --- 3. Credential Exposure in Config [OWASP ASI05] ---
+header "3. Credential Exposure in Config"
 
 if [[ -f "${CONFIG_FILE}" ]]; then
   # Check for inline tokens/keys (not env var references)
-  config_content=$(cat "${CONFIG_FILE}" 2>/dev/null || echo "")
-
-  # Look for hardcoded API keys (not env var references like $ANTHROPIC_API_KEY)
   if echo "$config_content" | grep -qiE '"(api[_-]?key|token|secret|password)"\s*:\s*"[^$][^"]{8,}"'; then
     critical "Hardcoded secrets found in config file. Use environment variables instead."
     echo "         Matches:"
@@ -140,8 +198,8 @@ if [[ -f "${CONFIG_FILE}" ]]; then
   fi
 fi
 
-# --- 3. Network Binding & Auth ---
-header "3. Network Binding & Authentication"
+# --- 4. Network Binding & Auth [OWASP ASI08, NIST: Protect] ---
+header "4. Network Binding & Authentication"
 
 if [[ -f "${CONFIG_FILE}" ]]; then
   # Check gateway bind
@@ -172,8 +230,8 @@ if [[ -f "${CONFIG_FILE}" ]]; then
   fi
 fi
 
-# --- 4. DM Policy & Group Access ---
-header "4. DM Policy & Group Access Control"
+# --- 5. DM Policy & Group Access [OWASP ASI01, ASI08] ---
+header "5. DM Policy & Group Access Control"
 
 if [[ -f "${CONFIG_FILE}" ]]; then
   # Check for open DM policies
@@ -200,8 +258,8 @@ if [[ -f "${CONFIG_FILE}" ]]; then
   fi
 fi
 
-# --- 5. Sandbox & Tool Policies ---
-header "5. Sandbox & Tool Policies"
+# --- 6. Sandbox & Tool Policies [OWASP ASI02, ASI09] ---
+header "6. Sandbox & Tool Policies"
 
 if [[ -f "${CONFIG_FILE}" ]]; then
   # Sandbox mode
@@ -235,8 +293,8 @@ if [[ -f "${CONFIG_FILE}" ]]; then
   fi
 fi
 
-# --- 6. Log Redaction ---
-header "6. Logging & Redaction"
+# --- 7. Log Redaction [OWASP ASI05] ---
+header "7. Logging & Redaction"
 
 if [[ -f "${CONFIG_FILE}" ]]; then
   if echo "$config_content" | grep -qE '"redactSensitive"\s*:\s*"off"'; then
@@ -259,8 +317,8 @@ if [[ -d "$LOG_DIR" ]]; then
   fi
 fi
 
-# --- 7. Plugins & Extensions ---
-header "7. Plugins & Extensions"
+# --- 8. Plugins & Extensions [OWASP ASI06] ---
+header "8. Plugins & Extensions"
 
 EXTENSIONS_DIR="${STATE_DIR}/extensions"
 if [[ -d "$EXTENSIONS_DIR" ]]; then
@@ -278,8 +336,103 @@ else
   pass "No extensions directory found"
 fi
 
-# --- 8. Gateway Process ---
-header "8. Gateway Process"
+# --- 9. Skill Supply Chain Security [OWASP ASI06] ---
+header "9. Skill Supply Chain Security"
+
+SKILLS_DIR="${STATE_DIR}/skills"
+skills_checked=0
+skills_suspicious=0
+
+if [[ -d "$SKILLS_DIR" ]]; then
+  skill_count=$(find "$SKILLS_DIR" -maxdepth 1 -type d | wc -l | tr -d ' ')
+  ((skill_count--)) || true
+  if [[ $skill_count -gt 0 ]]; then
+    info "${skill_count} skill(s) installed in ${SKILLS_DIR}"
+
+    # Scan each skill for suspicious patterns
+    while IFS= read -r -d '' skill_file; do
+      ((skills_checked++)) || true
+
+      # Check for data exfiltration patterns (curl/wget to external hosts)
+      if grep -qE '(curl|wget|nc|ncat)\s+.*(http|ftp|tcp)' "$skill_file" 2>/dev/null; then
+        critical "Suspicious exfiltration pattern in skill: ${skill_file#${STATE_DIR}/}"
+        ((skills_suspicious++)) || true
+      fi
+
+      # Check for obfuscated commands (base64 decode + exec)
+      if grep -qE '(base64\s+(-d|--decode)|eval\s+\$|exec\s+\$)' "$skill_file" 2>/dev/null; then
+        critical "Obfuscated execution pattern in skill: ${skill_file#${STATE_DIR}/}"
+        ((skills_suspicious++)) || true
+      fi
+
+      # Check for reverse shell patterns
+      if grep -qE '(/dev/tcp/|mkfifo|bash\s+-i\s+>&|nc\s+-e)' "$skill_file" 2>/dev/null; then
+        critical "Reverse shell pattern in skill: ${skill_file#${STATE_DIR}/}"
+        ((skills_suspicious++)) || true
+      fi
+
+      # Check for environment variable stealing
+      if grep -qE '(printenv|env\s*>|echo\s+\$[A-Z_].*\|.*(curl|wget|nc))' "$skill_file" 2>/dev/null; then
+        warning "Env variable exfiltration pattern in skill: ${skill_file#${STATE_DIR}/}"
+        ((skills_suspicious++)) || true
+      fi
+
+    done < <(find "$SKILLS_DIR" -type f \( -name "*.sh" -o -name "*.py" -o -name "*.js" -o -name "*.md" \) -print0 2>/dev/null)
+
+    if [[ $skills_suspicious -eq 0 ]]; then
+      pass "No suspicious patterns found in ${skills_checked} skill file(s)"
+    else
+      critical "${skills_suspicious} suspicious pattern(s) found. Run: openclaw skills scan"
+    fi
+
+    # Check if safety scanner is available
+    if command -v openclaw &>/dev/null; then
+      if openclaw skills scan --help &>/dev/null 2>&1; then
+        info "Safety scanner available. Run: openclaw skills scan <skill-path>"
+      fi
+    fi
+  else
+    pass "No skills installed"
+  fi
+else
+  info "No skills directory found"
+fi
+
+# --- 10. Control UI Security [CVE-2026-25253] ---
+header "10. Control UI Security"
+
+if [[ -f "${CONFIG_FILE}" ]]; then
+  if echo "$config_content" | grep -qE '"allowInsecureAuth"\s*:\s*true'; then
+    warning "Control UI allowInsecureAuth is TRUE — device pairing bypassed, token-only auth."
+  fi
+
+  if echo "$config_content" | grep -qE '"dangerouslyDisableDeviceAuth"\s*:\s*true'; then
+    critical "Control UI device auth DISABLED — severe security downgrade!"
+    echo "         Set gateway.controlUi.dangerouslyDisableDeviceAuth: false"
+  fi
+fi
+
+# --- 11. Reverse Proxy Configuration [CVE-2026-24763] ---
+header "11. Reverse Proxy Configuration"
+
+if [[ -f "${CONFIG_FILE}" ]]; then
+  if echo "$config_content" | grep -q '"trustedProxies"'; then
+    info "Trusted proxies configured — verify proxy overwrites (not appends) X-Forwarded-For"
+    echo "         Test: curl -H 'X-Forwarded-For: 127.0.0.1' http://proxy:port/health"
+    echo "         If this bypasses auth, your proxy is misconfigured (CVE-2026-24763 vector)"
+  fi
+
+  # Check if using non-loopback bind without trusted proxies (common with nginx/caddy)
+  bind_value=$(echo "$config_content" | grep -oE '"bind"\s*:\s*"[^"]*"' | head -1 | grep -oE '"[^"]*"$' | tr -d '"')
+  if [[ "$bind_value" == "lan" || "$bind_value" == "custom" || "$bind_value" == "0.0.0.0" ]]; then
+    if ! echo "$config_content" | grep -q '"trustedProxies"'; then
+      warning "Non-loopback bind without trustedProxies — if behind a reverse proxy, configure trustedProxies to prevent auth bypass"
+    fi
+  fi
+fi
+
+# --- 12. Gateway Process [NIST: Detect] ---
+header "12. Gateway Process"
 
 gateway_pid=$(pgrep -f "openclaw.*gateway" 2>/dev/null || true)
 if [[ -n "$gateway_pid" ]]; then
@@ -298,12 +451,21 @@ if [[ -n "$gateway_pid" ]]; then
       done
     fi
   fi
+
+  # Check for unexpected outbound connections (exfiltration detection)
+  if command -v lsof &>/dev/null; then
+    outbound=$(lsof -i -P -n 2>/dev/null | grep "$gateway_pid" | grep ESTABLISHED | grep -v "127.0.0.1" | grep -v "::1" || true)
+    if [[ -n "$outbound" ]]; then
+      outbound_count=$(echo "$outbound" | wc -l | tr -d ' ')
+      info "${outbound_count} outbound connection(s) from gateway — review for legitimacy"
+    fi
+  fi
 else
   info "Gateway process not currently running"
 fi
 
-# --- 9. Sensitive Files in Synced Folders ---
-header "9. Sensitive Data Location Check"
+# --- 13. Sensitive Files in Synced Folders [NIST: Protect] ---
+header "13. Sensitive Data Location Check"
 
 # Check if state dir is inside common synced folders
 synced_dirs=("$HOME/Dropbox" "$HOME/Google Drive" "$HOME/OneDrive" "$HOME/iCloud" "$HOME/Library/Mobile Documents")
@@ -315,23 +477,13 @@ for sync_dir in "${synced_dirs[@]}"; do
 done
 pass "State directory not in common synced folders"
 
-# Check for .env files with secrets
-if [[ -f "${STATE_DIR}/.env" ]]; then
-  env_perms=$(stat -f '%Lp' "${STATE_DIR}/.env" 2>/dev/null || stat -c '%a' "${STATE_DIR}/.env" 2>/dev/null || echo "???")
-  if [[ "$env_perms" != "600" ]]; then
-    warning ".env file permissions: ${env_perms} (expected 600)"
-  else
-    pass ".env file permissions: 600"
-  fi
-fi
+# --- 14. Session Transcript Quick Scan [OWASP ASI05] ---
+header "14. Session Transcript Secret Scan (sampling)"
 
-# --- 10. Session Transcript Quick Scan ---
-header "10. Session Transcript Secret Scan (sampling)"
-
-secret_patterns='(sk-[a-zA-Z0-9]{20,}|AKIA[A-Z0-9]{16}|ghp_[a-zA-Z0-9]{36}|xoxb-[0-9]+-[a-zA-Z0-9]+|-----BEGIN (RSA |EC )?PRIVATE KEY-----)'
+secret_patterns='(sk-[a-zA-Z0-9]{20,}|sk-ant-[a-zA-Z0-9_-]{20,}|AKIA[A-Z0-9]{16}|ghp_[a-zA-Z0-9]{36}|xoxb-[0-9]+-[a-zA-Z0-9]+|-----BEGIN (RSA |EC )?PRIVATE KEY-----|AIza[A-Za-z0-9_-]{35})'
 leaked_count=0
 
-# Sample up to 10 recent session files (portable: no head -z which is GNU-only)
+# Sample up to 10 recent session files
 sample_count=0
 while IFS= read -r -d '' session_file; do
   if [[ $sample_count -ge 10 ]]; then
@@ -356,9 +508,18 @@ echo "  $(yellow "${WARNING} Warnings")"
 echo "  $(blue   "${INFO} Informational")"
 echo "  $(green  "${PASS} Passed")"
 echo ""
+echo "  Framework: OWASP Agentic Top 10 (ASI01-ASI10) + NIST CSF"
+echo "  CVE Coverage: CVE-2026-25253, CVE-2026-24763, CVE-2026-25157"
+echo ""
 
 if [[ $CRITICAL -gt 0 ]]; then
   red "ACTION REQUIRED: Fix critical issues before continuing."
+  echo ""
+  echo "  Quick fixes:"
+  echo "    1. Update: npm install -g openclaw@latest"
+  echo "    2. Permissions: chmod 700 ~/.openclaw && chmod 600 ~/.openclaw/openclaw.json"
+  echo "    3. Rotate tokens: openssl rand -hex 32"
+  echo "    4. Scan skills: openclaw skills scan"
   exit 2
 elif [[ $WARNING -gt 0 ]]; then
   yellow "Review warnings and harden where possible."

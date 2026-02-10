@@ -55,9 +55,11 @@
 | OpenRouter | `OPENROUTER_API_KEY` |
 | Groq | `GROQ_API_KEY` |
 | MiniMax | `MINIMAX_API_KEY` |
+| xAI (Grok) | `XAI_API_KEY` |
 | Z.AI | `ZAI_API_KEY` |
 | Moonshot | `MOONSHOT_API_KEY` |
 | Cerebras | `CEREBRAS_API_KEY` |
+| Baidu Qianfan | `QIANFAN_API_KEY` |
 
 ### Channel Tokens (use env vars, NOT config file)
 
@@ -68,6 +70,7 @@
 
 ### Core
 - `OPENCLAW_STATE_DIR` — config/data root (default: `~/.openclaw`)
+- `OPENCLAW_HOME` — override home directory for internal path resolution (v2026.2.9+)
 - `OPENCLAW_GATEWAY_TOKEN` — gateway auth token
 - `OPENCLAW_AGENT_DIR` — agent directory override
 - `BRAVE_API_KEY` — web search
@@ -513,6 +516,19 @@ Skills are loaded from: bundled (lowest) → `~/.openclaw/skills` → `<workspac
       baseUrl: "$MATTERMOST_URL",
       chatmode: "oncall",             // "oncall"/"onmessage"/"onchar"
       oncharPrefixes: ["@bot", "!"],
+    },
+  },
+}
+```
+
+### BlueBubbles
+```json5
+{
+  channels: {
+    bluebubbles: {
+      serverUrl: "http://localhost:1234",
+      password: "$BLUEBUBBLES_PASSWORD",
+      dmPolicy: "pairing",
     },
   },
 }
