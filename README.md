@@ -260,16 +260,16 @@ Best practices for Remotion video creation in React.
 - Timing, transitions, and text effects guidance
 - Chart and data visualization in video
 
-### openclaw
+### clawpilot
 
-Expert skill for OpenClaw — self-hosted AI gateway connecting chat apps (WhatsApp, Telegram, Discord, Slack, iMessage, Signal, LINE, Matrix, Teams, Google Chat) to AI agents.
+ClawPilot — your OpenClaw copilot. Security-first agent skill for AI coding assistants. Self-hosted AI gateway connecting chat apps (WhatsApp, Telegram, Discord, Slack, iMessage, Signal, LINE, Matrix, Teams, Google Chat) to AI agents.
 
 **Key Features:**
 - Installation, configuration, and troubleshooting for OpenClaw gateway
 - Security hardening with bundled audit scripts (security audit, config inspector, prompt checker, session scanner)
 - Multi-agent routing, session management, and agent isolation
 - Cloud deployment guides (AWS, GCP, Fly.io, Docker) and remote access (Tailscale/SSH)
-- Channel setup for 13+ chat platforms
+- Channel setup for 14+ chat platforms
 - ClawHub skill discovery and installation
 
 ## Installation
@@ -564,16 +564,16 @@ Remotion（React 影片製作）最佳實踐。
 - 時間控制、轉場與文字特效指引
 - 影片中的圖表與資料視覺化
 
-### openclaw
+### clawpilot
 
-OpenClaw 專家技能 — 自託管 AI 閘道器，連接聊天應用程式（WhatsApp、Telegram、Discord、Slack、iMessage、Signal、LINE、Matrix、Teams、Google Chat）至 AI 代理。
+ClawPilot — OpenClaw 的 AI 副駕。安全優先的 Agent 技能，適用於所有 AI 編碼助手。自託管 AI 閘道器，連接聊天應用程式（WhatsApp、Telegram、Discord、Slack、iMessage、Signal、LINE、Matrix、Teams、Google Chat）至 AI 代理。
 
 **主要特色：**
 - OpenClaw 閘道器的安裝、設定與故障排除
 - 安全強化，附帶稽核腳本（安全稽核、設定檢查、提示詞檢查、對話掃描）
 - 多代理路由、工作階段管理與代理隔離
 - 雲端部署指南（AWS、GCP、Fly.io、Docker）與遠端存取（Tailscale/SSH）
-- 支援 13+ 聊天平台的頻道設定
+- 支援 14+ 聊天平台的頻道設定
 - ClawHub 技能探索與安裝
 
 ## 安裝方式

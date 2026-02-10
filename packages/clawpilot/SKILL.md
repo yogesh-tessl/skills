@@ -1,5 +1,5 @@
 ---
-name: openclaw
+name: clawpilot
 description: >
   Expert skill for OpenClaw (v2026.2.9) — self-hosted AI gateway connecting chat apps (WhatsApp, Telegram, Discord, Slack,
   iMessage, Signal, LINE, Matrix, Teams, Google Chat, BlueBubbles) to AI agents. Use when user asks about:

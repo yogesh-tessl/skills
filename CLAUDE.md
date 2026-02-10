@@ -27,7 +27,7 @@ skills/                          ← git repo root
 │   │   └── examples/
 │   ├── frontend-design/
 │   ├── model-thinking/
-│   ├── openclaw/
+│   ├── clawpilot/
 │   │   ├── SKILL.md
 │   │   ├── scripts/
 │   │   └── references/
