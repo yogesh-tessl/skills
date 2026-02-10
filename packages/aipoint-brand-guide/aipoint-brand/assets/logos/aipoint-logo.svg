@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" width="400" height="500">
+  <defs>
+    <linearGradient id="aipoint-gradient" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" style="stop-color:#00E5CC"/>
+      <stop offset="50%" style="stop-color:#00D4B4"/>
+      <stop offset="100%" style="stop-color:#3DED97"/>
+    </linearGradient>
+  </defs>
+
+  <!-- AIPoint Dragon Logo - Stylized dragon with coiled body and wing -->
+  <g fill="url(#aipoint-gradient)">
+    <!-- Wing (triangular shape pointing up) -->
+    <path d="M200 30 L280 200 L140 250 Z"/>
+
+    <!-- Dragon body (coiled circular shape) -->
+    <path d="M140 250
+             C80 280, 60 350, 80 400
+             C100 460, 160 490, 230 480
+             C300 470, 350 420, 350 350
+             C350 280, 300 240, 260 230
+             L260 230
+             C300 250, 320 300, 320 350
+             C320 400, 280 440, 230 450
+             C180 460, 130 430, 120 380
+             C110 330, 130 290, 170 270
+             Z"/>
+
+    <!-- Dragon head -->
+    <ellipse cx="280" cy="215" rx="35" ry="25"/>
+    <path d="M300 200 L320 190 L305 210 Z"/>
+
+    <!-- Eye (negative space) -->
+    <ellipse cx="290" cy="212" rx="6" ry="5" fill="#000"/>
+
+    <!-- Tail tip -->
+    <path d="M120 380 L90 400 L110 370 L80 380 L100 360 Z"/>
+  </g>
+</svg>

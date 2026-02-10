@@ -4,15 +4,28 @@
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 SOURCE_DIR="$SCRIPT_DIR/packages"
 
-# Agent 名稱與路徑（用 | 分隔）
+# Agent 名稱與 global skills 路徑（對齊 npx skills -g 的預設路徑）
 AGENTS=(
+    # 主流 Agent
     "Claude Code|$HOME/.claude/skills"
-    "Gemini CLI|$HOME/.gemini/skills"
-    "Google Antigravity|$HOME/.antigravity/skills"
+    "Cursor|$HOME/.cursor/skills"
+    "Windsurf IDE|$HOME/.codeium/windsurf/skills"
     "GitHub Copilot|$HOME/.copilot/skills"
     "OpenAI Codex|$HOME/.codex/skills"
-    "Windsurf IDE|$HOME/.codeium/windsurf/skills"
-    "Cursor|$HOME/.cursor/skills"
+    "Gemini CLI|$HOME/.gemini/skills"
+    "Google Antigravity|$HOME/.gemini/antigravity/skills"
+    "Cline|$HOME/.cline/skills"
+    "Roo Code|$HOME/.roo/skills"
+    "Continue|$HOME/.continue/skills"
+    "Augment|$HOME/.augment/skills"
+    "Goose|$HOME/.config/goose/skills"
+    "Kiro CLI|$HOME/.kiro/skills"
+    "OpenCode|$HOME/.config/opencode/skills"
+    "OpenHands|$HOME/.openhands/skills"
+    "Trae|$HOME/.trae/skills"
+    "Junie|$HOME/.junie/skills"
+    "Amp|$HOME/.config/agents/skills"
+    "Agents (fallback)|$HOME/.agents/skills"
 )
 
 echo "🚀 開始設定 AI Skills 同步..."

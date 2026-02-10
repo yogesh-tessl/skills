@@ -1,0 +1,13 @@
+AIPoint Logo Files
+==================
+
+Place your official AIPoint logo files in this folder:
+
+Recommended files to include:
+- aipoint-logo.png (primary logo, high resolution)
+- aipoint-logo.svg (vector format for scaling)
+- aipoint-logo-white.png (white version for dark backgrounds)
+- aipoint-icon.png (icon/favicon version)
+
+The included aipoint-logo.svg is a recreation based on visual reference.
+Replace it with your official logo file for accurate branding.
