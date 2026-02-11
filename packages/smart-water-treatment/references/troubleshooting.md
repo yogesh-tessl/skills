@@ -1,227 +1,244 @@
-# Troubleshooting Reference
+# 故障排除參考手冊（Troubleshooting Reference）
 
-## Table of Contents
+## 目錄
 
-1. [Diagnostic Framework](#diagnostic-framework)
-2. [RO System Troubleshooting](#ro-system-troubleshooting)
-3. [EDI Troubleshooting](#edi-troubleshooting)
-4. [Ion Exchange Troubleshooting](#ion-exchange-troubleshooting)
-5. [Cooling Water Troubleshooting](#cooling-water-troubleshooting)
-6. [Biological Treatment Troubleshooting](#biological-treatment-troubleshooting)
-7. [UPW System Troubleshooting](#upw-system-troubleshooting)
+1. [診斷框架](#診斷框架)
+2. [逆滲透系統故障排除](#逆滲透系統故障排除)
+3. [電去離子裝置故障排除](#電去離子裝置故障排除)
+4. [離子交換故障排除](#離子交換故障排除)
+5. [冷卻水系統故障排除](#冷卻水系統故障排除)
+6. [生物處理故障排除](#生物處理故障排除)
+7. [超純水系統故障排除](#超純水系統故障排除)
 
-## Diagnostic Framework
+## 診斷框架（Diagnostic Framework）
 
-### Step 1: Define the Problem
+### 第一步：定義問題
 
-- What parameter is out of spec? By how much?
-- When did it start? Sudden or gradual?
-- What changed recently? (maintenance, chemical, seasonal, operational)
-- Is it continuous or intermittent?
+- 哪個參數超出規格？超出多少？
+- 何時開始發生？是突然還是漸進的？
+- 最近有什麼變更？（維護、藥品、季節、操作條件）
+- 是持續性還是間歇性的？
 
-### Step 2: Gather Data
+### 第二步：蒐集數據
 
-- Trend the affected parameter over time (hours, days, weeks)
-- Compare with related parameters (e.g., conductivity + flow + pressure + temperature)
-- Check upstream and downstream systems
-- Review maintenance and chemical logs
+- 將受影響參數繪製趨勢圖（以小時、天、週為單位）
+- 與相關參數交叉比對（例如：電導度 + 流量 + 壓力 + 溫度）
+- 檢查上游與下游系統
+- 查閱維護紀錄與加藥紀錄
 
-### Step 3: Hypothesize and Test
+### 第三步：建立假設並驗證
 
-- List possible causes ranked by likelihood
-- For each hypothesis, identify confirming/disconfirming evidence
-- Test the most likely cause first (least invasive test preferred)
-- Avoid shotgun approaches (changing multiple variables simultaneously)
+- 列出可能原因，依可能性排序
+- 對每個假設找出支持與否定的證據
+- 優先測試最可能的原因（選擇侵入性最低的測試）
+- 避免散彈槍式處理（同時更動多個變數）
 
-### Step 4: Implement and Verify
+### 第四步：實施與確認
 
-- Make one change at a time when possible
-- Monitor the affected parameter after each change
-- Confirm the root cause is addressed, not just the symptom
-- Document findings for future reference
+- 盡量一次只改動一個變數
+- 每次改動後監控受影響的參數
+- 確認根本原因已被處理，而不僅是消除症狀
+- 記錄發現以供日後參考
 
-## RO System Troubleshooting
+## 逆滲透系統故障排除（RO System Troubleshooting）
 
-### Normalized Data Interpretation
+### 標準化數據判讀（Normalized Data Interpretation）
 
-Always normalize before diagnosing. Compare against baseline (first 48h of operation with new membranes).
+診斷前必須先做標準化。與基線值比較（新膜啟用後前 48 小時的數據）。
 
-| Observation (Normalized) | Likely Cause | Confirm With |
+> 下表為逆滲透系統常見故障的標準化數據判讀指南。判讀方式：觀察通量（Flux）、壓差（ΔP）與鹽透過率（SP）三個指標的變化方向，即可初步判斷積垢類型。結論：不同積垢模式會產生不同的指標組合，正確辨識可避免無效清洗。
+
+| 觀察現象（標準化後） | 可能原因 | 確認方式 |
 |--------------------------|-------------|--------------|
-| Flux ↓, ΔP ↑, SP → | Colloidal/particulate fouling | SDI test, element autopsy |
-| Flux ↓, ΔP ↑ (lead), SP → | Biofouling | Biofilm check, ATP test |
-| Flux ↓, ΔP →, SP ↑ | Organic fouling | TOC trend, element weight |
-| Flux ↓, ΔP ↑ (tail), SP ↑ | Mineral scaling | LSI/S&DSI calc, tail element inspection |
-| Flux →, ΔP →, SP ↑ | Membrane degradation | Chlorine exposure check, probing test |
-| Flux →, ΔP →, SP ↑ (sudden) | O-ring leak, telescope damage | Probing test, visual inspection |
+| 通量↓、壓差↑、鹽透過率→ | 膠體/顆粒積垢（Colloidal/Particulate Fouling） | 污染指數測試（SDI）、元件解剖 |
+| 通量↓、壓差↑（前端元件）、鹽透過率→ | 生物積垢（Biofouling） | 生物膜檢查、三磷酸腺苷測試（ATP Test） |
+| 通量↓、壓差→、鹽透過率↑ | 有機積垢（Organic Fouling） | 總有機碳趨勢、元件秤重 |
+| 通量↓、壓差↑（末端元件）、鹽透過率↑ | 礦物結垢（Mineral Scaling） | 蘭格利爾飽和指數（LSI）/S&DSI 計算、末端元件檢查 |
+| 通量→、壓差→、鹽透過率↑ | 薄膜劣化（Membrane Degradation） | 確認氯接觸史、探針測試（Probing Test） |
+| 通量→、壓差→、鹽透過率↑（突然） | O 型環洩漏、望遠鏡效應損害 | 探針測試、目視檢查 |
 
-SP = Salt Passage; ΔP = Differential Pressure
+SP = 鹽透過率（Salt Passage）；ΔP = 壓差（Differential Pressure）
 
-### Common RO Issues
+### 常見逆滲透問題
 
-**High salt passage (gradual)**:
-- Membrane oxidation (chlorine, ozone exposure)
-- Membrane hydrolysis (pH excursion >12 or <2)
-- Organic fouling compacting rejection layer
-- Action: Check ORP logs, pH logs, clean, test individual elements
+**鹽透過率升高（漸進式，High Salt Passage - Gradual）**：
+- 薄膜氧化（餘氯或臭氧接觸）
+- 薄膜水解（酸鹼值偏離，超過 12 或低於 2）
+- 有機積垢壓縮阻擋層
+- 處理方式：檢查氧化還原電位（ORP）紀錄、酸鹼值紀錄，清洗後逐一測試元件
 
-**High salt passage (sudden)**:
-- O-ring failure or misalignment
-- Telescoping (excessive ΔP)
-- Membrane tear
-- Action: Probing test to identify failed position, inspect and replace
+**鹽透過率升高（突發式，High Salt Passage - Sudden）**：
+- O 型環破損或錯位
+- 望遠鏡效應（Telescoping，因壓差過大）
+- 薄膜撕裂
+- 處理方式：探針測試定位故障位置，檢查並更換
 
-**Permeate conductivity rising after cleaning**:
-- Aggressive cleaning damaged membranes
-- Incomplete rinsing (cleaning chemical residual)
-- Biofilm removal exposed degraded membrane beneath
-- Action: Extended flush, retest, element autopsy if persistent
+**清洗後產水電導度上升（Post-CIP Conductivity Rise）**：
+- 清洗劑侵蝕薄膜
+- 沖洗不完全（殘留清洗藥劑）
+- 生物膜清除後暴露出下方已劣化的薄膜
+- 處理方式：延長沖洗、重新測試，若持續則進行元件解剖
 
-**Rapid ΔP increase**:
-- Check pretreatment (cartridge filter ΔP, coagulation upset)
-- Biofouling (especially in warm water >25°C)
-- Particulate fouling from upstream upset
-- Action: Clean, investigate and fix pretreatment
+**壓差急速升高（Rapid ΔP Increase）**：
+- 檢查前處理系統（保安過濾器壓差、混凝異常）
+- 生物積垢（尤其水溫 >25°C 時）
+- 上游異常導致顆粒積垢
+- 處理方式：清洗，調查並修正前處理問題
 
-### CIP Effectiveness
+### 就地化學清洗效果評估（CIP Effectiveness）
 
-Post-CIP targets (compared to baseline):
-- Normalized flux: recover to >90% of baseline
-- Normalized ΔP: within 15% of baseline
-- Normalized SP: within 10% of baseline
-- If not met after 2 CIP cycles, consider membrane replacement or alternative cleaning chemistry
+清洗後目標值（與基線比較）：
+- 標準化通量：恢復至基線的 >90%
+- 標準化壓差：在基線的 15% 以內
+- 標準化鹽透過率：在基線的 10% 以內
+- 若經過兩次清洗循環仍未達標，應考慮更換薄膜或改用其他清洗配方
 
-## EDI Troubleshooting
+## 電去離子裝置故障排除（EDI Troubleshooting）
 
-| Symptom | Possible Cause | Action |
+> 下表為電去離子裝置常見症狀與對應處理方式。判讀重點：電壓與電流的異常組合可快速區分結垢與短路問題。
+
+| 症狀 | 可能原因 | 處理方式 |
 |---------|---------------|--------|
-| Product quality declining | Hardness in feed, resin exhaustion | Check feed hardness (<0.01 ppm), verify current |
-| High ΔP across stack | Particulate fouling, scaling | Inspect prefilter, check feed quality |
-| Low current/high voltage | Scaling (silica, carbonate) | CIP with acid or alkali |
-| High current/low voltage | Short circuit, damaged membranes | Inspect stack, check for leaks |
-| Module leaking | Gasket failure, cracked endplate | Inspect, retorque or replace gaskets |
+| 產水品質下降 | 進水硬度過高、樹脂耗盡 | 確認進水硬度 <0.01 ppm，檢查電流設定 |
+| 堆疊組壓差偏高 | 顆粒積垢、結垢 | 檢查前置過濾器，確認進水品質 |
+| 低電流/高電壓 | 結垢（矽垢或碳酸鹽垢） | 以酸液或鹼液進行就地清洗（CIP） |
+| 高電流/低電壓 | 短路、薄膜損壞 | 檢查堆疊組，確認有無洩漏 |
+| 模組洩漏 | 墊片失效、端板裂損 | 檢查、重新鎖緊或更換墊片 |
 
-Feed water requirements:
-- Conductivity <20 µS/cm (ideally <10)
-- Hardness <0.01 mg/L as CaCO₃
-- CO₂ <5 ppm (ideally <3)
-- Silica <0.5 ppm
-- TOC <0.5 ppm
-- Temperature 5-40°C
-- pH 5-9 (ideally 6-8)
+進水要求：
+- 電導度 <20 µS/cm（理想值 <10）
+- 硬度 <0.01 mg/L（以碳酸鈣 CaCO₃ 計）
+- 二氧化碳 <5 ppm（理想值 <3）
+- 矽 <0.5 ppm
+- 總有機碳 <0.5 ppm
+- 溫度 5-40°C
+- 酸鹼值 5-9（理想值 6-8）
 
-## Ion Exchange Troubleshooting
+## 離子交換故障排除（Ion Exchange Troubleshooting）
 
-| Symptom | Possible Cause | Action |
+> 下表列出離子交換系統的常見異常與處理方式。運行週期變短與洩漏量偏高是最常見的問題，通常與再生效率或樹脂劣化有關。
+
+| 症狀 | 可能原因 | 處理方式 |
 |---------|---------------|--------|
-| Short run length | Resin fouling, poor regeneration, channeling | Check regen dose, inspect bed, test resin |
-| High leakage | Co-current regen, exhausted resin, channeling | Switch to counter-current, replace resin |
-| Resin fines in effluent | Osmotic shock, oxidation, attrition | Check for chlorine, reduce backwash velocity |
-| High ΔP | Resin fouling (Fe, organics), compaction | Backwash, chemical clean, check for fines accumulation |
-| Poor silica removal (SBA) | Low regenerant temperature, insufficient NaOH | Regen at 40-50°C, increase NaOH dose |
+| 運行週期變短（Short Run Length） | 樹脂積垢、再生不良、偏流 | 檢查再生劑量、檢視樹脂床、測試樹脂性能 |
+| 洩漏量偏高（High Leakage） | 順流再生效率不足、樹脂耗盡、偏流 | 改為逆流再生（Counter-Current）、更換樹脂 |
+| 出水含樹脂碎屑（Resin Fines） | 滲透壓衝擊、氧化劣化、磨耗 | 確認有無餘氯、降低反洗流速 |
+| 壓差偏高（High ΔP） | 樹脂積垢（鐵、有機物）、壓密 | 反洗、化學清洗、檢查碎屑累積 |
+| 強鹼陰樹脂矽去除率差（Poor Silica Removal, SBA） | 再生溫度不足、氫氧化鈉用量不足 | 再生時加溫至 40-50°C、增加氫氧化鈉（NaOH）劑量 |
 
-### Resin Testing
+### 樹脂檢測（Resin Testing）
 
-- Visual inspection: color change, cracking, fines
-- Capacity test: total and salt-splitting capacity
-- Kinetics: rinse volume, breakthrough curve shape
-- Fouling tests: iron, organic loading
+- 目視檢查：顏色變化、裂紋、碎屑
+- 容量測試：總容量與鹽分裂容量（Salt-Splitting Capacity）
+- 動力學測試：沖洗體積、穿透曲線（Breakthrough Curve）形狀
+- 積垢測試：鐵含量、有機物負荷
 
-## Cooling Water Troubleshooting
+## 冷卻水系統故障排除（Cooling Water Troubleshooting）
 
-| Problem | Diagnosis | Action |
+> 下表為冷卻水系統常見沉積與腐蝕問題的診斷與處理。判讀方式：先觀察沉積物外觀（顏色與質地），即可縮小範圍。
+
+| 問題 | 診斷方式 | 處理方式 |
 |---------|----------|--------|
-| White scale on heat exchangers | CaCO₃ — check LSI >0, Ca and alkalinity | Increase acid feed, lower CoC, add scale inhibitor |
-| Hard glassy deposits | Silica scale — check SiO₂ >150 mg/L | Lower CoC, add silica dispersant |
-| Orange/brown deposits | Iron fouling or corrosion products | Check Fe source (makeup vs. system), add dispersant |
-| Slime/biofilm | Inadequate biocide, warm stagnant areas | Slug dose biocide, clean towers, increase program |
-| Pitting corrosion (copper) | High chloride, low pH, MIC | Review chemistry, add corrosion inhibitor, check biocontrol |
-| White rust (galvanized) | Passivation failure, high pH | Maintain pH <8.5 for new galvanized, ensure chromate/phosphate program |
+| 換熱器白色水垢 | 碳酸鈣結垢（CaCO₃）— 確認蘭格利爾飽和指數（LSI）>0、鈣與鹼度 | 增加酸劑量、降低濃縮倍數（CoC）、加阻垢劑 |
+| 堅硬玻璃狀沉積物 | 矽垢 — 確認矽含量 >150 mg/L | 降低濃縮倍數、加矽分散劑 |
+| 橘/棕色沉積物 | 鐵污染或腐蝕產物 | 確認鐵來源（補充水或系統內），加分散劑 |
+| 黏膜/生物膜（Slime/Biofilm） | 殺菌劑不足、存在溫暖滯留區 | 衝擊性加藥殺菌、清洗冷卻塔、加強水處理程序 |
+| 點蝕（銅材，Pitting Corrosion） | 高氯離子、低酸鹼值、微生物腐蝕（MIC） | 檢視水化學、加緩蝕劑、確認生物控制 |
+| 白鏽（鍍鋅材，White Rust） | 鈍化失敗、酸鹼值過高 | 新鍍鋅材維持酸鹼值 <8.5，確保鉻酸鹽/磷酸鹽程序 |
 
-### Corrosion Monitoring
+### 腐蝕監測（Corrosion Monitoring）
 
-- Corrosion coupons: mild steel <3 mpy, copper <0.1 mpy targets
-- LPR (linear polarization resistance): online, real-time trend
-- Water analysis: Fe, Cu levels in circulating water
-- Visual inspection: heat exchanger tubes, tower fill
+- 腐蝕試片（Corrosion Coupons）：碳鋼目標 <3 mpy、銅材目標 <0.1 mpy
+- 線性極化電阻法（Linear Polarization Resistance, LPR）：線上即時趨勢監測
+- 水質分析：循環水中鐵與銅的含量
+- 目視檢查：換熱器管束、冷卻塔填料
 
-## Biological Treatment Troubleshooting
+## 生物處理故障排除（Biological Treatment Troubleshooting）
 
-### Activated Sludge
+### 活性污泥（Activated Sludge）
 
-| Problem | Likely Causes | Diagnostics |
+> 下表列出活性污泥系統常見的運轉異常。關鍵判讀指標為污泥容積指數（Sludge Volume Index, SVI）和顯微鏡觀察結果，兩者搭配可快速定位問題。
+
+| 問題 | 可能原因 | 診斷方式 |
 |---------|--------------|-------------|
-| Bulking sludge (SVI >150) | Filamentous organisms, low DO, low F/M, nutrient deficiency | Microscopy, SVI, DO profile, N:P check |
-| Rising sludge in clarifier | Denitrification in clarifier, septic sludge | NO₃ test in clarifier, reduce SRT, increase RAS |
-| Foaming (brown, viscous) | Nocardia/Microthrix, long SRT, fats/oils | Microscopy, reduce SRT, spray water, wasting |
-| Pin floc/dispersed growth | Low SRT, toxicity, low nutrients | Increase SRT, check for toxics, verify N and P |
-| Poor nitrification | Low DO (<2 mg/L), low SRT, inhibition, cold temp | DO profile, check alkalinity (7.1 mg CaCO₃/mg NH₄-N), temperature |
-| Effluent TSS high | Clarifier overload, short-circuiting, sludge bulking | Check SLR, flow distribution, SVI |
+| 膨化污泥（Bulking Sludge，SVI >150） | 絲狀菌增生、溶氧不足、食微比偏低（Low F/M）、營養鹽缺乏 | 顯微鏡觀察、SVI 測定、溶氧分佈、氮磷比檢查 |
+| 沉澱池污泥上浮（Rising Sludge） | 沉澱池內脫氮反應、污泥腐敗 | 沉澱池硝酸鹽檢測、降低污泥齡（SRT）、增加迴流污泥（RAS） |
+| 棕色黏稠泡沫（Foaming） | 諾卡氏菌或微絲菌屬（Nocardia/Microthrix）、污泥齡過長、油脂 | 顯微鏡觀察、降低污泥齡、噴水破泡、加速排泥 |
+| 針狀絮凝物/分散生長（Pin Floc） | 污泥齡過短、毒性抑制、營養鹽不足 | 延長污泥齡、檢查毒性物質、確認氮磷供給 |
+| 硝化效率不佳（Poor Nitrification） | 溶氧不足（<2 mg/L）、污泥齡過短、抑制物質、低溫 | 溶氧分佈、確認鹼度（每氧化 1 mg 氨氮需 7.1 mg 碳酸鈣鹼度）、溫度 |
+| 出水懸浮固體偏高（High Effluent TSS） | 沉澱池超載、短流、污泥膨化 | 檢查固體負荷率（SLR）、流量分配、SVI |
 
-### Microscopy Quick Reference
+> 💡 **小知識：食微比（F/M Ratio）**
+> 食微比是投入食物量與微生物量的比值，可以想像成「餐廳裡每位廚師分到多少食材」。太高代表微生物吃不完（出水品質差），太低則微生物會「挑食」導致絲狀菌增生、污泥膨化。
 
-| Organism/Structure | Indicates |
+### 顯微鏡快速辨識（Microscopy Quick Reference）
+
+> 下表提供活性污泥顯微鏡觀察的快速辨識指南。透過辨識優勢微生物種類，可判斷系統當前的運轉狀態。
+
+| 微生物/結構 | 代表意義 |
 |-------------------|-----------|
-| Diverse protozoa (stalked ciliates, rotifers) | Healthy, well-settling sludge |
-| Free-swimming ciliates dominant | Young sludge, low SRT |
-| Filaments (Thiothrix, Type 021N) | Low DO or sulfide present |
-| Filaments (Microthrix parvicella) | Low F/M, fats/oils |
-| Filaments (Type 0041, 0675) | Low F/M, extended aeration |
-| Nematodes | Old sludge, very long SRT |
-| Ameoba dominant | Startup or upset conditions |
+| 多樣化原生動物（鐘蟲、輪蟲等） | 健康、沉降性良好的污泥 |
+| 自由游泳纖毛蟲為主 | 年輕污泥，污泥齡偏短 |
+| 絲狀菌（Thiothrix, Type 021N） | 溶氧不足或有硫化物存在 |
+| 絲狀菌（Microthrix parvicella） | 食微比偏低、有油脂 |
+| 絲狀菌（Type 0041, 0675） | 食微比偏低、延長曝氣模式 |
+| 線蟲（Nematodes） | 老化污泥，污泥齡過長 |
+| 變形蟲為主（Amoeba） | 系統啟動期或受衝擊狀態 |
 
-## UPW System Troubleshooting
+## 超純水系統故障排除（UPW System Troubleshooting）
 
-### Resistivity Drop at POU
+### 使用點電阻率下降（Resistivity Drop at POU）
 
-| Severity | Possible Source | Investigation |
+> 下表依電阻率下降幅度分級，協助快速判斷問題嚴重程度與可能來源。幅度愈大，代表污染愈嚴重，調查範圍也需愈廣。
+
+| 嚴重程度 | 可能來源 | 調查方向 |
 |----------|---------------|---------------|
-| 18.2 → 17-18 MΩ·cm | CO₂ ingress, trace ion leakage | Check degasifier performance, MB resin, EDI |
-| 18.2 → 14-16 MΩ·cm | Significant ionic contamination | Check RO rejection, EDI performance, resin exhaustion |
-| 18.2 → <10 MΩ·cm | Major system upset | Check for chemical contamination, valve failure, cross-connection |
-| Intermittent drops | Dead legs, stagnant zones, instrument drift | Flow verification, instrument calibration, system mapping |
+| 18.2 → 17-18 MΩ·cm | 二氧化碳滲入、微量離子洩漏 | 檢查脫氣器效能、混床樹脂、電去離子裝置 |
+| 18.2 → 14-16 MΩ·cm | 顯著離子污染 | 檢查逆滲透去除率、電去離子裝置效能、樹脂是否耗盡 |
+| 18.2 → <10 MΩ·cm | 重大系統異常 | 檢查有無化學藥劑污染、閥門故障、管路交叉連接 |
+| 間歇性下降 | 死角管路、滯留區、儀器飄移 | 確認流量、校正儀器、系統管路盤點 |
 
-### TOC Excursion
+### 總有機碳異常（TOC Excursion）
 
-| Source | Investigation | Fix |
+| 來源 | 調查方向 | 處理方式 |
 |--------|-------------|-----|
-| Makeup water | Check RO permeate TOC, source water change | Optimize RO, add pre-treatment |
-| System materials | New piping, gaskets, or fittings | Extended flush, material qualification |
-| Biofilm | ATP test, microbiological sampling | UV dose increase, hot water sanitization, ozone treatment |
-| UV lamp degradation | Check 185nm output, lamp hours | Replace lamp, check quartz sleeve fouling |
-| Chemical contamination | Trace to specific time/event | Identify source, isolate, flush |
+| 補充水（Makeup Water） | 檢查逆滲透產水的總有機碳、原水水質變化 | 優化逆滲透、加強前處理 |
+| 系統材料 | 新安裝管路、墊片或接頭 | 延長沖洗、材料驗證合格 |
+| 生物膜（Biofilm） | 三磷酸腺苷測試（ATP Test）、微生物取樣 | 加大紫外線劑量、熱水消毒、臭氧處理 |
+| 紫外線燈管劣化 | 檢查 185nm 輸出、燈管運行時數 | 更換燈管、檢查石英套管積垢 |
+| 化學藥劑污染 | 追溯至特定時間或事件 | 找出來源、隔離、沖洗 |
 
-### Particle Excursion
+### 粒子異常（Particle Excursion）
 
-| Source | Investigation | Fix |
+| 來源 | 調查方向 | 處理方式 |
 |--------|-------------|-----|
-| UF fiber break | Integrity test (PDT, particle spike) | Replace module, check for root cause |
-| Resin fines | Check post-MB filter, backwash history | Improve resin retention, add fine filter |
-| Construction debris | Recent maintenance work | Extended flush, filter check |
-| Biofilm sloughing | Microbiological sampling | Sanitization, review sanitization frequency |
-| Precipitation | Check for silica, metals at saturation | Review chemistry, temperature changes |
+| 超過濾纖維斷裂（UF Fiber Break） | 完整性測試（壓力衰減測試 PDT、粒子挑戰測試） | 更換模組、調查根本原因 |
+| 樹脂碎屑 | 檢查混床後過濾器、反洗紀錄 | 改善樹脂攔截、加裝精密過濾器 |
+| 施工殘留 | 近期是否有維修作業 | 延長沖洗、檢查過濾器 |
+| 生物膜剝落 | 微生物取樣 | 執行消毒、檢討消毒頻率 |
+| 沉澱物 | 檢查矽或金屬是否達飽和 | 檢視水化學、溫度變化 |
 
-### Dissolved Oxygen Excursion
+### 溶氧異常（Dissolved Oxygen Excursion）
 
-| Source | Investigation | Fix |
+| 來源 | 調查方向 | 處理方式 |
 |--------|-------------|-----|
-| Membrane contactor degradation | Check N₂ sweep pressure, fiber condition | Replace contactor, increase N₂ flow |
-| Air ingress at fittings | Pressurize system, check connections | Retighten, replace gaskets |
-| Tank headspace | Check N₂ blanket, vent configuration | Verify N₂ pressure, seal integrity |
-| Pump cavitation | Check NPSH, listen for noise | Fix suction conditions, replace seals |
+| 膜式脫氣接觸器劣化 | 檢查氮氣掃除壓力、纖維狀態 | 更換接觸器、加大氮氣流量 |
+| 接頭處空氣滲入 | 加壓測試系統、檢查連接處 | 重新鎖緊、更換墊片 |
+| 水槽頂部空間 | 檢查氮氣覆蓋層、排氣配置 | 確認氮氣壓力、密封完整性 |
+| 泵浦氣蝕（Pump Cavitation） | 檢查淨正吸入壓頭（NPSH）、聽異音 | 改善吸入條件、更換密封件 |
 
 ---
 
-## Related References
+## 相關參考文件
 
-**Technology fundamentals:**
-- [technologies.md](technologies.md) — RO membrane types, fouling mechanisms, IX resin properties, biological process parameters
-- [desalination.md](desalination.md) — SWRO-specific fouling, CIP protocols, scaling risks by recovery
+**技術基礎：**
+- [technologies.md](technologies.md) — 逆滲透薄膜類型、積垢機制、離子交換樹脂特性、生物處理程序參數
+- [desalination.md](desalination.md) — 海水逆滲透（SWRO）積垢、就地清洗（CIP）程序、不同回收率的結垢風險
 
-**Application context:**
-- [semiconductor.md](semiconductor.md) — UPW specifications and system architecture for Section 7 diagnostics
-- [industrial.md](industrial.md) — Cooling water chemistry for Section 5, boiler water fundamentals
-- [municipal.md](municipal.md) — Activated sludge process variants for Section 6 biological diagnostics
+**應用情境：**
+- [semiconductor.md](semiconductor.md) — 超純水規格與系統架構（對應第七節診斷）
+- [industrial.md](industrial.md) — 冷卻水化學（對應第五節）、鍋爐水基礎
+- [municipal.md](municipal.md) — 活性污泥程序變化型（對應第六節生物處理診斷）
 
-**Knowledge capture:**
-- [delivery-and-ops.md](delivery-and-ops.md) — Knowledge graph construction for capturing troubleshooting history and institutional knowledge
+**知識管理：**
+- [delivery-and-ops.md](delivery-and-ops.md) — 知識圖譜建構：故障排除歷史與組織知識的捕捉方法

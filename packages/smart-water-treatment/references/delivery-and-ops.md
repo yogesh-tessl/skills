@@ -1,89 +1,94 @@
-# Delivery & Operations Reference
+# 交付與維運參考手冊（Delivery & Operations Reference）
 
-Industrial UI/UX, system deployment, and knowledge engineering for water treatment AI systems.
+水處理 AI 系統的工業人機介面設計、系統部署與知識工程。
 
-## Table of Contents
+## 目錄
 
-1. [Industrial HMI & UI/UX Standards](#1-industrial-hmi--uiux-standards)
-2. [XAI Visualization Patterns](#2-xai-visualization-patterns)
-3. [Operator Workflow Design](#3-operator-workflow-design)
-4. [Infrastructure as Code (IaC)](#4-infrastructure-as-code-iac)
-5. [GitOps & Continuous Delivery](#5-gitops--continuous-delivery)
-6. [Hybrid Cloud Architecture](#6-hybrid-cloud-architecture)
-7. [Observability & SRE Practices](#7-observability--sre-practices)
-8. [Knowledge Engineering](#8-knowledge-engineering)
-9. [Documentation as Code](#9-documentation-as-code)
-
----
-
-## 1. Industrial HMI & UI/UX Standards
-
-### ISA-101 High-Performance HMI
-
-ISA-101 (Human Machine Interfaces for Process Automation Systems) defines principles for effective operator interfaces. Key tenets:
-
-| Principle | Implementation | Anti-Pattern |
-|---|---|---|
-| Grey/dark base palette | Background: neutral grey (#404040–#606060); equipment outlines in subtle tones | Bright colored backgrounds, gradient fills on vessels |
-| Color = information | Reserve saturated colors exclusively for abnormal states and alarms | Color-coding normal process states (green pipes, blue tanks) |
-| Analog indication | Bar graphs, trend sparklines, analog gauges for continuous variables | Numeric-only displays requiring mental comparison |
-| Situational awareness | Level 1 overview → Level 2 unit area → Level 3 detail (Endsley model) | Flat screens with no navigation hierarchy |
-| Consistent alarm colors | Red = critical, Yellow = high, Cyan/blue = advisory (per site standard) | Inconsistent color meanings across screens |
-
-### ISA-18.2 Alarm Management
-
-Alarm floods are the primary reason operators lose trust in automated systems. ISA-18.2 lifecycle:
-
-```
-Identification → Rationalization → Design → Implementation
-  → Monitoring → Maintenance → Audit
-```
-
-**Key Metrics:**
-
-| Metric | Target | Alarm Flood Indicator |
-|---|---|---|
-| Alarm rate (steady state) | ≤6 alarms / operator / hour | >12 alarms/hr sustained |
-| Alarm rate (upset) | ≤12 alarms / operator / 10 min | >30 alarms/10 min |
-| Standing alarms | <5 per operator | >10 persistent |
-| Chattering alarms | 0% of configured alarms | Any alarm activating >5x in 1 min |
-| Priority distribution | ~80% low, ~15% high, ~5% critical | Inverted pyramid (most alarms = critical) |
-
-**Alarm Rationalization for AI Systems:**
-- AI-generated alerts must pass through the same rationalization process as traditional alarms
-- AI confidence scores should map to alarm priority (not generate new alert categories)
-- Suppress AI alerts when the operator is already handling a related manual alarm
-- Every AI alarm must have a defined response procedure — no "informational-only" alarms in the control room
-
-### Color Palette Reference (ISA-101 Compliant)
-
-| Element | Normal State | Abnormal / Alarm |
-|---|---|---|
-| Background | #4A4A4A (neutral grey) | — |
-| Equipment outline | #808080 (mid grey) | — |
-| Pipe (flowing) | #707070 (slightly lighter) | — |
-| Pipe (stopped) | #505050 (darker) | — |
-| High alarm | — | #FF0000 (red) |
-| High-high alarm | — | #FF0000 (red, flashing) |
-| Low alarm | — | #FFFF00 (yellow) |
-| Advisory | — | #00BFFF (cyan) |
-| Setpoint deviation | — | #FFA500 (orange) |
-| AI recommendation | — | #00CED1 (teal, distinct from alarms) |
+1. [工業 HMI 與使用者介面標準（Industrial HMI & UI/UX Standards）](#1-工業-hmi-與使用者介面標準industrial-hmi--uiux-standards)
+2. [可解釋 AI 視覺化模式（XAI Visualization Patterns）](#2-可解釋-ai-視覺化模式xai-visualization-patterns)
+3. [操作人員工作流程設計（Operator Workflow Design）](#3-操作人員工作流程設計operator-workflow-design)
+4. [基礎設施即程式碼（Infrastructure as Code, IaC）](#4-基礎設施即程式碼infrastructure-as-code-iac)
+5. [GitOps 與持續交付（GitOps & Continuous Delivery）](#5-gitops-與持續交付gitops--continuous-delivery)
+6. [混合雲架構（Hybrid Cloud Architecture）](#6-混合雲架構hybrid-cloud-architecture)
+7. [可觀測性與網站可靠性工程（Observability & SRE Practices）](#7-可觀測性與網站可靠性工程observability--sre-practices)
+8. [知識工程（Knowledge Engineering）](#8-知識工程knowledge-engineering)
+9. [文件即程式碼（Documentation as Code）](#9-文件即程式碼documentation-as-code)
 
 ---
 
-## 2. XAI Visualization Patterns
+## 1. 工業 HMI 與使用者介面標準（Industrial HMI & UI/UX Standards）
 
-### SHAP/LIME to Operator Language
+### ISA-101 高效能人機介面（High-Performance HMI）
 
-AI feature importance must be translated from data science format to operator-actionable format:
+ISA-101（程序自動化系統的人機介面標準）定義了有效操作人員介面的設計原則。
 
-**Data Science Output:**
+下表列出核心設計原則與常見反面案例，用於設計與審查人機介面畫面。
+
+| 原則（Principle） | 實作方式（Implementation） | 反面案例（Anti-Pattern） |
+|---|---|---|
+| 灰色/深色底色 | 背景使用中性灰（#404040-#606060）；設備輪廓用淡色調 | 亮色背景、容器使用漸層填充 |
+| 顏色 = 資訊 | 飽和色僅用於異常狀態與警報 | 用顏色標示正常製程狀態（綠色管線、藍色水槽） |
+| 類比指示 | 以長條圖、趨勢迷你圖、類比儀表顯示連續變數 | 僅顯示數字，需靠操作人員心算比較 |
+| 情境感知（Situational awareness） | 第一層總覽 → 第二層單元區域 → 第三層細節（Endsley 模型） | 扁平畫面，無導航層級 |
+| 一致的警報顏色 | 紅 = 危急、黃 = 高優先、青/藍 = 諮詢（依廠區標準） | 不同畫面的顏色意義不一致 |
+
+### ISA-18.2 警報管理（Alarm Management）
+
+警報洪水（alarm flood）是操作人員對自動化系統失去信任的首要原因。ISA-18.2 的生命週期：
+
+```
+識別 → 合理化 → 設計 → 實作 → 監控 → 維護 → 稽核
+```
+
+**關鍵指標：**
+
+下表定義警報管理的健康指標與警報洪水的判定門檻。「每小時 6 則」是穩態下的合理上限，超過 12 則/小時代表系統需要檢討。
+
+| 指標（Metric） | 目標值（Target） | 警報洪水指標（Flood Indicator） |
+|---|---|---|
+| 警報頻率（穩態） | 每位操作人員 ≤6 則/小時 | 持續 >12 則/小時 |
+| 警報頻率（異常） | 每位操作人員 ≤12 則/10 分鐘 | >30 則/10 分鐘 |
+| 常駐警報 | 每位操作人員 <5 則 | >10 則持續存在 |
+| 顫動警報（Chattering alarms） | 已設定警報的 0% | 任何警報在 1 分鐘內觸發 >5 次 |
+| 優先級分布 | 約 80% 低、15% 高、5% 危急 | 倒金字塔（多數警報 = 危急） |
+
+**AI 系統的警報合理化規則：**
+- AI 產生的告警必須經過與傳統警報相同的合理化流程
+- AI 信心度評分應對應到警報優先級（而非建立新的告警類別）
+- 當操作人員正在處理相關的手動警報時，抑制 AI 告警
+- 每個 AI 警報都必須有定義的應對程序 — 控制室不得有「僅供參考」的警報
+
+### 色彩對照表（ISA-101 合規）
+
+下表為人機介面畫面的色彩標準，正常狀態用灰色系，異常狀態才使用飽和色。
+
+| 元素（Element） | 正常狀態 | 異常/警報 |
+|---|---|---|
+| 背景 | #4A4A4A（中性灰） | — |
+| 設備輪廓 | #808080（中灰） | — |
+| 管線（運轉中） | #707070（稍亮） | — |
+| 管線（停止） | #505050（較暗） | — |
+| 高警報 | — | #FF0000（紅色） |
+| 高高警報 | — | #FF0000（紅色，閃爍） |
+| 低警報 | — | #FFFF00（黃色） |
+| 諮詢 | — | #00BFFF（青色） |
+| 設定值偏差 | — | #FFA500（橘色） |
+| AI 建議 | — | #00CED1（藍綠色，與警報區分） |
+
+---
+
+## 2. 可解釋 AI 視覺化模式（XAI Visualization Patterns）
+
+### 將特徵重要性翻譯為操作語言（SHAP/LIME to Operator Language）
+
+AI 的特徵重要性必須從數據科學格式轉譯為操作人員可行動的格式：
+
+**數據科學輸出：**
 ```
 SHAP values: NH4_influent=+0.42, rainfall_forecast=+0.31, pH=-0.15, ...
 ```
 
-**Operator Display:**
+**操作人員畫面：**
 ```
 ┌─────────────────────────────────────────────────┐
 │ AI 建議：增加 PAC 加藥量至 35 mg/L              │
@@ -98,369 +103,390 @@ SHAP values: NH4_influent=+0.42, rainfall_forecast=+0.31, pH=-0.15, ...
 └─────────────────────────────────────────────────┘
 ```
 
-### Visualization Principles
+> 💡 **小知識：為什麼要把 AI 的理由翻譯成操作語言？**
+> 操作人員不需要知道「SHAP 值 = 0.42」，但需要知道「因為進流氨氮上升，所以 AI 建議增加加藥量」。就像醫生不會對病人說「你的白血球計數偏高」，而是說「你可能有發炎的情況」。
 
-| Principle | Rationale |
+### 視覺化原則
+
+| 原則（Principle） | 理由（Rationale） |
 |---|---|
-| Horizontal bar charts for feature importance | Instantly scannable; no legend needed |
-| Natural language reason labels (not variable names) | "進流氨氮上升" not "NH4_influent" |
-| Confidence indicator (dot scale or gauge) | Operators calibrate trust to AI certainty |
-| Historical track record | "AI was right 3/3 times in similar conditions" builds trust |
-| Single recommended action (not options) | Operators need a decision, not a decision tree |
-| Override button always visible | Trust requires control — operator is always final authority |
+| 水平長條圖呈現特徵重要性 | 一眼可掃描，不需圖例 |
+| 使用白話原因標籤（非變數名稱） | 顯示「進流氨氮上升」而非「NH4_influent」 |
+| 信心度指示器（圓點刻度或儀表） | 操作人員可依 AI 確信度校準信任程度 |
+| 歷史驗證紀錄 | 「AI 在類似情境下連續 3 次判斷正確」有助建立信任 |
+| 給出單一建議行動（非選項列表） | 操作人員需要的是決策，不是決策樹 |
+| 覆寫按鈕永遠可見 | 信任建立在有控制權的基礎上 — 操作人員永遠是最終決策者 |
 
-### Trend + Prediction Overlay
+### 趨勢 + 預測疊加圖
 
-For time-series predictions, overlay historical actual vs. AI prediction with confidence band:
+時序預測應將歷史實際值與 AI 預測值疊加呈現，並附信賴區間：
 
 ```
-Value
-  │      ╭─actual──╮
-  │  ───╯          ╰──╮    ╭── AI prediction (solid)
+數值
+  │      ╭─實際值──╮
+  │  ───╯          ╰──╮    ╭── AI 預測（實線）
   │                    ╰──╯
-  │                        ╱ ── confidence band (shaded)
+  │                        ╱ ── 信賴區間（陰影區域）
   │                      ╱
-  ├──────────────┼──────────→ Time
-              NOW
+  ├──────────────┼──────────→ 時間
+              目前
 ```
 
-- Solid line = historical actual
-- Dashed/colored line = AI prediction
-- Shaded band = 90% confidence interval
-- Vertical "NOW" marker clearly separates past from forecast
+- 實線 = 歷史實際值
+- 虛線/彩色線 = AI 預測
+- 陰影帶 = 90% 信賴區間
+- 垂直「目前」標記清楚分隔過去與預測
 
 ---
 
-## 3. Operator Workflow Design
+## 3. 操作人員工作流程設計（Operator Workflow Design）
 
-### User Journey: Alert → Resolution
+### 使用者旅程：從告警到解決
 
 ```
-1. DETECT (0-5 sec)
-   │ Alarm triggers → notification (visual + audible)
-   │ Screen: Overview dashboard highlights affected unit
+1. 偵測（DETECT, 0-5 秒）
+   │ 警報觸發 → 通知（視覺 + 聲音）
+   │ 畫面：總覽儀表板標示受影響單元
    │
-2. ASSESS (5-30 sec)
-   │ Operator clicks affected unit → detail view
-   │ AI shows: what happened, why, severity, recommended action
-   │ Critical: ≤3 clicks from alarm to action screen
+2. 評估（ASSESS, 5-30 秒）
+   │ 操作人員點擊受影響單元 → 詳細畫面
+   │ AI 顯示：發生了什麼、為什麼、嚴重程度、建議行動
+   │ 關鍵：從警報到行動畫面 ≤3 次點擊
    │
-3. DECIDE (30-120 sec)
-   │ Operator reviews AI recommendation + supporting evidence
-   │ Options: Accept AI suggestion │ Modify │ Override │ Escalate
+3. 決策（DECIDE, 30-120 秒）
+   │ 操作人員檢視 AI 建議 + 佐證資料
+   │ 選項：接受 AI 建議 │ 修改 │ 覆寫 │ 升級處理
    │
-4. ACT (immediate)
-   │ One-click to execute accepted action
-   │ System confirms action taken + expected response time
+4. 執行（ACT, 立即）
+   │ 一鍵執行已接受的行動
+   │ 系統確認已執行 + 預期回應時間
    │
-5. VERIFY (minutes to hours)
-   │ Trend display shows process response to action
-   │ AI confirms "responding as expected" or flags if not
+5. 驗證（VERIFY, 數分鐘至數小時）
+   │ 趨勢顯示製程對行動的回應
+   │ AI 確認「回應如預期」或標記異常
    │
-6. CLOSE (when stable)
-   │ Operator acknowledges resolution
-   │ System logs full timeline for audit and learning
+6. 結案（CLOSE, 穩定後）
+   │ 操作人員確認解決
+   │ 系統記錄完整時間軸供稽核與學習
 ```
 
-### Click-Count Budget
+### 點擊次數預算
 
-| Scenario | Maximum Clicks | Rationale |
+下表定義各操作情境的最大點擊次數限制，確保緊急情況下操作人員能快速反應。
+
+| 情境（Scenario） | 最大點擊次數 | 理由（Rationale） |
 |---|---|---|
-| Acknowledge alarm | 1 | ISA-18.2 requirement |
-| View AI explanation | 2 (alarm → detail) | Assessment must be fast |
-| Execute recommended action | 3 (alarm → detail → confirm) | Emergency response window |
-| Override AI recommendation | 3 | Must be equally accessible as acceptance |
-| View historical context | 3 | Supports experienced operator judgment |
+| 確認警報 | 1 | ISA-18.2 要求 |
+| 查看 AI 解釋 | 2（警報 → 詳細） | 評估必須快速 |
+| 執行建議行動 | 3（警報 → 詳細 → 確認） | 緊急應變時間窗口 |
+| 覆寫 AI 建議 | 3 | 覆寫操作必須與接受操作同樣便利 |
+| 查看歷史脈絡 | 3 | 支援資深操作人員的判斷 |
 
-### Shift Handover Dashboard
+### 交班儀表板（Shift Handover Dashboard）
 
-Design a dedicated handover screen showing:
-- Active alarms and open work orders
-- AI predictions for next 4-8 hours (trend + confidence)
-- Actions taken during current shift (with outcomes)
-- Items requiring attention from incoming shift
+設計專用的交班畫面，顯示：
+- 現行警報與未結工單
+- AI 對未來 4-8 小時的預測（趨勢 + 信心度）
+- 本班執行的行動（含結果）
+- 需要接班人員關注的事項
 
 ---
 
-## 4. Infrastructure as Code (IaC)
+## 4. 基礎設施即程式碼（Infrastructure as Code, IaC）
 
-### Terraform Pattern for Water Treatment Edge Deployment
+### 水處理邊緣部署的 Terraform 模式
 
 ```
-Environment Structure:
+環境結構：
 ├── modules/
-│   ├── edge-node/        # K3s cluster, GPU allocation, model runtime
-│   ├── data-pipeline/    # MQTT broker, time-series DB, ETL
-│   ├── monitoring/       # Prometheus, Grafana, alerting
-│   └── networking/       # VPN, firewall rules, OT/IT segmentation
+│   ├── edge-node/        # K3s 叢集、GPU 配置、模型執行環境
+│   ├── data-pipeline/    # MQTT 代理、時序資料庫、ETL
+│   ├── monitoring/       # Prometheus, Grafana, 告警
+│   └── networking/       # VPN, 防火牆規則, OT/IT 分段
 ├── environments/
-│   ├── fab-a/            # Site-specific variables
-│   ├── fab-b/            # Same modules, different parameters
-│   └── staging/          # Pre-production validation
+│   ├── fab-a/            # 場域特定變數
+│   ├── fab-b/            # 相同模組，不同參數
+│   └── staging/          # 生產前驗證
 └── shared/
-    └── state/            # Remote state backend (S3/Azure Blob)
+    └── state/            # 遠端狀態後端（S3/Azure Blob）
 ```
 
-### Key IaC Principles for Water Systems
+### 水務系統的基礎設施即程式碼原則
 
-| Principle | Implementation | Why It Matters |
+下表列出關鍵原則與對應的水處理場域意義。
+
+| 原則（Principle） | 實作方式（Implementation） | 為什麼重要 |
 |---|---|---|
-| Reproducibility | Same Terraform modules deploy to any site | Fab A and Fab B get identical environments |
-| Immutable infrastructure | Replace, don't patch — new container image for updates | Eliminates configuration drift over 10+ year lifecycle |
-| State management | Remote state with locking (S3 + DynamoDB) | Multi-team coordination without conflicts |
-| Secret management | HashiCorp Vault or cloud KMS — never in code | OT credentials require strict access control |
-| Network segmentation | Terraform manages firewall rules per IEC 62443 zones | Security policy as code, auditable |
+| 可重現性（Reproducibility） | 相同 Terraform 模組可部署到任何場域 | A 廠與 B 廠取得完全一致的環境 |
+| 不可變基礎設施（Immutable infra） | 更新時替換而非修補 — 新容器映像檔 | 消除 10 年以上生命週期中的組態漂移 |
+| 狀態管理 | 遠端狀態搭配鎖定（S3 + DynamoDB） | 多團隊協作不衝突 |
+| 機密管理（Secret management） | HashiCorp Vault 或雲端金鑰管理 — 禁止寫在程式碼中 | 操作技術憑證需嚴格存取控制 |
+| 網路分段 | Terraform 管理防火牆規則，依循 IEC 62443 區域模型 | 安全政策即程式碼，可稽核 |
 
-### Ansible for OT-Specific Configuration
+### Ansible 用於操作技術專屬組態
 
-Terraform manages infrastructure; Ansible handles configuration of OT-adjacent systems:
-- PLC communication gateway setup
-- OPC UA server certificate deployment
-- Edge node OS hardening (CIS benchmarks)
-- Time synchronization (NTP/PTP) critical for water treatment data correlation
+Terraform 管理基礎設施；Ansible 處理操作技術相鄰系統的組態：
+- PLC 通訊閘道器設定
+- OPC UA 伺服器憑證部署
+- 邊緣節點作業系統強化（CIS 基準）
+- 時間同步（NTP/PTP），對水處理數據關聯至關重要
 
 ---
 
-## 5. GitOps & Continuous Delivery
+## 5. GitOps 與持續交付（GitOps & Continuous Delivery）
 
-### ArgoCD + Kubernetes Workflow
+### ArgoCD + Kubernetes 工作流程
 
 ```
-Developer / Data Scientist
+開發者 / 數據科學家
   │
-  ├── Code change or model update
-  │     → Git push to feature branch
-  │       → CI pipeline (build, test, scan)
-  │         → Merge to main
-  │           → ArgoCD detects change
-  │             → Sync to cluster
+  ├── 程式碼變更或模型更新
+  │     → 推送至特性分支（Git push）
+  │       → CI 管線（建構、測試、掃描）
+  │         → 合併至主線
+  │           → ArgoCD 偵測變更
+  │             → 同步至叢集
   │
-  │   Deployment Strategy:
+  │   部署策略：
   │   ┌─────────────────────────────────────────┐
-  │   │ Stage 1: Canary (5% traffic)            │
-  │   │   → Non-critical loop (e.g., monitoring │
-  │   │     dashboard, advisory alerts)         │
-  │   │   → Validate: prediction accuracy,      │
-  │   │     latency, error rate                 │
-  │   │   → Duration: 2-4 hours minimum         │
+  │   │ 階段一：金絲雀部署（5% 流量）            │
+  │   │   → 非關鍵迴路（如監控儀表板、建議告警） │
+  │   │   → 驗證：預測準確度、延遲、錯誤率      │
+  │   │   → 持續時間：最少 2-4 小時              │
   │   │                                         │
-  │   │ Stage 2: Progressive rollout (25→50→100)│
-  │   │   → Expand to more control loops        │
-  │   │   → Automatic rollback on SLO violation │
+  │   │ 階段二：漸進擴展（25→50→100%）          │
+  │   │   → 擴展至更多控制迴路                  │
+  │   │   → SLO 違規時自動回滾                  │
   │   │                                         │
-  │   │ Stage 3: Full deployment                │
-  │   │   → All loops, all sites                │
+  │   │ 階段三：全面部署                        │
+  │   │   → 所有迴路、所有場域                  │
   │   └─────────────────────────────────────────┘
 ```
 
-### AI Model Update Pipeline
+### AI 模型更新管線
 
-| Stage | Gate Criteria | Rollback Trigger |
+下表定義模型從訓練到全面部署的各階段閘門條件與回滾觸發條件。
+
+| 階段（Stage） | 閘門條件（Gate Criteria） | 回滾觸發（Rollback Trigger） |
 |---|---|---|
-| Model training (cloud) | Validation loss < threshold; no data drift | — |
-| Shadow mode (edge) | Predictions compared to actual; MAE within bounds | MAE > 2× baseline |
-| Canary (5% advisory) | Operator feedback; no false alarm increase | False alarm rate > 1.5× |
-| Progressive rollout | SLO compliance across all metrics | Any SLO violation |
-| Full deployment | 24h stable operation | — |
+| 模型訓練（雲端） | 驗證損失 < 閾值；無數據漂移 | — |
+| 影子模式（邊緣） | 預測值與實際值比較；平均絕對誤差（MAE）在限制內 | MAE > 基線的 2 倍 |
+| 金絲雀部署（5% 建議） | 操作人員回饋；無誤報增加 | 誤報率 > 基線的 1.5 倍 |
+| 漸進擴展 | 所有指標符合服務等級目標（SLO） | 任何 SLO 違規 |
+| 全面部署 | 穩定運行 24 小時 | — |
 
-### Zero-Downtime Deployment for 24/7 Water Systems
+### 全天候水處理系統的零停機部署
 
-- Blue-green deployments for stateless services (API, dashboard)
-- Rolling updates for stateful services (time-series DB) with readiness probes
-- Database migrations: expand-contract pattern (never breaking changes)
-- Rollback strategy: keep previous model version warm for instant failback
+- 無狀態服務（API、儀表板）使用藍綠部署（blue-green deployment）
+- 有狀態服務（時序資料庫）使用滾動更新搭配就緒探測（readiness probes）
+- 資料庫遷移：使用擴展-收縮模式（expand-contract pattern，禁止破壞性變更）
+- 回滾策略：保持前一版模型在暖備狀態，可立即切回
 
 ---
 
-## 6. Hybrid Cloud Architecture
+## 6. 混合雲架構（Hybrid Cloud Architecture）
 
-### Train in Cloud, Infer at Edge
+### 雲端訓練、邊緣推論
 
 ```
-┌─ Cloud (AWS/Azure/GCP) ──────────────────────┐
+┌─ 雲端（AWS/Azure/GCP）─────────────────────────┐
 │                                                │
 │  ┌──────────┐  ┌──────────┐  ┌──────────────┐│
-│  │ Data Lake │→│ Training  │→│ Model        ││
-│  │ (anonymized│ │ Pipeline  │  │ Registry     ││
-│  │  /aggregated)│(GPU/TPU) │  │ (versioned)  ││
+│  │ 數據湖    │→│ 訓練      │→│ 模型          ││
+│  │（已匿名化 │ │ 管線      │  │ 註冊庫        ││
+│  │ /已彙總）  │ │（GPU/TPU）│  │（版本管理）    ││
 │  └──────────┘  └──────────┘  └──────┬───────┘│
 │                                      │        │
 └──────────────────────────────────────┼────────┘
-                                       │ Secure model pull
-                                       │ (signed artifacts)
-┌─ Plant Edge ─────────────────────────┼────────┐
+                                       │ 安全模型拉取
+                                       │（簽章封裝）
+┌─ 廠區邊緣 ──────────────────────────┼────────┐
 │                                      ↓        │
 │  ┌──────────────┐  ┌──────────┐  ┌────────┐  │
-│  │ MQTT/OPC UA  │→│ Inference │→│ Control │  │
-│  │ (real-time   │  │ Engine   │  │ System  │  │
-│  │  sensor data)│  │ (K3s/Wasm)│ │ (PLC)  │  │
+│  │ MQTT/OPC UA  │→│ 推論      │→│ 控制    │  │
+│  │（即時感測器  │  │ 引擎      │  │ 系統    │  │
+│  │  數據）      │  │（K3s/Wasm）│ │（PLC）  │  │
 │  └──────────────┘  └──────────┘  └────────┘  │
 │                                               │
-│  Data stays on-site (數據不出廠)               │
-│  Only anonymized/aggregated data sent to cloud │
+│  數據不出廠                                    │
+│  僅匿名化/彙總數據傳送至雲端                    │
 └───────────────────────────────────────────────┘
 ```
 
-### Data Sovereignty Patterns
+### 數據主權模式（Data Sovereignty Patterns）
 
-| Pattern | What Leaves Plant | What Stays | Use Case |
+下表列出四種數據傳輸策略，依安全需求選擇合適的模式。
+
+| 模式（Pattern） | 離開廠區的數據 | 留在廠區的數據 | 使用場景 |
 |---|---|---|---|
-| Federated Learning | Model gradients only | Raw sensor data | Multi-site model improvement |
-| Aggregated Telemetry | Daily/hourly summaries | Sub-second data | Cloud dashboarding, benchmarking |
-| Edge-Only | Nothing | Everything | Maximum security (military, critical infra) |
-| Anonymized Sync | De-identified datasets | PII, site identifiers | Cross-plant analytics |
+| 聯邦式學習（Federated Learning） | 僅模型梯度 | 原始感測器數據 | 多場域聯合模型改善 |
+| 彙總遙測 | 每日/每小時摘要 | 次秒級數據 | 雲端儀表板、標竿比較 |
+| 純邊緣（Edge-Only） | 無 | 全部 | 最高安全等級（軍事、關鍵基礎設施） |
+| 匿名化同步 | 去識別化數據集 | 個人識別資訊、場域識別碼 | 跨廠區分析 |
 
-### Edge Hardware Sizing Guide
+### 邊緣硬體規格指引
 
-| Workload | CPU | RAM | GPU | Storage | Example |
+下表依工作負載類型建議邊緣設備規格。
+
+| 工作負載（Workload） | CPU | RAM | GPU | 儲存空間 | 設備範例 |
 |---|---|---|---|---|---|
-| Rule-based + simple ML | 4 cores | 8 GB | None | 128 GB SSD | NVIDIA Jetson Nano |
-| Time-series forecasting | 8 cores | 16 GB | Optional | 256 GB SSD | Intel NUC / Jetson Xavier NX |
-| Vision (camera-based monitoring) | 8+ cores | 32 GB | Required (4+ GB VRAM) | 512 GB SSD | Jetson AGX Orin |
-| Full LLM inference (RAG) | 16+ cores | 64 GB | Required (16+ GB VRAM) | 1 TB NVMe | Industrial GPU server |
+| 規則式 + 簡單機器學習 | 4 核心 | 8 GB | 無 | 128 GB SSD | NVIDIA Jetson Nano |
+| 時序預測 | 8 核心 | 16 GB | 選配 | 256 GB SSD | Intel NUC / Jetson Xavier NX |
+| 視覺辨識（攝影機監控） | 8+ 核心 | 32 GB | 必要（≥4 GB VRAM） | 512 GB SSD | Jetson AGX Orin |
+| 完整大型語言模型推論（RAG） | 16+ 核心 | 64 GB | 必要（≥16 GB VRAM） | 1 TB NVMe | 工業級 GPU 伺服器 |
 
 ---
 
-## 7. Observability & SRE Practices
+## 7. 可觀測性與網站可靠性工程（Observability & SRE Practices）
 
-### Three Pillars for Water Treatment AI
+### 水處理 AI 的三大支柱
 
-| Pillar | Tool Stack | What to Monitor |
+下表列出可觀測性三大支柱的工具組合與監控重點。
+
+| 支柱（Pillar） | 工具組合（Tool Stack） | 監控重點 |
 |---|---|---|
-| Metrics | Prometheus → Grafana | Model latency, prediction accuracy, sensor health, pipeline lag |
-| Logs | Loki / ELK | Inference errors, data quality issues, operator actions, audit trail |
-| Traces | Jaeger / Tempo | End-to-end request flow: sensor → ingestion → inference → display |
+| 指標（Metrics） | Prometheus → Grafana | 模型延遲、預測準確度、感測器健康度、管線延遲 |
+| 日誌（Logs） | Loki / ELK | 推論錯誤、數據品質問題、操作人員行動、稽核軌跡 |
+| 追蹤（Traces） | Jaeger / Tempo | 端到端請求流程：感測器 → 攝取 → 推論 → 顯示 |
 
-### SLO Definitions for Water AI Systems
+### 服務等級目標定義（SLO Definitions）
 
-| Service | SLI | SLO | Error Budget |
+下表定義水處理 AI 系統各服務的服務等級指標（SLI）、目標（SLO）與錯誤預算。超出錯誤預算代表需要檢討系統可靠性。
+
+| 服務（Service） | 服務等級指標（SLI） | 目標（SLO） | 錯誤預算（Error Budget） |
 |---|---|---|---|
-| Real-time inference | Latency p99 | <500 ms | 0.1% requests >500 ms/month |
-| Prediction availability | Uptime | 99.9% | 43 min downtime/month |
-| Data pipeline freshness | Lag from sensor to DB | <5 sec | 99th percentile <10 sec |
-| Dashboard availability | Page load time | <3 sec (p95) | 99.5% uptime |
-| Model accuracy | MAE vs. actual | Within ±10% of baseline | Retrain trigger if exceeded 3 consecutive days |
+| 即時推論 | P99 延遲 | <500 ms | 每月 0.1% 請求 >500 ms |
+| 預測可用性 | 正常運行時間 | 99.9% | 每月 43 分鐘停機 |
+| 數據管線新鮮度 | 感測器到資料庫的延遲 | <5 秒 | 第 99 百分位 <10 秒 |
+| 儀表板可用性 | 頁面載入時間 | <3 秒（P95） | 99.5% 正常運行 |
+| 模型準確度 | 平均絕對誤差（MAE）與實際值比較 | 在基線 ±10% 以內 | 連續 3 天超標即觸發重新訓練 |
 
-### Incident Response Levels
+### 事件應變層級
 
-| Level | Trigger | Response | Escalation |
+下表定義三個事件應變層級的觸發條件、應變方式與升級時限。
+
+| 層級 | 觸發條件（Trigger） | 應變方式（Response） | 升級（Escalation） |
 |---|---|---|---|
-| L1 — Degraded | Single metric SLO violation | Auto-alert on-call; investigate | 30 min to L2 |
-| L2 — Impaired | Multiple SLO violations or model rollback triggered | Active incident; war room | 1 hr to L3 |
-| L3 — Critical | AI system offline or providing incorrect control outputs | Fallback to manual operation; all hands | Immediate to plant management |
+| L1 — 退化 | 單一指標 SLO 違規 | 自動告警值班人員；展開調查 | 30 分鐘內升級至 L2 |
+| L2 — 受損 | 多項 SLO 違規或模型已回滾 | 啟動事件應變；開設戰情室 | 1 小時內升級至 L3 |
+| L3 — 危急 | AI 系統離線或輸出錯誤控制指令 | 降級至手動操作；全員集合 | 立即通報廠區管理層 |
 
 ---
 
-## 8. Knowledge Engineering
+## 8. 知識工程（Knowledge Engineering）
 
-### Graph RAG Architecture for Plant Knowledge
+### 圖譜式檢索增強生成架構（Graph RAG Architecture）
 
 ```
-Source Documents                    Knowledge Graph              AI Agent
+來源文件                          知識圖譜                    AI 代理
 ┌──────────────┐                  ┌──────────────┐            ┌──────────┐
-│ Maintenance   │                 │ Equipment    │            │          │
-│ logs          │──extract──→     │ nodes        │            │ "上次3號 │
-│               │                 │   ↕          │──query──→  │  泵浦軸承│
-│ SOPs          │──extract──→     │ Failure      │            │  過熱怎麼│
-│               │                 │ patterns     │  ←─answer──│  解決的？"│
-│ Equipment     │──extract──→     │   ↕          │            │          │
-│ manuals       │                 │ Solutions    │            └──────────┘
+│ 維護紀錄      │                 │ 設備          │            │          │
+│               │──抽取──→       │ 節點          │            │「上次3號 │
+│               │                 │   ↕          │──查詢──→   │  泵浦軸承│
+│ 標準作業程序  │──抽取──→       │ 故障          │            │  過熱怎麼│
+│               │                 │ 模式          │  ←─回答──  │  解決的？」│
+│ 設備手冊      │──抽取──→       │   ↕          │            │          │
+│               │                 │ 解決方案      │            └──────────┘
 │               │                 │   ↕          │
-│ Operator      │──extract──→     │ Operating    │
-│ shift notes   │                 │ conditions   │
+│ 操作員        │──抽取──→       │ 操作          │
+│ 班次紀錄      │                 │ 條件          │
 └──────────────┘                  └──────────────┘
                                     Neo4j /
-                                    Property Graph
+                                    屬性圖（Property Graph）
 ```
 
-### Knowledge Graph Schema for Water Treatment
+### 水處理知識圖譜結構描述（Schema）
 
-| Node Type | Properties | Relationships |
+下表定義知識圖譜的節點類型與關聯，用於建構廠區知識庫。
+
+| 節點類型（Node Type） | 屬性（Properties） | 關聯（Relationships） |
 |---|---|---|
-| Equipment | ID, type, manufacturer, install date, location | HAS_COMPONENT, CONNECTED_TO |
-| Failure Event | date, symptom, root cause, severity | OCCURRED_ON (equipment), RESOLVED_BY |
-| Solution | action taken, parts used, duration, outcome | APPLIED_TO (failure), PERFORMED_BY |
-| SOP | ID, version, applicable equipment, steps | GOVERNS (equipment), REFERENCES (solution) |
-| Operating Condition | parameter ranges, process context | PRECEDED (failure), ASSOCIATED_WITH |
+| 設備（Equipment） | ID, 類型, 製造商, 安裝日期, 位置 | HAS_COMPONENT, CONNECTED_TO |
+| 故障事件（Failure Event） | 日期, 症狀, 根因, 嚴重度 | OCCURRED_ON（設備）, RESOLVED_BY |
+| 解決方案（Solution） | 採取行動, 使用零件, 處理時間, 結果 | APPLIED_TO（故障）, PERFORMED_BY |
+| 標準作業程序（SOP） | ID, 版本, 適用設備, 步驟 | GOVERNS（設備）, REFERENCES（解決方案） |
+| 操作條件（Operating Condition） | 參數範圍, 製程情境 | PRECEDED（故障）, ASSOCIATED_WITH |
 
-### Entity Extraction Pipeline
+### 實體抽取管線（Entity Extraction Pipeline）
 
-1. **Ingest**: OCR scanned documents; parse structured logs (CSV, JSON)
-2. **Extract**: NER for equipment IDs, failure modes, chemical names, parameter values
-3. **Link**: Entity resolution (same pump may appear as "P-301", "3號泵浦", "RO feed pump")
-4. **Validate**: Subject matter expert review of extracted relationships
-5. **Update**: Continuous ingestion from new maintenance records and shift logs
+1. **攝取**：掃描文件進行光學字元辨識（OCR）；解析結構化日誌（CSV、JSON）
+2. **抽取**：命名實體辨識（NER）用於設備編號、故障模式、化學品名稱、參數值
+3. **連結**：實體解析（同一泵浦可能記載為「P-301」、「3號泵浦」、「RO 進料泵」）
+4. **驗證**：領域專家審查抽取出的關聯
+5. **更新**：持續從新的維護紀錄與班次日誌攝取
 
 ---
 
-## 9. Documentation as Code
+## 9. 文件即程式碼（Documentation as Code）
 
-### Repository Structure
+### 文件儲存庫結構
 
 ```
 project-root/
-├── docs/                        # MkDocs source
+├── docs/                        # MkDocs 原始檔
 │   ├── architecture/
-│   │   ├── system-overview.md   # Mermaid diagrams
+│   │   ├── system-overview.md   # Mermaid 圖表
 │   │   ├── data-flow.md
-│   │   └── decisions/           # ADRs (Architecture Decision Records)
+│   │   └── decisions/           # 架構決策紀錄（ADRs）
 │   │       ├── 001-edge-inference.md
 │   │       ├── 002-timeseries-db.md
 │   │       └── template.md
 │   ├── operations/
-│   │   ├── runbooks/            # Incident response procedures
+│   │   ├── runbooks/            # 事件應變程序
 │   │   ├── deployment.md
 │   │   └── monitoring.md
-│   ├── api/                     # Auto-generated from OpenAPI spec
-│   └── user-guide/              # Operator-facing documentation
-├── mkdocs.yml                   # Site configuration
+│   ├── api/                     # 從 OpenAPI 規格自動產生
+│   └── user-guide/              # 操作人員導向文件
+├── mkdocs.yml                   # 網站組態
 └── .github/workflows/
-    └── docs.yml                 # CI: build + deploy docs on merge
+    └── docs.yml                 # CI：合併時建構 + 部署文件
 ```
 
-### Architecture Decision Record (ADR) Template
+### 架構決策紀錄範本（ADR Template）
 
 ```markdown
-# ADR-NNN: [Title]
+# ADR-NNN: [標題]
 
-## Status: [Proposed | Accepted | Deprecated | Superseded by ADR-XXX]
+## 狀態：[提議 | 已接受 | 已棄用 | 由 ADR-XXX 取代]
 
-## Context
-What is the issue that we're seeing that is motivating this decision?
+## 背景
+什麼問題促使我們需要做這個決策？
 
-## Decision
-What is the change that we're proposing and/or doing?
+## 決策
+我們提出或執行的方案是什麼？
 
-## Consequences
-What becomes easier or more difficult to do because of this change?
+## 後果
+這個變更使什麼變得更容易或更困難？
 
-## Alternatives Considered
-What other approaches were evaluated and why were they rejected?
+## 替代方案
+評估了哪些其他方法，為何被排除？
 ```
 
-### Mermaid Diagram Standards
+### Mermaid 圖表標準
 
-Use Mermaid.js for diagrams that live alongside code:
+使用 Mermaid.js 製作與程式碼共存的圖表：
 
-- **System architecture**: C4 model (Context → Container → Component)
-- **Data flow**: flowchart LR for pipeline diagrams
-- **Sequence**: sequenceDiagram for API interactions and control flows
-- **State machines**: stateDiagram-v2 for equipment and process states
+- **系統架構**：C4 模型（Context → Container → Component）
+- **數據流**：使用 flowchart LR 繪製管線圖
+- **時序圖**：使用 sequenceDiagram 呈現 API 互動與控制流程
+- **狀態機**：使用 stateDiagram-v2 呈現設備與製程狀態
 
-All diagrams render automatically in MkDocs, GitHub, and most modern documentation platforms.
+所有圖表在 MkDocs、GitHub 及多數現代文件平台上自動渲染。
 
-### Documentation Lifecycle
+### 文件生命週期
 
-| Event | Documentation Action |
+下表定義各事件觸發的文件維護行動。
+
+| 事件（Event） | 文件行動（Documentation Action） |
 |---|---|
-| New feature / system change | Update architecture docs + ADR if architectural |
-| Incident | Post-mortem → update runbook → update knowledge graph |
-| Model retrain | Update model card (metrics, training data, limitations) |
-| Staff onboarding | Review and refresh user guides |
-| Annual review | Audit all docs for accuracy; archive obsolete content |
+| 新功能/系統變更 | 更新架構文件；若涉及架構決策則新增架構決策紀錄 |
+| 事件處理 | 事後檢討 → 更新應變手冊 → 更新知識圖譜 |
+| 模型重新訓練 | 更新模型卡（指標、訓練數據、限制） |
+| 新人到職 | 檢視並更新使用者手冊 |
+| 年度審查 | 稽核所有文件的正確性；歸檔過時內容 |
 
-## Related References
+## 相關參考文件
 
-- [ai-and-control.md](ai-and-control.md) — Model deployment patterns, edge inference, AI agent architecture
-- [cybersecurity-and-sustainability.md](cybersecurity-and-sustainability.md) — OT network security (IaC for IEC 62443 zones), security architecture documentation
-- [troubleshooting.md](troubleshooting.md) — Diagnostic knowledge for knowledge graph construction and runbook content
+- [ai-and-control.md](ai-and-control.md) — 模型部署模式、邊緣推論、AI 代理架構
+- [cybersecurity-and-sustainability.md](cybersecurity-and-sustainability.md) — 操作技術網路安全（基礎設施即程式碼用於 IEC 62443 區域模型）、安全架構文件
+- [troubleshooting.md](troubleshooting.md) — 用於知識圖譜建構與應變手冊內容的診斷知識

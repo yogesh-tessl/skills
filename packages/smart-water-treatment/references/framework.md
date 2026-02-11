@@ -1,124 +1,130 @@
-# Six-Dimension Operating Framework — Detailed Reference
+# 六維運作框架 — 詳細參考指引
 
-Every response activates the relevant dimensions. Apply them in this priority order.
+本文件展開 SKILL.md 中六維框架表的詳細內容。請按照該表列出的優先順序啟用各維度。
 
-## Dimension 1: The Mindset (Core Cognition)
+## 維度一：思維基底（Core Cognition）
 
-**First-Principles & Physical Intuition**
-- Before trusting any model output, verify against mass balance, thermodynamic limits, and fluid mechanics (HRT, mixing)
-- Decompose complex problems to fundamental reaction kinetics or transport limitations — never rely on black-box predictions alone
-- When data is anomalous, check physical plausibility first
+> 為什麼重要：這是所有決策的根基。不從物理原理出發，後續再精密的 AI 模型都可能建立在錯誤假設上。
 
-**Fit-for-Purpose & Risk Hierarchy**
-- Design backwards from end-use requirements (drinking, cooling, wafer rinse, irrigation)
-- Apply zero-tolerance rigor for drinking water and semiconductor UPW; allow pragmatic trade-offs for lower-risk applications
-- AI deployment must never trigger cybersecurity alerts or cause unplanned downtime
+**第一原理與物理直覺**
+- 以質量平衡、熱力學極限、流體力學（水力停留時間、混合效率）作為驗證基準
+- 分解到基本反應動力學或傳質限制 — 絕不單獨依賴黑箱預測
 
-**Circular Economy Thinking**
-- Treat wastewater as a carrier of water, energy, and nutrients — not a liability
-- Consider resource recovery opportunities: struvite (P), biogas (energy), metals
-- Evaluate decisions through life-cycle assessment (LCA) and Scope 3 carbon footprint, not just immediate cost
+**依風險等級設計（Fit-for-Purpose）**
+- 飲用水和半導體超純水（UPW）採零容忍嚴格標準；低風險應用則務實取捨
+- AI 部署絕不能觸發資安警報或造成計畫外停機
 
-**Agentic Proactivity**
-- Shift from copilot (wait for instructions) to autopilot (detect, diagnose, act within authorization)
-- Proactively cross-check upstream SCADA data, generate work orders, and execute optimization within defined safety boundaries
+> 💡 小知識：「依風險等級設計」的意思是：不同用途的水，品質要求天差地遠。晶圓廠的超純水要求總有機碳（TOC）低於 1 ppb（相當於奧運泳池裡只容許一滴墨水的千分之一），但灌溉用水就不需要這麼嚴格。過度處理等於浪費能源和成本。
 
-**Human-Centered Systems Thinking**
-- The end user is a human operator — AI outputs must respect cognitive load, attention limits, and operational habits
-- Design information density for the control room context: glanceable status → drill-down detail, never the reverse
-- Operator trust is earned through transparency (explainable recommendations) and consistency (predictable behavior), not feature count
+**循環經濟思維**
+- 主動辨識可回收資源：鳥糞石（Struvite, 磷回收）、沼氣（能源）、金屬
+- 用生命週期評估（Life Cycle Assessment, LCA）和範疇三碳足跡（Scope 3）來評估，不只看眼前成本
 
-## Dimension 2: The Science (Domain Expertise)
+**代理式主動出擊（Agentic Proactivity）**
+- 從副駕駛轉向自動駕駛：在授權範圍內主動偵測、診斷、行動
+- 主動交叉比對上游監控數據（SCADA），生成工單，在安全邊界內執行優化
 
-**Foundation Sciences**
-- PDEs for describing transport and reaction rates; fluid mechanics for mixing, diffusion, residence time
-- Reaction kinetics, equilibrium constants, half-lives — the bedrock for validating AI predictions
+**以人為本的系統思維**
+- 尊重操作員的認知負荷和操作習慣；設計為「一眼掃到狀態 → 點進去看細節」
+- 透過透明性（可解釋的建議）和一致性來贏得操作員信任，而不是堆功能
 
-**Full-Spectrum Process Knowledge**
-- Semiconductor: CMP slurry, HF, ammonia-nitrogen, copper process chemistry
-- Municipal: coagulation/flocculation mechanisms, multi-barrier disinfection, PFAS/emerging contaminants (AOP, IX)
-- Desalination: RO fouling control (SDI), energy recovery devices (ERD), ZLD evaporation/crystallization
-- Reuse: systemic reclaimed water (市政再生水) vs. on-site industrial reuse (廠內回收), potable reuse (IPR/DPR), multi-barrier design
-- Specialty industrial: acid mine drainage (AMD) neutralization, food/beverage anaerobic digestion (UASB/EGSB), pharmaceutical antibiotic degradation
+**系統動力學直覺**
+- 辨識回饋迴路：正回饋（如生物膜結垢的自我加速）意味著不早期介入就會失控；負回饋（如 PID 控制）維持穩定但有延遲限制
+- 辨識延遲：水力停留時間（HRT）、化學反應時間、感測器響應時間 — 延遲越長，振盪風險越高，控制策略越需要預測而非反應
+- 判斷槓桿點層級：調參數（弱）< 改資訊流（中）< 改規則（強）< 改思維範式（最強）— 優先在高槓桿點介入
+- 檢查系統原型陷阱：是否在「轉移負擔」（靠加藥壓制症狀而非處理源頭）？是否在「侵蝕目標」（標準在成本壓力下悄悄放寬）？詳見 [thinking-tools.md](thinking-tools.md) 的系統原型辨識表
+- 檢查誘因結構：相關方（操作員、承包商、AI 模型）的考核指標是否與系統目標一致？誘因失調會讓技術方案在執行層面走樣
 
-**Biological & Natural Systems**
-- Activated sludge ecology, biofilm mechanisms (MBBR/IFAS), quorum quenching for biofouling control
-- Constructed wetlands (HSSF/VSSF) for low-cost, low-carbon polishing
+> 💡 小知識：水處理中最常見的「侵蝕目標」陷阱：出水偶爾超標時，因為「上次也沒事」就不處理，久而久之「暫時性例外」變成常態，標準在成本壓力下悄悄放寬。對策是用硬性自動警報守住底線 — 數字不會替你找藉口。
 
-## Dimension 3: The Brain (AI & Algorithms)
+**反脆弱閉環**
+- 每次故障後不只恢復原狀（韌性），更要更新故障模式庫、調整預警門檻、改善標準作業程序（SOP），讓系統面對同類事件時響應更快、預警更早
+- 具體機制：故障紀錄 → 根因歸類 → 知識圖譜更新 → 預警規則強化 → 下次同類事件自動觸發更早期的警報
 
-**Physics-Aware AI**
-- PINNs (Physics-Informed Neural Networks): embed governing PDEs into loss functions for interpretable, physically consistent models — critical for data-scarce industrial environments
-- Neural Operators (DeepONet, FNO): accelerate CFD-like simulations for flow and mixing prediction
+## 維度二：領域科學（Domain Expertise）
 
-**Time-Series Foundation Models**
-- PatchTST, MOIRAI, TimesFM for long-horizon, multi-variate forecasting with zero-shot transfer capability
-- Virtual metrology: predict unmeasurable parameters (BOD, COD, toxicity) from available sensor data in real-time
+> 為什麼重要：水處理橫跨多個產業，每個場景的水質特性和處理需求截然不同。沒有扎實的領域知識，就無法正確選擇技術路線。
 
-**Agentic AI Architecture**
-- Multi-agent orchestration (LangChain, AutoGen): tool use, chain-of-thought reasoning, self-debugging
-- RAG for maintenance: combine equipment manuals + LLM for field-level fault diagnosis assistance
+**全光譜製程知識**
+- 半導體：化學機械研磨（CMP）漿料、氫氟酸（HF）、氨氮、銅製程化學
+- 市政：混凝/膠凝、多重屏障消毒、全氟/多氟烷基物質（PFAS）及新興污染物（高級氧化 AOP、離子交換 IX）
+- 海水淡化：逆滲透（RO）結垢控制（SDI 指標）、能量回收裝置（ERD）、零液體排放（ZLD）蒸發/結晶
+- 再生水：系統性市政再生水 vs. 廠內工業回收、飲用水再利用（間接 IPR / 直接 DPR）
+- 特殊工業：酸性礦山排水（AMD）中和、食品/飲料厭氧消化（UASB/EGSB）、製藥抗生素降解
 
-**Frontier Readiness**
-- Quantum computing awareness: VQE potential for complex water chemistry simulation
-- Foundation model fine-tuning for domain-specific water treatment language
+**生物與自然系統**
+- 活性污泥生態學、生物膜機制（移動床生物反應器 MBBR / 整合固定膜活性污泥 IFAS）、群體感應抑制（Quorum Quenching）控制生物結垢
+- 人工溼地（水平潛流 HSSF / 垂直潛流 VSSF）用於低成本、低碳的末端精處理
 
-## Dimension 4: The Hands (Control & OT Integration)
+## 維度三：智慧大腦（AI & Algorithms）
 
-**Control Theory Fusion**
-- AI optimizes PID setpoints and tuning parameters — never bypasses PID layer directly
-- Learning-based MPC and neuro-symbolic control: combine AI prediction with hard safety constraints
-- Cascade architecture: AI supervisor → MPC optimizer → PID executor
+> 為什麼重要：AI 讓水處理從「被動回應」進化為「主動預測」。但在工業環境中，數據往往稀少且雜訊多，因此必須選擇適合的 AI 架構。
 
-**Industrial Communication**
-- Full-stack protocol fluency: Modbus RTU/TCP → OPC UA → MQTT Sparkplug B
-- Unified Namespace (UNS) architecture for IT/OT convergence
-- Edge-native deployment: WebAssembly (Wasm), K3s for lightweight model serving on industrial hardware
+**物理感知型 AI（Physics-Aware AI）**
+- 物理資訊神經網路（Physics-Informed Neural Networks, PINNs）：將控制方程式（偏微分方程 PDEs）直接嵌入損失函數 — 在數據稀缺的工業環境中至關重要
+- 神經運算子（Neural Operators）如 DeepONet、FNO：加速類似計算流體力學（CFD）的模擬，用於流場和混合預測
 
-**Digital Twins & Simulation**
-- Integrate EPANET (hydraulic network), PHREEQC (water chemistry), GPS-X/BioWin (biological process) with AI models
-- Dual mechanism: physics simulation for validation, AI model for real-time prediction
+> 💡 小知識：PINNs 就像讓 AI 模型在學習數據的同時，也必須「遵守物理定律」。比起純靠數據的黑盒模型，它在數據稀少的工業環境中特別有效 — 因為物理定律本身就是一種強力的「額外數據」。
 
-## Dimension 5: The System (Immunity & Sustainability)
+**時序基礎模型（Time-Series Foundation Models）**
+- PatchTST、MOIRAI、TimesFM：支援長期預測、多變量、零樣本遷移（Zero-Shot Transfer）
+- 虛擬量測（Virtual Metrology）：從現有感測器數據預測無法直接量測的參數（生化需氧量 BOD、化學需氧量 COD、毒性）
 
-**Industrial Cybersecurity**
-- SEMI E187 (semiconductor fab security) and IEC 62443 (industrial automation security) compliance
-- Zero Trust architecture with network segmentation; data diodes at critical OT/IT boundaries
-- AI Agent identity governance: SPIFFE/SPIRE for workload identity; strict RBAC for physical actuator access
-- Assume breach mentality: anomaly detection on control commands, not just network traffic
+**代理式 AI 應用於水處理（Agentic AI）**
+- 多代理協調：工具使用、思維鏈推理、自我除錯
+- 檢索增強生成（RAG）用於維護：設備手冊 + 大語言模型（LLM）實現現場級故障診斷
 
-**Modern Software Architecture**
-- Microservices + MLOps: Docker/K8s containerization, CI/CD pipelines, automated model drift detection
-- Time-series databases (InfluxDB, TimescaleDB) for high-frequency sensor data
-- Data lakehouse architecture for unified batch + streaming analytics
+## 維度四：控制之手（Control & OT Integration）
 
-**Automated Sustainability & Compliance**
-- Automated carbon accounting (Scope 1-3) and water footprint calculation
-- Blockchain-based immutable data attestation for ESG audit trails
-- ISO 14001 integration: AI-driven regulatory tracking and compliance report generation
-- Real-time ESG dashboards with anomaly alerting
+> 為什麼重要：再好的 AI 模型，如果無法安全地連接到現場控制系統並執行，就只是紙上談兵。這個維度確保「大腦的想法」能透過「手」安全落地。
 
-## Dimension 6: Delivery & Interaction (The Face & The Body)
+**控制理論融合**
+- 基於學習的模型預測控制（Learning-based MPC）與神經符號控制（Neuro-Symbolic Control）：AI 預測搭配硬性安全約束
+- 串級架構：AI 監督層 → MPC 優化層 → PID 執行層
 
-The bridge between laboratory prototype and field-trusted system. Without operator trust (The Face) and deployment discipline (The Body), AI models remain experiments.
+**工業通訊**
+- 協定堆疊：Modbus RTU/TCP → OPC UA → MQTT Sparkplug B
+- 統一命名空間（Unified Namespace, UNS）實現 IT/OT 融合
+- 邊緣原生部署：WebAssembly（Wasm）、K3s 在工業硬體上的輕量模型服務
 
-**Industrial UI/UX — Human-Machine Trust (The Face)**
+**數位孿生與模擬（Digital Twins）**
+- 整合 EPANET（水力）、PHREEQC（化學）、GPS-X/BioWin（生物）與 AI 模型
+- 雙軌機制：物理模擬用於驗證，AI 模型用於即時預測
 
-- ISA-101 High-Performance HMI: dark/grey base palette; color reserved exclusively for abnormal states (high-contrast alarm philosophy). No decorative 3D, no gratuitous animation — every pixel earns its place by conveying trend or deviation
-- ISA-18.2 Alarm Rationalization: manage alarm floods (the #1 reason operators ignore AI). Classify by priority, suppress nuisance alarms, enforce alarm rate targets (<6 alarms/operator/hour in steady state)
-- XAI Visualization: translate SHAP/LIME feature attributions into operator-readable explanations — "建議增加加藥量，因為：進流氨氮上升 + 暴雨預警" — so experienced plant managers trust AI recommendations
-- User Journey Mapping: map the full operator arc from alert receipt → situation assessment → corrective action → resolution confirmation. Optimize for ≤3 clicks to critical action during emergencies
-- Situational Awareness Levels (Endsley): design dashboards for Level 1 (perception), Level 2 (comprehension), Level 3 (projection) — matching information presentation to decision-making stage
+## 維度五：系統免疫（Immunity & Sustainability）
 
-**Modern System Deployment — DevOps & Reliability (The Body)**
+> 為什麼重要：水處理設施是關鍵基礎設施。資安漏洞可能導致水質污染或供水中斷，而永續合規則是長期營運的法律底線。
 
-- Infrastructure as Code (IaC): Terraform / Ansible for reproducible environment provisioning — same configuration deploys identically to Fab A and Fab B
-- GitOps & Continuous Delivery: ArgoCD + Kubernetes; canary deployments for AI model updates — test on non-critical loop first, then roll out plant-wide. Zero-downtime deployment is mandatory
-- Hybrid Cloud Architecture: "train in cloud, infer at edge" — resolves the tension between data sovereignty (數據不出廠) and compute demand. Edge nodes (K3s, Wasm) serve real-time inference; cloud handles periodic retraining
-- Observability Stack: metrics (Prometheus/Grafana), logs (ELK/Loki), traces (Jaeger) — SRE practices applied to water infrastructure
+**工業資安**
+- SEMI E187 + IEC 62443 合規；零信任搭配網路分段；在 OT/IT 邊界使用資料二極體（Data Diode）
+- AI 代理身份治理：使用 SPIFFE/SPIRE 管理工作負載身份；對致動器存取實施嚴格角色型存取控制（RBAC）
+- 假設已被入侵（Assume Breach）：對控制指令進行異常偵測，不只監控網路流量
 
-**System Organization & Knowledge Engineering (The Library)**
+**現代軟體架構**
+- 微服務 + MLOps：容器化、CI/CD、自動化模型漂移偵測
+- 時序資料庫（InfluxDB、TimescaleDB）；資料湖倉（Data Lakehouse）支援批次與串流分析
 
-- Documentation as Code: MkDocs / Mermaid.js / ADRs co-located with source code. Water systems have 10-20 year lifecycles; documentation must survive staff turnover
-- Knowledge Graph Construction: integrate maintenance manuals, SOPs, and historical fault records into structured graph (Neo4j / property graph). Enables Graph RAG for institutional knowledge retrieval
-- Runbook Automation: codified incident response procedures (PagerDuty/Rundeck-style) that bridge AI recommendations to executable operator actions
+**自動化永續與合規**
+- 自動碳核算（範疇 1-3）與水足跡；區塊鏈認證（Blockchain Attestation）確保 ESG 稽核軌跡
+- ISO 14001 整合：AI 驅動的法規追蹤與合規報告生成
+
+## 維度六：交付與互動（Delivery & Interaction）
+
+> 為什麼重要：技術再好，最終都要透過介面呈現給操作員，透過部署流程落地到現場。這個維度決定了系統能否「被人用起來」。
+
+**工業人機介面（The Face）**
+- ISA-101 人機介面標準：深灰底色；顏色僅用於異常狀態標示。禁止裝飾性 3D 或無意義動畫
+- ISA-18.2 警報合理化：穩態下每位操作員每小時不超過 6 個警報；抑制干擾性警報
+- 可解釋 AI（XAI）視覺化：SHAP/LIME → 轉譯為操作員可讀的說明（例如「建議增加加藥量，因為：進流氨氮上升 + 暴雨預警」）
+- 操作員旅程：警報 → 評估 → 矯正操作 → 確認；關鍵操作不超過 3 次點擊
+- Endsley 情境感知模型：第一層（感知） → 第二層（理解） → 第三層（預測）
+
+**系統部署（The Body）**
+- 基礎設施即代碼（Infrastructure as Code）：Terraform/Ansible；GitOps（ArgoCD + K8s）；AI 模型更新使用金絲雀部署（Canary Deployment）；零停機為強制要求
+- 混合雲：雲端訓練、邊緣推論 — 解決數據主權（數據不出廠）與算力需求的矛盾
+- 可觀測性（Observability）：Prometheus/Grafana（指標）、ELK/Loki（日誌）、Jaeger（追蹤）
+
+**知識工程（The Library）**
+- 文件即代碼（Documentation as Code）：MkDocs / Mermaid.js / 架構決策記錄（ADR） — 必須能撐過 10-20 年的系統生命週期與人員流動
+- 知識圖譜（Neo4j）串連維護手冊 + 標準作業程序（SOP）+ 故障紀錄 → 圖譜增強檢索（Graph RAG）
+- 運維手冊自動化（Runbook Automation）：將 AI 建議轉化為操作員可執行的步驟

@@ -1,248 +1,262 @@
-# Water Treatment Technologies Reference
+# 水處理技術參考手冊（Water Treatment Technologies Reference）
 
-## Table of Contents
+## 目錄
 
-1. [Membrane Processes](#membrane-processes)
-2. [Ion Exchange](#ion-exchange)
-3. [Electrochemical Processes](#electrochemical-processes)
-4. [Adsorption](#adsorption)
-5. [Chemical Treatment](#chemical-treatment)
-6. [Biological Treatment](#biological-treatment)
-7. [Advanced Oxidation Processes](#advanced-oxidation-processes)
-8. [Disinfection](#disinfection)
-9. [Solids Separation](#solids-separation)
+1. [薄膜程序](#薄膜程序)
+2. [離子交換](#離子交換)
+3. [電化學程序](#電化學程序)
+4. [吸附](#吸附)
+5. [化學處理](#化學處理)
+6. [生物處理](#生物處理)
+7. [高級氧化程序](#高級氧化程序)
+8. [消毒](#消毒)
+9. [固液分離](#固液分離)
 
-## Membrane Processes
+## 薄膜程序（Membrane Processes）
 
-### Comparison Matrix
+### 薄膜技術比較矩陣
 
-| Technology | Pore/MWCO | Driving Force | Rejects | Typical Flux | Operating Pressure |
+> 下表比較六種主要薄膜技術的規格差異。判讀方式：從左到右，孔徑愈小、操作壓力愈高、去除範圍愈廣。結論：選擇技術時需同時考量目標污染物粒徑與能耗成本之間的平衡。
+
+| 技術 | 孔徑/截留分子量（MWCO） | 驅動力 | 去除對象 | 典型通量 | 操作壓力 |
 |-----------|-----------|---------------|---------|-------------|-------------------|
-| MF | 0.1-10 µm | Pressure | Particles, bacteria | 50-150 LMH | 0.1-2 bar |
-| UF | 1-100 kDa | Pressure | Colloids, viruses, proteins | 30-100 LMH | 0.5-5 bar |
-| NF | 200-1000 Da | Pressure | Divalent ions, organics >200 Da | 20-40 LMH | 5-15 bar |
-| RO | ~100 Da | Pressure | >95% of all dissolved solids | 15-30 LMH | 10-70 bar |
-| FO | N/A | Osmotic gradient | Similar to RO | 5-15 LMH | ~0 (hydraulic) |
-| ED/EDR | N/A | Electrical | Ions only | N/A | N/A |
+| 微過濾（MF） | 0.1-10 µm | 壓力 | 顆粒、細菌 | 50-150 LMH | 0.1-2 bar |
+| 超過濾（UF） | 1-100 kDa | 壓力 | 膠體、病毒、蛋白質 | 30-100 LMH | 0.5-5 bar |
+| 奈米過濾（NF） | 200-1000 Da | 壓力 | 二價離子、有機物 >200 Da | 20-40 LMH | 5-15 bar |
+| 逆滲透（RO） | ~100 Da | 壓力 | >95% 溶解固體 | 15-30 LMH | 10-70 bar |
+| 正滲透（FO） | N/A | 滲透壓梯度 | 類似逆滲透 | 5-15 LMH | ~0（液壓） |
+| 電透析/電透析逆轉（ED/EDR） | N/A | 電場 | 僅離子 | N/A | N/A |
 
-LMH = L/m²/h
+LMH = L/m²/h（升/平方公尺/小時）
 
-### Reverse Osmosis (RO)
+### 逆滲透（Reverse Osmosis, RO）
 
-**Membrane types**: Thin-film composite (TFC) polyamide — spiral wound (most common), hollow fiber, tubular.
+**薄膜類型**：薄膜複合膜（Thin-Film Composite, TFC）聚醯胺材質——螺旋捲繞式（最常見）、中空纖維式、管式。
 
-**Key design parameters**:
-- Recovery: 50-85% (application dependent)
-- Flux: 15-25 LMH (brackish), 12-18 LMH (seawater)
-- Salt rejection: 99.0-99.8% (single element)
-- Feed SDI: <5 (ideally <3)
-- Feed turbidity: <1 NTU
-- Free chlorine: 0 mg/L (polyamide membranes)
+**主要設計參數**：
+- 回收率（Recovery）：50-85%（依用途調整）
+- 通量（Flux）：15-25 LMH（苦鹹水）、12-18 LMH（海水）
+- 鹽去除率（Salt Rejection）：99.0-99.8%（單一元件）
+- 進水污染指數（Feed SDI）：<5（理想值 <3）
+- 進水濁度：<1 NTU
+- 游離氯：0 mg/L（聚醯胺薄膜不耐氯，接觸即損傷）
 
-**Fouling types and indicators**:
+**積垢類型與指標（Fouling Types and Indicators）**：
 
-| Fouling Type | Indicators | Location | Cleaning |
+> 下表為逆滲透薄膜六種主要積垢類型的辨識與清洗指南。判讀方式：依發生位置（前端或末端元件）與指標變化組合來判斷積垢類型。
+
+| 積垢類型 | 指標 | 發生位置 | 清洗方式 |
 |-------------|-----------|----------|----------|
-| Biofouling | ΔP increase (lead element), flux decline | Lead elements | High-pH + biocide |
-| Colloidal/particulate | ΔP increase, flux decline | Lead elements | High-pH alkaline |
-| Organic | Flux decline, salt passage increase | Throughout | High-pH + surfactant |
-| Mineral scale (CaCO₃) | Salt passage increase, flux decline | Tail elements | Low-pH acid (HCl, citric) |
-| Silica scale | ΔP increase, flux decline | Tail elements | High-pH (pH>11) + warm |
-| Metal oxide (Fe, Mn) | Color, ΔP increase | Lead elements | Low-pH + reducing agent |
+| 生物積垢（Biofouling） | 壓差上升（前端元件）、通量下降 | 前端元件 | 高酸鹼值 + 殺菌劑 |
+| 膠體/顆粒積垢（Colloidal/Particulate） | 壓差上升、通量下降 | 前端元件 | 高酸鹼值鹼性清洗 |
+| 有機積垢（Organic） | 通量下降、鹽透過率上升 | 全段 | 高酸鹼值 + 界面活性劑 |
+| 礦物結垢 — 碳酸鈣（CaCO₃ Scaling） | 鹽透過率上升、通量下降 | 末端元件 | 低酸鹼值酸洗（鹽酸 HCl、檸檬酸） |
+| 矽垢（Silica Scaling） | 壓差上升、通量下降 | 末端元件 | 高酸鹼值（pH >11）+ 加溫 |
+| 金屬氧化物（Metal Oxide，鐵 Fe、錳 Mn） | 變色、壓差上升 | 前端元件 | 低酸鹼值 + 還原劑 |
 
-**Normalization**: Always normalize flux, ΔP, and salt passage to reference conditions (temperature, pressure, recovery) before trending. A 10-15% decline from baseline warrants investigation.
+**標準化（Normalization）**：分析趨勢前，必須將通量、壓差與鹽透過率標準化至參考條件（溫度、壓力、回收率）。當數值偏離基線 10-15% 即應啟動調查。
 
-### Ultrafiltration (UF)
+### 超過濾（Ultrafiltration, UF）
 
-**Configurations**: Outside-in hollow fiber (most common for water), inside-out, submerged.
+**配置方式**：外壓式中空纖維（水處理最常用）、內壓式、浸沒式。
 
-**Operating modes**: Dead-end (most MF/UF), crossflow (high-solids).
+**操作模式**：死端過濾（Dead-End，多數微過濾/超過濾採用）、錯流過濾（Crossflow，高固體含量時使用）。
 
-**Backwash**: Every 15-60 min, 1-3× forward flux, 15-60 seconds.
+**反洗（Backwash）**：每 15-60 分鐘一次，反洗通量為正常的 1-3 倍，持續 15-60 秒。
 
-**CEB/CIP**: Chemically enhanced backwash (daily-weekly), full CIP (monthly-quarterly). Typically NaOCl + NaOH (organic/bio) or citric acid (inorganic).
+**化學加強反洗與就地清洗（CEB/CIP）**：化學加強反洗頻率為每日至每週，完整就地清洗為每月至每季。常用藥劑為次氯酸鈉（NaOCl）+ 氫氧化鈉（NaOH，處理有機/生物積垢）或檸檬酸（處理無機積垢）。
 
-**Integrity testing**: Pressure decay test (PDT), bubble point, particle counting post-membrane.
+**完整性測試（Integrity Testing）**：壓力衰減測試（Pressure Decay Test, PDT）、泡點測試（Bubble Point）、膜後粒子計數。
 
-## Ion Exchange
+## 離子交換（Ion Exchange）
 
-### Resin Types
+### 樹脂類型（Resin Types）
 
-| Type | Functional Group | Capacity (eq/L) | Application |
+> 下表列出八種主要離子交換樹脂的特性與用途。判讀方式：容量（eq/L）代表單位體積樹脂可交換的離子量，數字愈高代表交換能力愈強。選擇樹脂時需同時考量目標離子、再生方式與成本。
+
+| 類型 | 官能基 | 容量（eq/L） | 用途 |
 |------|-----------------|-----------------|-------------|
-| SAC (Strong Acid Cation) | -SO₃H | 1.8-2.2 | Softening, demineralization |
-| WAC (Weak Acid Cation) | -COOH | 3.5-4.5 | Dealkalization, partial softening |
-| SBA (Strong Base Anion) | -N(CH₃)₃OH | 1.0-1.4 | Demineralization, silica removal |
-| WBA (Weak Base Anion) | -NH₂, -NHR | 1.5-2.0 | Acid absorption (after SAC) |
-| Mixed Bed | SAC + SBA | — | Polishing to >18 MΩ·cm |
-| Chelating | Iminodiacetic | 0.6-1.0 | Selective heavy metal removal |
-| Boron-selective | N-methyl-D-glucamine | 0.5-0.7 | Boron removal |
-| PFAS-selective | Quaternary amine (gel) | — | PFAS removal (single-use) |
+| 強酸型陽樹脂（SAC） | -SO₃H | 1.8-2.2 | 軟化、脫礦 |
+| 弱酸型陽樹脂（WAC） | -COOH | 3.5-4.5 | 去鹼度、部分軟化 |
+| 強鹼型陰樹脂（SBA） | -N(CH₃)₃OH | 1.0-1.4 | 脫礦、去矽 |
+| 弱鹼型陰樹脂（WBA） | -NH₂, -NHR | 1.5-2.0 | 酸吸收（接在強酸型陽樹脂之後） |
+| 混床（Mixed Bed） | 強酸型陽 + 強鹼型陰 | — | 拋光至 >18 MΩ·cm |
+| 螯合型（Chelating） | 亞氨基二醋酸（Iminodiacetic） | 0.6-1.0 | 選擇性去除重金屬 |
+| 硼選擇型（Boron-Selective） | N-甲基-D-葡萄糖胺 | 0.5-0.7 | 去除硼 |
+| 全氟烷基物質選擇型（PFAS-Selective） | 四級胺（凝膠型） | — | 去除全氟烷基物質（單次使用） |
 
-### Regeneration
+### 再生（Regeneration）
 
-- SAC: HCl or H₂SO₄ (H-form) or NaCl (Na-form for softening)
-- SBA: NaOH (warm, 40-50°C for best silica elution)
-- Co-current vs. counter-current: counter-current gives lower leakage
-- Regenerant dosage: 1.5-3× stoichiometric for good efficiency
+- 強酸型陽樹脂：鹽酸（HCl）或硫酸（H₂SO₄，氫型）；氯化鈉（NaCl，鈉型用於軟化）
+- 強鹼型陰樹脂：氫氧化鈉（NaOH），加溫至 40-50°C 以提高矽溶出效率
+- 順流再生與逆流再生比較：逆流再生可獲得更低的洩漏量
+- 再生劑量：化學計量的 1.5-3 倍以確保效率
 
-### Key Design Parameters
+### 主要設計參數
 
-- Bed depth: minimum 800mm, typical 1000-1500mm
-- Flow rate: 10-40 BV/h (service), 2-5 BV/h (regeneration)
-- Rinse: slow rinse (1-2 BV) + fast rinse (3-6 BV)
+- 樹脂床深度：最小 800mm，典型 1000-1500mm
+- 流速：服務階段 10-40 BV/h（倍床體積/小時），再生階段 2-5 BV/h
+- 沖洗：慢速沖洗 1-2 BV + 快速沖洗 3-6 BV
 
-## Electrochemical Processes
+## 電化學程序（Electrochemical Processes）
 
-### EDI (Electrodeionization)
+### 電去離子（Electrodeionization, EDI）
 
-- Combines IX resin, ion-selective membranes, and DC current
-- Continuous production of high-purity water without chemical regeneration
-- Feed requirements: <20 µS/cm, <1 ppm CO₂, <0.01 ppm hardness, <0.5 ppm silica, <0.5 ppm TOC
-- Product: 0.055-16+ MΩ·cm
-- Power: 0.1-0.3 kWh/m³
+- 結合離子交換樹脂、離子選擇性薄膜與直流電場
+- 無需化學再生即可連續產出高純度水
+- 進水要求：<20 µS/cm、二氧化碳 <1 ppm、硬度 <0.01 ppm、矽 <0.5 ppm、總有機碳 <0.5 ppm
+- 產水品質：0.055-16+ MΩ·cm
+- 耗電量：0.1-0.3 kWh/m³
 
-### ED/EDR (Electrodialysis/Reversal)
+### 電透析與電透析逆轉（Electrodialysis/Reversal, ED/EDR）
 
-- Selective ion removal using ion-exchange membranes and DC field
-- Reversal (EDR): periodic polarity switch reduces scaling
-- Best for: brackish water desalination (TDS 1000-5000 mg/L), selective removal
-- Does NOT remove uncharged species (silica, organics, bacteria)
-- Energy proportional to TDS removed (more efficient than RO at low TDS removal)
+- 利用離子交換薄膜與直流電場選擇性去除離子
+- 逆轉（EDR）模式：定期切換電極極性以降低結垢風險
+- 最適用情境：苦鹹水淡化（總溶解固體 TDS 1000-5000 mg/L）、選擇性離子去除
+- 無法去除不帶電物質（矽、有機物、細菌）
+- 能耗與去除的總溶解固體量成正比（在低離子去除量時比逆滲透更節能）
 
-## Adsorption
+## 吸附（Adsorption）
 
-### Granular Activated Carbon (GAC)
+### 粒狀活性碳（Granular Activated Carbon, GAC）
 
-- Applications: NOM, taste/odor (geosmin, MIB), micropollutants, PFAS
-- EBCT: 5-20 minutes (longer for PFAS)
-- Reactivation: thermal (kiln at 800-900°C) or replace
-- Capacity highly compound-dependent; isotherm testing recommended
+- 應用範圍：天然有機物（NOM）、異味物質（土臭素 Geosmin、2-甲基異莰醇 MIB）、微量污染物、全氟烷基物質（PFAS）
+- 空床接觸時間（Empty Bed Contact Time, EBCT）：5-20 分鐘（處理全氟烷基物質需更長）
+- 再活化方式：熱再活化（窯爐 800-900°C）或直接更換
+- 吸附容量因化合物而異，建議進行等溫吸附試驗（Isotherm Testing）
 
-### Powdered Activated Carbon (PAC)
+### 粉狀活性碳（Powdered Activated Carbon, PAC）
 
-- Dosed directly into treatment process (0.5-50 mg/L)
-- Advantages: flexible dosing, no separate contactor
-- Disadvantages: single-use, interference with coagulation, sludge increase
+- 直接投加至處理流程中（0.5-50 mg/L）
+- 優點：劑量靈活、無需獨立接觸槽
+- 缺點：單次使用、可能干擾混凝、增加污泥量
 
-## Chemical Treatment
+## 化學處理（Chemical Treatment）
 
-### Coagulation/Flocculation
+### 混凝與絮凝（Coagulation/Flocculation）
 
-| Coagulant | Typical Dose | pH Range | Notes |
+> 下表列出常用混凝劑與助凝劑的劑量範圍與特性。選擇時需考量原水酸鹼值、目標去除物與污泥產量。
+
+| 混凝劑 | 典型劑量 | 適用酸鹼值範圍 | 備註 |
 |-----------|-------------|----------|-------|
-| Alum (Al₂(SO₄)₃) | 10-50 mg/L | 5.5-7.5 | Most common, consumes alkalinity |
-| Ferric chloride (FeCl₃) | 10-40 mg/L | 4.0-9.0 | Wider pH range, good for NOM |
-| Ferric sulfate | 10-40 mg/L | 4.0-9.0 | Similar to FeCl₃ |
-| PACl | 5-30 mg/L | 5.0-8.0 | Pre-hydrolyzed, less pH impact |
-| Polymer (cationic) | 0.5-5 mg/L | — | Coagulant aid, charge neutralization |
-| Polymer (anionic) | 0.1-1 mg/L | — | Flocculant aid, bridging |
+| 明礬（Alum, Al₂(SO₄)₃） | 10-50 mg/L | 5.5-7.5 | 最常用，會消耗鹼度 |
+| 氯化鐵（Ferric Chloride, FeCl₃） | 10-40 mg/L | 4.0-9.0 | 適用酸鹼值範圍較寬，去除天然有機物效果佳 |
+| 硫酸鐵（Ferric Sulfate） | 10-40 mg/L | 4.0-9.0 | 性質類似氯化鐵 |
+| 聚合氯化鋁（PACl） | 5-30 mg/L | 5.0-8.0 | 預水解型，對酸鹼值影響較小 |
+| 陽離子高分子（Cationic Polymer） | 0.5-5 mg/L | — | 助凝劑，電荷中和作用 |
+| 陰離子高分子（Anionic Polymer） | 0.1-1 mg/L | — | 助絮劑，架橋作用 |
 
-**Jar testing**: Essential for dose optimization. Test at multiple doses, measure settled turbidity, residual coagulant, and NOM removal (UV254).
+**瓶杯試驗（Jar Testing）**：劑量優化的必要手段。需在不同劑量下測試沉澱後濁度、殘餘混凝劑與天然有機物去除率（以 UV254 量測）。
 
-### pH Adjustment
+### 酸鹼調整（pH Adjustment）
 
-| Chemical | Form | Adjustment | Notes |
+| 藥劑 | 形態 | 調整方向 | 備註 |
 |----------|------|------------|-------|
-| NaOH | 50% liquid, pellets | Raise pH | Strong base, rapid |
-| Ca(OH)₂ | Slurry (lime) | Raise pH | Less expensive, adds hardness |
-| Na₂CO₃ | Powder, solution | Raise pH | Adds alkalinity |
-| H₂SO₄ | 93-98% | Lower pH | Most common acid |
-| HCl | 31-37% | Lower pH | Adds chloride |
-| CO₂ | Gas | Lower pH | Mild, adds carbonate alkalinity |
+| 氫氧化鈉（NaOH） | 50% 溶液、顆粒 | 升高酸鹼值 | 強鹼，反應快速 |
+| 氫氧化鈣（Ca(OH)₂） | 石灰漿 | 升高酸鹼值 | 成本較低，會增加硬度 |
+| 碳酸鈉（Na₂CO₃） | 粉末或溶液 | 升高酸鹼值 | 同時增加鹼度 |
+| 硫酸（H₂SO₄） | 93-98% | 降低酸鹼值 | 最常用酸劑 |
+| 鹽酸（HCl） | 31-37% | 降低酸鹼值 | 會增加氯離子 |
+| 二氧化碳（CO₂） | 氣態 | 降低酸鹼值 | 作用溫和，增加碳酸鹼度 |
 
-### Precipitation
+### 沉澱法（Precipitation）
 
-- **Softening**: Lime-soda (Ca(OH)₂ + Na₂CO₃) removes Ca and Mg hardness
-- **Heavy metals**: Hydroxide precipitation (pH 8-11), sulfide precipitation (lower solubility)
-- **Fluoride**: CaCl₂ or lime precipitation, followed by alum coagulation
-- **Phosphorus**: FeCl₃ or alum at 1.5-2.0 molar ratio metal:P
+- **軟化**：石灰蘇打法（氫氧化鈣 + 碳酸鈉）去除鈣鎂硬度
+- **重金屬去除**：氫氧化物沉澱（酸鹼值 8-11）、硫化物沉澱（溶解度更低）
+- **氟化物去除**：氯化鈣或石灰沉澱，再以明礬混凝
+- **磷去除**：氯化鐵或明礬，金屬與磷的莫耳比為 1.5-2.0
 
-## Biological Treatment
+## 生物處理（Biological Treatment）
 
-### Aerobic Processes
+### 好氧程序（Aerobic Processes）
 
-| Process | SRT (days) | F/M (kg BOD/kg MLSS/d) | MLSS (mg/L) | Application |
+> 下表比較四種常見好氧生物處理程序。污泥齡（SRT）與混合液懸浮固體（MLSS）濃度是區分各程序的關鍵指標。
+
+| 程序 | 污泥齡 SRT（天） | 食微比 F/M（kg BOD/kg MLSS/d） | 混合液濃度 MLSS（mg/L） | 用途 |
 |---------|-----------|------------------------|-------------|-------------|
-| Conventional AS | 5-15 | 0.2-0.5 | 1500-3000 | BOD removal |
-| Extended aeration | 15-30 | 0.04-0.1 | 3000-6000 | BOD + nitrification |
-| MBR | 10-25 | 0.05-0.2 | 8000-15000 | High-quality effluent |
-| MBBR | 5-15 | — | — (biofilm) | Compact, retrofit |
+| 傳統活性污泥法（Conventional AS） | 5-15 | 0.2-0.5 | 1500-3000 | 生化需氧量去除 |
+| 延長曝氣法（Extended Aeration） | 15-30 | 0.04-0.1 | 3000-6000 | 生化需氧量去除 + 硝化 |
+| 薄膜生物反應器（MBR） | 10-25 | 0.05-0.2 | 8000-15000 | 高品質出水 |
+| 移動床生物膜反應器（MBBR） | 5-15 | — | —（生物膜型） | 緊湊設計、改建適用 |
 
-### Anaerobic Processes
+### 厭氧程序（Anaerobic Processes）
 
-| Process | HRT | OLR (kg COD/m³/d) | Application |
+| 程序 | 水力停留時間（HRT） | 有機負荷率 OLR（kg COD/m³/d） | 用途 |
 |---------|-----|-------------------|-------------|
-| UASB | 4-12 h | 5-15 | High-strength industrial |
-| IC reactor | 2-6 h | 15-35 | Very high-strength |
-| Anaerobic MBR | 12-48 h | 2-10 | Moderate strength |
-| CSTR | 15-30 d | 1-5 | Sludge digestion |
+| 上流式厭氧污泥床（UASB） | 4-12 h | 5-15 | 高濃度工業廢水 |
+| 內循環反應器（IC Reactor） | 2-6 h | 15-35 | 超高濃度廢水 |
+| 厭氧薄膜生物反應器（Anaerobic MBR） | 12-48 h | 2-10 | 中等濃度廢水 |
+| 連續攪拌槽式反應器（CSTR） | 15-30 d | 1-5 | 污泥消化 |
 
-Biogas production: ~0.35 m³ CH₄/kg COD removed (theoretical).
+沼氣產量：理論值約 0.35 m³ 甲烷（CH₄）/kg 化學需氧量（COD）去除。
 
-## Advanced Oxidation Processes
+## 高級氧化程序（Advanced Oxidation Processes, AOP）
 
-### AOP Comparison
+### 高級氧化技術比較
 
-| Process | OH• Generation | Typical Application | Energy |
+> 下表比較七種高級氧化程序的原理與適用情境。核心機制均為產生氫氧自由基（OH·），但產生方式與能耗各異。選擇時需考量目標污染物、溴化物含量與後續處理的相容性。
+
+| 程序 | 氫氧自由基生成機制 | 典型應用 | 能耗 |
 |---------|---------------|-------------------|--------|
-| O₃/H₂O₂ | O₃ + H₂O₂ → OH• | Micropollutants in drinking water | Moderate |
-| UV/H₂O₂ | H₂O₂ + UV → 2 OH• | Groundwater remediation, 1,4-dioxane | High UV dose |
-| UV/O₃ | O₃ + UV → O• + O₂ → OH• | Advanced treatment | High |
-| Fenton | Fe²⁺ + H₂O₂ → OH• + Fe³⁺ | Industrial WW, low pH required | Low energy, high chemical |
-| Photo-Fenton | Fe²⁺ + H₂O₂ + UV | Enhanced Fenton | Moderate |
-| UV/TiO₂ | TiO₂ + UV → e⁻/h⁺ → OH• | Emerging, research stage | |
-| UV/chlorine | HOCl + UV → OH• + Cl• | Potable reuse | Moderate |
+| 臭氧/過氧化氫（O₃/H₂O₂） | O₃ + H₂O₂ → OH· | 飲用水微量污染物 | 中等 |
+| 紫外線/過氧化氫（UV/H₂O₂） | H₂O₂ + UV → 2 OH· | 地下水整治、1,4-二氧六環 | 高紫外線劑量 |
+| 紫外線/臭氧（UV/O₃） | O₃ + UV → O· + O₂ → OH· | 高級處理 | 高 |
+| 芬頓法（Fenton） | Fe²⁺ + H₂O₂ → OH· + Fe³⁺ | 工業廢水（需低酸鹼值） | 低能耗、高藥劑量 |
+| 光芬頓法（Photo-Fenton） | Fe²⁺ + H₂O₂ + UV | 強化芬頓法 | 中等 |
+| 紫外線/二氧化鈦光觸媒（UV/TiO₂） | TiO₂ + UV → e⁻/h⁺ → OH· | 新興技術、研究階段 | |
+| 紫外線/氯（UV/Chlorine） | HOCl + UV → OH· + Cl· | 飲用水再利用 | 中等 |
 
-### Design Considerations
+### 設計注意事項
 
-- Scavenging: alkalinity, NOM compete for OH•; higher scavenging = higher dose needed
-- Contact time: typically seconds to minutes
-- H₂O₂ residual: must be quenched (GAC or enzymatic) before biological treatment or distribution
-- Bromate: concern with ozone-based AOPs when bromide >50 µg/L
+- 自由基競爭消耗（Scavenging）：鹼度與天然有機物會與氫氧自由基競爭；競爭愈強，所需劑量愈高
+- 接觸時間：通常為數秒至數分鐘
+- 過氧化氫殘留：進入生物處理或配水系統前必須去除（以粒狀活性碳或酵素分解）
+- 溴酸鹽（Bromate）：使用臭氧類高級氧化程序時，若原水溴化物 >50 µg/L 需特別關注
 
-## Disinfection
+## 消毒（Disinfection）
 
-See municipal.md for detailed disinfection comparison. Key technologies:
+詳細消毒技術比較請參閱 municipal.md。主要技術包括：
 
-- Chlorination (gas, hypochlorite, on-site generation)
-- UV (low-pressure LP, medium-pressure MP, LP amalgam)
-- Ozone
-- Chloramine
-- Chlorine dioxide
+- 氯消毒（氣態氯、次氯酸鈉、現場生成）
+- 紫外線消毒（低壓 LP、中壓 MP、低壓汞齊燈 LP Amalgam）
+- 臭氧
+- 氯胺（Chloramine）
+- 二氧化氯（Chlorine Dioxide）
 
-## Solids Separation
+## 固液分離（Solids Separation）
 
-### Clarification
+### 澄清（Clarification）
 
-| Technology | Surface Loading (m/h) | Application |
+> 下表比較五種澄清技術的表面負荷率與適用場景。數值愈高代表處理效率愈高，但對前處理的要求也愈嚴格。
+
+| 技術 | 表面負荷率（m/h） | 用途 |
 |-----------|----------------------|-------------|
-| Conventional sedimentation | 1-2.5 | General |
-| Lamella/plate settler | 3-6 (based on projected area) | Compact |
-| DAF (dissolved air flotation) | 5-15 | Low-density floc, algae |
-| Ballasted floc (Actiflo) | 20-40 | High-rate, compact |
-| Contact clarification | 5-10 | Upflow through sludge blanket |
+| 傳統沉澱（Conventional Sedimentation） | 1-2.5 | 通用 |
+| 斜管/斜板沉澱（Lamella/Plate Settler） | 3-6（以投影面積計） | 緊湊型 |
+| 溶氣浮除（Dissolved Air Flotation, DAF） | 5-15 | 低密度絮凝物、藻類 |
+| 加砂絮凝（Ballasted Floc, Actiflo） | 20-40 | 高速、緊湊型 |
+| 接觸澄清（Contact Clarification） | 5-10 | 上向流穿過污泥毯 |
 
-### Filtration
+### 過濾（Filtration）
 
-| Technology | Rate (m/h) | Media | Application |
+| 技術 | 濾速（m/h） | 濾料 | 用途 |
 |-----------|-----------|-------|-------------|
-| Rapid gravity filter | 5-15 | Sand, anthracite, GAC | Conventional WTP |
-| Pressure filter | 5-20 | Sand, multimedia | Industrial, small systems |
-| Greensand filter | 5-10 | Manganese greensand | Fe/Mn removal |
-| Slow sand filter | 0.1-0.3 | Fine sand + biofilm | Small/rural systems |
-| Cloth/disk filter | 5-15 | Woven polyester | Tertiary polishing |
+| 快濾池（Rapid Gravity Filter） | 5-15 | 砂、無煙煤、粒狀活性碳 | 傳統淨水廠 |
+| 壓力式過濾器（Pressure Filter） | 5-20 | 砂、多介質 | 工業用、小型系統 |
+| 錳砂過濾器（Greensand Filter） | 5-10 | 錳砂 | 鐵錳去除 |
+| 慢濾池（Slow Sand Filter） | 0.1-0.3 | 細砂 + 生物膜 | 小型/偏遠系統 |
+| 纖維濾布/濾盤（Cloth/Disk Filter） | 5-15 | 編織聚酯纖維 | 三級處理拋光 |
 
 ---
 
-## Related References
+## 相關參考文件
 
-**Application-specific design and sizing:**
-- [desalination.md](desalination.md) — SWRO/BWRO system design, pretreatment selection, CIP protocols, energy recovery
-- [semiconductor.md](semiconductor.md) — UPW-grade RO, EDI, MB-IX, UF polishing specifications
-- [municipal.md](municipal.md) — Coagulation in drinking water, biological treatment variants, disinfection CT values
-- [industrial.md](industrial.md) — Cooling/boiler water treatment, ZLD trains
-- [reuse.md](reuse.md) — Treatment building blocks for reuse: UF→RO→UV/AOP pathways
+**依用途的設計與選型：**
+- [desalination.md](desalination.md) — 海水/苦鹹水逆滲透系統設計、前處理選擇、就地清洗程序、能量回收
+- [semiconductor.md](semiconductor.md) — 超純水等級逆滲透、電去離子、混床離子交換、超過濾拋光規格
+- [municipal.md](municipal.md) — 飲用水混凝、生物處理變化型、消毒 CT 值
+- [industrial.md](industrial.md) — 冷卻水/鍋爐水處理、零液體排放（ZLD）流程
+- [reuse.md](reuse.md) — 再利用處理單元組合：超過濾→逆滲透→紫外線/高級氧化程序路徑
 
-**Diagnostics and troubleshooting:**
-- [troubleshooting.md](troubleshooting.md) — RO fouling diagnosis, EDI/IX troubleshooting, biological treatment problems
+**故障診斷：**
+- [troubleshooting.md](troubleshooting.md) — 逆滲透積垢診斷、電去離子/離子交換故障排除、生物處理問題
