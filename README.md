@@ -272,6 +272,76 @@ ClawPilot — your OpenClaw copilot. Security-first agent skill for AI coding as
 - Channel setup for 14+ chat platforms
 - ClawHub skill discovery and installation
 
+### agent-browser
+
+Browser automation CLI for AI agents. Navigate pages, fill forms, click buttons, take screenshots, and extract data programmatically.
+
+**Key Features:**
+- Page navigation and interaction (click, type, scroll)
+- Screenshot capture and visual validation
+- Form filling and data extraction
+- Web application testing automation
+
+### obsidian-vault-manager
+
+Obsidian vault maintenance and personal knowledge management consultant. Flexibly combines Obsidian CLI and Claude Code tools to automate vault operations.
+
+**Key Features:**
+- Vault health check and orphan note detection
+- Tag cleanup and reorganization
+- Map of Content (MOC) generation
+- Simplified Chinese to Traditional Chinese conversion (zh-CN → zh-TW)
+
+### tsmc-research-notes
+
+Semiconductor CuCMP research note organizer. Transforms analysis results into standalone, self-contained Obsidian knowledge notes from a senior fab engineer + AI expert perspective.
+
+**Key Features:**
+- First-person research narrative style
+- Cross-domain knowledge transfer documentation
+- Obsidian-native formatting with wikilinks and tags
+- CuCMP dosing research notebook structuring
+
+### crisp-reading
+
+CRISP Reading — AI deep reading companion. Analyzes books and produces interactive HTML reading reports.
+
+**Three ways to read:**
+
+| Input | What happens |
+|-------|-------------|
+| PDF / EPUB file | Extract full text → deep analysis → HTML report |
+| Book title only | Auto-search 70,000+ public domain books via Gutendex API → download full text → same deep analysis |
+| Book title (not in library) | Analyze based on Claude's knowledge, clearly labeled |
+
+The public domain library includes 444+ Chinese classics (Romance of the Three Kingdoms, Journey to the West, Dream of the Red Chamber, etc.) and tens of thousands of English works. CJK title search is fully supported.
+
+**Key Features:**
+- Integrates multiple reading methodologies (Adler, TIPS, Zettelkasten, Steel-Manning)
+- TIPS four-dimension scoring (Toolability, Inspirability, Practicality, Scientificity)
+- PDF/EPUB text extraction with automatic chunking for large books
+- Interactive HTML report with dark mode and Copy as Markdown
+
+### pptx
+
+Comprehensive PowerPoint creation, editing, and analysis.
+
+**Key Features:**
+- Read/analyze with markitdown, edit with python-pptx, create with PptxGenJS
+- Template-based editing preserving layouts and styles
+- Speaker notes, comments, and slide manipulation
+- Multiple creation approaches for different complexity levels
+
+### zeabur
+
+Zeabur cloud platform deployment assistant. Manage deployments, services, domains, and templates via CLI and GraphQL API.
+
+**Key Features:**
+- Application deployment (Git, Docker, local upload, templates)
+- Service management via CLI (`npx zeabur`) and GraphQL API
+- Domain configuration, environment variables, and networking
+- Template YAML spec creation and CI/CD pipeline setup
+
 ## Installation
 
 ### Using Skills CLI (Recommended)
@@ -575,6 +645,76 @@ ClawPilot — OpenClaw 的 AI 副駕。安全優先的 Agent 技能，適用於�
 - 雲端部署指南（AWS、GCP、Fly.io、Docker）與遠端存取（Tailscale/SSH）
 - 支援 14+ 聊天平台的頻道設定
 - ClawHub 技能探索與安裝
+
+### agent-browser
+
+瀏覽器自動化 CLI，專為 AI 代理設計。支援頁面導航、表單填寫、按鈕點擊、截圖擷取與資料提取。
+
+**主要特色：**
+- 頁面導航與互動（點擊、輸入、捲動）
+- 截圖擷取與視覺驗證
+- 表單填寫與資料提取
+- 網頁應用程式測試自動化
+
+### obsidian-vault-manager
+
+Obsidian 保管庫維運與個人知識管理顧問。靈活運用 Obsidian CLI 和 Claude Code 工具，自動選擇最佳工具來完成任務。
+
+**主要特色：**
+- 保管庫健康檢查與孤立筆記偵測
+- 標籤清理與重新整理
+- 內容地圖（MOC）自動生成
+- 簡體中文轉繁體中文（zh-CN → zh-TW）
+
+### tsmc-research-notes
+
+半導體 CuCMP 研究筆記整理工具。以資深廠務工程師加 AI 專家的第一人稱視角，將研究過程中的分析成果轉化為獨立、自足的 Obsidian 知識筆記。
+
+**主要特色：**
+- 第一人稱研究敘事風格
+- 跨域知識傳承文件化
+- Obsidian 原生格式（wikilinks 與標籤）
+- CuCMP 加藥研究筆記結構化
+
+### crisp-reading
+
+CRISP Reading — AI 深度閱讀夥伴。分析書籍並產出互動式 HTML 閱讀報告。
+
+**三種閱讀方式：**
+
+| 輸入 | 發生什麼事 |
+|------|-----------|
+| PDF / EPUB 檔案 | 提取全文 → 深度分析 → HTML 報告 |
+| 僅輸入書名 | 自動搜尋 70,000+ 冊公共領域書籍（Gutendex API）→ 下載全文 → 同樣的深度分析 |
+| 僅書名（書庫無收錄） | 依 Claude 知識分析，報告中明確標示 |
+
+公共領域書庫收錄 444+ 冊中文古典文學（三國演義、西遊記、紅樓夢、老殘遊記等）及數萬冊英文作品。完整支援中日韓書名搜尋。
+
+**主要特色：**
+- 整合多種閱讀分析方法論（Adler、TIPS、Zettelkasten、Steel-Manning）
+- TIPS 四維度評分（工具性、啟發性、實用性、科學性）
+- PDF/EPUB 文字提取，支援大型書籍自動分塊處理
+- 互動式 HTML 報告，支援深色模式與 Copy as Markdown
+
+### pptx
+
+全方位 PowerPoint 簡報建立、編輯與分析。
+
+**主要特色：**
+- 讀取分析用 markitdown，編輯用 python-pptx，建立用 PptxGenJS
+- 模板編輯保留原有版面與樣式
+- 講者備註、註解與投影片操作
+- 多種建立方式對應不同複雜度需求
+
+### zeabur
+
+Zeabur 雲端平台部署助手。透過 CLI 和 GraphQL API 管理部署、服務、域名與模板。
+
+**主要特色：**
+- 應用程式部署（Git、Docker、本地上傳、模板）
+- 透過 CLI（`npx zeabur`）和 GraphQL API 管理服務
+- 域名設定、環境變數與網路配置
+- 模板 YAML 規格建立與 CI/CD 管線設定
 
 ## 安裝方式
 

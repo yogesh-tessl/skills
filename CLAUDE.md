@@ -14,6 +14,7 @@ skills/                          ← git repo root
 │   ├── .system/                 ← system-level tools (hidden)
 │   │   ├── skill-creator/
 │   │   └── skill-installer/
+│   ├── agent-browser/
 │   ├── aipoint-brand-guide/
 │   ├── docx/
 │   ├── document-to-markdown/
@@ -31,6 +32,7 @@ skills/                          ← git repo root
 │   │   ├── SKILL.md
 │   │   ├── scripts/
 │   │   └── references/
+│   ├── obsidian-vault-manager/
 │   ├── pdf/
 │   ├── planning-with-files/
 │   ├── quality-check/
@@ -40,10 +42,12 @@ skills/                          ← git repo root
 │   │   ├── SKILL.md
 │   │   └── references/
 │   ├── theme-factory/
+│   ├── tsmc-research-notes/
 │   ├── ui-ux-pro-max/
 │   ├── vscode-extension-uiux/
 │   ├── web-design-guidelines/
-│   └── xlsx/
+│   ├── xlsx/
+│   └── zeabur/
 ├── screenshots/
 ├── install.sh
 ├── CLAUDE.md
