@@ -197,11 +197,7 @@ Mental models for understanding human behavior, cognition, and biases.
 - **Example**: "I aced the test because I'm smart; I failed because it was unfair"
 
 ### 27. Sunk Cost Fallacy
-**Principle**: Continue because of past investment, not future value.
-- "We've come too far to stop"
-- Past costs are gone; only future matters
-- **Counter**: Ask "Would I start fresh today?"
-- **Example**: Finishing bad movie because you paid for ticket
+See [decisions.md → #17 Sunk Cost Fallacy](decisions.md#17-sunk-cost-fallacy) — listed under Trade-off Analysis. In psychology context: driven by loss aversion and commitment bias.
 
 ---
 

@@ -96,35 +96,40 @@ Mental models for making better choices under uncertainty.
 - Surfaces hidden assumptions
 - **Example**: Before acquisition, assign team to argue against it
 
+### 14. Six Thinking Hats (De Bono)
+**Principle**: Separate thinking into six parallel modes instead of arguing mixed viewpoints.
+- **White** (facts) → **Red** (feelings) → **Black** (risks) → **Yellow** (benefits) → **Green** (creativity) → **Blue** (process/meta)
+- Everyone wears the same hat at the same time, then switches together
+- Always begin and end with Blue Hat; use Yellow before Black
+- **Key rule**: One hat at a time — no mixing modes
+- **Example**: Strategy meeting — Blue (agenda) → White (market data) → Yellow (opportunity) → Black (risks) → Green (solutions) → Red (gut check) → Blue (summary)
+
 ---
 
 ## Trade-off Analysis
 
-### 14. Opportunity Cost
-**Principle**: True cost = best alternative foregone.
-- Every choice has a hidden price
-- Time spent here can't be spent there
-- **Example**: $1M in the bank costs you market returns
+### 15. Opportunity Cost
+See [economics.md → #2 Opportunity Cost](economics.md#2-opportunity-cost) — foundational concept. In decision context: always ask "What am I giving up?" before committing resources.
 
-### 15. Marginal Thinking
+### 16. Marginal Thinking
 **Principle**: Evaluate decisions at the margin, not average.
 - "Should we produce one more unit?"
 - Ignore sunk costs; focus on incremental value
 - **Example**: Marginal revenue vs marginal cost for next sale
 
-### 16. Sunk Cost Fallacy
+### 17. Sunk Cost Fallacy
 **Principle**: Past costs shouldn't affect future decisions.
 - "We've invested too much to quit" is a trap
 - Only future costs and benefits matter
 - **Example**: Continuing a bad project because of prior investment
 
-### 17. Asymmetric Risk-Reward
+### 18. Asymmetric Risk-Reward
 **Principle**: Seek situations with limited downside, unlimited upside.
 - Lose $1 or win $100 = good bet at even odds
 - Taleb's barbell: very safe + very risky
 - **Example**: Small venture investments with 100x potential
 
-### 18. Satisficing vs Maximizing (Simon)
+### 19. Satisficing vs Maximizing (Simon)
 **Principle**: "Good enough" often beats "optimal."
 - Maximizing has diminishing returns and decision fatigue
 - Set a threshold; accept first option that meets it
@@ -134,25 +139,25 @@ Mental models for making better choices under uncertainty.
 
 ## Time & Reversibility
 
-### 19. Temporal Discounting
+### 20. Temporal Discounting
 **Principle**: We undervalue future relative to present.
 - $100 today feels worth more than $110 next year
 - Counter by visualizing future self vividly
 - **Example**: Retirement savings require overriding this bias
 
-### 20. Commitment Devices
+### 21. Commitment Devices
 **Principle**: Constrain future choices to ensure follow-through.
 - Remove the option to quit
 - Odysseus and the sirens
 - **Example**: Auto-deduct savings; delete social media apps
 
-### 21. Option Value
+### 22. Option Value
 **Principle**: Flexibility has value; don't foreclose options cheaply.
 - Keep doors open when cost is low
 - Irreversibility requires premium
 - **Example**: Month-to-month lease vs yearly at slight discount
 
-### 22. Weighted Decision Matrix
+### 23. Weighted Decision Matrix
 **Principle**: Score options against weighted criteria.
 1. List criteria and assign weights (total = 100%)
 2. Score each option per criterion (1-10)
@@ -160,12 +165,12 @@ Mental models for making better choices under uncertainty.
 4. Compare totals
 - **Example**: Job offers scored on salary (30%), growth (25%), culture (25%), location (20%)
 
-### 23. 10/10/10 Rule (Welch)
+### 24. 10/10/10 Rule (Welch)
 **Principle**: Consider how you'll feel in 10 minutes, 10 months, 10 years.
 - Balances short-term emotion with long-term perspective
 - **Example**: Quitting job in anger feels good (10 min), bad (10 months), depends (10 years)
 
-### 24. WRAP Framework (Heath)
+### 25. WRAP Framework (Heath)
 **Principle**: Widen options, Reality-test, Attain distance, Prepare to be wrong.
 1. **W**iden: Consider more alternatives
 2. **R**eality-test: Seek disconfirming evidence
@@ -179,6 +184,7 @@ Mental models for making better choices under uncertainty.
 | Situation | Recommended Models |
 |-----------|-------------------|
 | High stakes, irreversible | Pre-Mortem, Devil's Advocate, Inversion |
+| Group decision, multiple perspectives | Six Thinking Hats, Devil's Advocate |
 | Quick, reversible | Two-Way Door, Satisficing |
 | Under uncertainty | Probabilistic Thinking, Expected Value |
 | Long time horizon | Regret Minimization, 10/10/10 |

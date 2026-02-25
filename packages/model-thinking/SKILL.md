@@ -1,6 +1,6 @@
 ---
 name: model-thinking
-description: Mental models toolkit for clearer thinking, better decisions, and problem-solving. Use when users face complex problems, need decision support, want to analyze situations from multiple angles, organize information, understand systems, predict outcomes, or learn about specific mental models. Triggers include phrases like "help me think through", "analyze this problem", "what models apply here", "how should I decide", "evaluate options", or direct model references (e.g., "use second-order thinking", "apply inversion").
+description: Mental models toolkit for clearer thinking, better decisions, and problem-solving. Use when users face complex problems, need decision support, want to analyze situations from multiple angles, organize information, understand systems, predict outcomes, or learn about specific mental models. Triggers include phrases like "help me think through", "analyze this problem", "what models apply here", "how should I decide", "evaluate options", or direct model references (e.g., "use second-order thinking", "apply inversion"). 中文觸發：「思維模型」、「幫我分析」、「決策分析」、「多角度思考」、「怎麼判斷」、「幫我想清楚」、「系統思考」、「風險評估」。
 ---
 
 # Model Thinking
@@ -34,6 +34,7 @@ description: Mental models toolkit for clearer thinking, better decisions, and p
 | Uncertainty, tail events | [risk.md](references/risk.md) | statistics.md, psychology.md |
 | Acquiring knowledge, skills | [learning.md](references/learning.md) | psychology.md |
 | Markets, incentives | [economics.md](references/economics.md) | psychology.md, strategy.md |
+| Cross-domain synthesis, model pairing | [combinations.md](references/combinations.md) | All domain files as needed |
 
 ## Guided Mode: Diagnostic Questions
 
@@ -41,11 +42,11 @@ When problem is ambiguous, ask 2-3 from relevant domain:
 
 | Domain | Key Questions |
 |--------|---------------|
-| Decisions | Reversibility? Time horizon? Stakes? Stakeholders? |
-| Systems | Linear/non-linear? Feedback loops? Delays? Boundary? |
-| Strategy | Players? Game type (zero/positive-sum)? Info asymmetries? Incentives? |
-| Data | Sample size? Base rate? Selection bias? Signal vs noise? |
-| Risk | Fat tail or thin tail? Reversible? Ruin possible? |
+| Decisions | Reversibility? (能不能反悔？) Time horizon? (影響多久？) Stakes? (賭注多大？) Stakeholders? (誰會受影響？) |
+| Systems | Linear/non-linear? (結果跟投入成正比嗎？) Feedback loops? (有沒有自我強化或抑制的循環？) Delays? (行動到看見結果要多久？) Boundary? (問題的邊界畫在哪？) |
+| Strategy | Players? (有哪些參與者？) Game type? (零和還是共贏？) Info asymmetries? (誰知道得比較多？) Incentives? (各方動機是什麼？) |
+| Data | Sample size? (資料量夠嗎？) Base rate? (一般情況下機率多少？) Selection bias? (取樣有偏差嗎？) Signal vs noise? (訊號還是雜訊？) |
+| Risk | Fat tail or thin tail? (極端事件常見嗎？) Reversible? (損害能恢復嗎？) Ruin possible? (有沒有全軍覆沒的可能？) |
 
 ## Direct Application Template
 
@@ -82,6 +83,8 @@ When applying models directly:
 **When to Use**: [Situations]
 
 **Common Mistake**: [Key pitfall to avoid]
+
+**Practice Prompt**: [A question for the user to apply this model to their own situation]
 ```
 
 ## Multi-Model Synthesis Example
@@ -111,6 +114,8 @@ Before finalizing any analysis:
 
 ## Quick Reference: 10 Universal Models
 
+> Detailed explanations and application examples for each model are in the reference files listed in the [Reference File Selection](#reference-file-selection) table above.
+
 | Model | One-liner | Apply When |
 |-------|-----------|------------|
 | Inversion | Avoid stupidity rather than seek brilliance | Any decision |
@@ -124,4 +129,4 @@ Before finalizing any analysis:
 | Sunk Cost | Past costs are irrelevant | Decision-making |
 | Explore/Exploit | Balance new vs known | Resource allocation |
 
-For 200+ models organized by domain, load reference files above.
+For all models organized by domain, load reference files above. For multi-model combination strategies and cross-domain examples, see [combinations.md](references/combinations.md).
