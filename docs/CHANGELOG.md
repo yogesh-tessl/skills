@@ -8,6 +8,17 @@
 
 ## [Unreleased]
 
+### 修正
+- **crisp-reading** — 修正手機版 HTML 閱讀報告內容貼邊/截斷問題
+  - 根本原因：`.book-intro`、`.tips-scores`、`.toolbar`、`.section` 的 `padding` 簡寫覆蓋了 `.page` 的水平內距，全部改為 `padding-top`/`padding-bottom` 長寫形式
+  - `.header` 移除多餘水平 padding（內部 `.page` 已處理）
+  - 移除 `.book-intro__text` 冗餘的 `max-width`（父元素 `.page` 已限制）
+  - 手機版 `.page` 內距從 1.5rem 微調為 1.25rem，改善小螢幕比例
+  - 移除 `.tab-nav` 的 `mask-image`（會裁切第一個標籤文字），改用隱藏捲軸方案
+  - 新增 `safe-area-inset` 支援，適配瀏海/動態島裝置
+  - `.relations` 手機版 padding 縮減為 1rem
+  - 列印樣式同步改用長寫 padding 保持一致性
+
 ### 新增
 - **openclaw 技能** — 自託管 AI 閘道器（OpenClaw）專家技能
   - 支援 14 個聊天平台（WhatsApp、Telegram、Discord、Slack、iMessage、Signal、LINE、Matrix、Teams、Google Chat、Mattermost、BlueBubbles、Feishu、Zalo）

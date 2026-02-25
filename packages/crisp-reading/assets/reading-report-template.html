@@ -86,7 +86,8 @@
   .page {
     max-width: var(--width-content);
     margin: 0 auto;
-    padding: 0 1.5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
   }
 
   /* ===== Skip Link ===== */
@@ -110,7 +111,8 @@
   /* ===== Header ===== */
   .header {
     text-align: center;
-    padding: 4rem 1.5rem 3rem;
+    padding-top: 4rem;
+    padding-bottom: 3rem;
     border-bottom: 1px solid var(--color-rule);
   }
   .header__tag {
@@ -145,19 +147,20 @@
 
   /* ===== Book Introduction ===== */
   .book-intro {
-    padding: 2rem 0;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
     border-bottom: 1px solid var(--color-rule);
   }
   .book-intro__text {
     font-size: 0.95rem;
     color: var(--color-body);
     line-height: 1.85;
-    max-width: var(--width-content);
   }
 
   /* ===== TIPS Scores ===== */
   .tips-scores {
-    padding: 2rem 0;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
     border-bottom: 1px solid var(--color-rule);
   }
   .tips-scores__label {
@@ -223,7 +226,8 @@
     justify-content: center;
     align-items: center;
     gap: 1.5rem;
-    padding: 1.25rem 1.5rem;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
     border-bottom: 1px solid var(--color-rule);
     font-family: var(--font-sans);
     font-size: 0.8rem;
@@ -258,7 +262,8 @@
 
   /* ===== Section ===== */
   .section {
-    padding: var(--spacing-section) 0;
+    padding-top: var(--spacing-section);
+    padding-bottom: var(--spacing-section);
     border-bottom: 1px solid var(--color-rule);
   }
   .section:last-of-type {
@@ -594,22 +599,40 @@
   /* ===== Responsive ===== */
   @media (max-width: 640px) {
     html { font-size: 16px; }
-    .header { padding: 3rem 1rem 2.25rem; }
+    .page { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .header { padding-top: 3rem; padding-bottom: 2.25rem; }
     .header__title { font-size: 1.6rem; }
-    .toolbar { flex-wrap: wrap; gap: 0.75rem; padding: 1rem; }
+    .toolbar { flex-wrap: wrap; gap: 0.75rem; padding-top: 1rem; padding-bottom: 1rem; }
     .tab-nav {
       gap: 1.25rem;
       overflow-x: auto;
       scroll-behavior: smooth;
       -webkit-overflow-scrolling: touch;
-      mask-image: linear-gradient(to right, transparent 0, #000 0.5rem, #000 calc(100% - 1.5rem), transparent);
-      -webkit-mask-image: linear-gradient(to right, transparent 0, #000 0.5rem, #000 calc(100% - 1.5rem), transparent);
-      padding-right: 1.5rem;
+      scrollbar-width: none;
     }
+    .tab-nav::-webkit-scrollbar { display: none; }
     .tab-nav [role="tab"] { font-size: 0.8rem; white-space: nowrap; }
     .quote { padding-left: 1.25rem; }
     .action-item { gap: 1rem; }
     .tips-scores__grid { gap: 1.5rem; }
+    .relations { padding: 1rem; }
+  }
+
+  /* ===== Safe area (notched devices) ===== */
+  @supports (padding: env(safe-area-inset-left)) {
+    .page {
+      padding-left: max(1.5rem, env(safe-area-inset-left));
+      padding-right: max(1.5rem, env(safe-area-inset-right));
+    }
+    .header {
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+    }
+    .footer {
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+      padding-bottom: max(2.5rem, env(safe-area-inset-bottom));
+    }
   }
 
   /* ===== Print ===== */
@@ -619,7 +642,7 @@
     html { font-size: 11pt; }
     body { background: #fff; }
     .skip-link, .toolbar { display: none; }
-    .header { border-bottom: 2px solid var(--color-ink); padding: 1rem 0; }
+    .header { border-bottom: 2px solid var(--color-ink); padding-top: 1rem; padding-bottom: 1rem; }
     .tab-nav { display: none; }
     .tab-panel {
       display: block !important;
@@ -639,7 +662,7 @@
     .argument { border-bottom: none; }
     .argument__arrow { display: none; }
     .quote, .action-item, .concept { break-inside: avoid; }
-    .section { padding: 2rem 0; break-before: avoid; }
+    .section { padding-top: 2rem; padding-bottom: 2rem; break-before: avoid; }
     .footer { font-size: 9pt; }
   }
 
