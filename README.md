@@ -13,9 +13,69 @@ Skills are folders of instructions, scripts, and resources that Claude loads dyn
 
 ## About This Repository
 
-This repository contains custom skills for document processing, visualization, design, development workflow, and productivity tasks. Each skill is self-contained in its own folder with a `SKILL.md` file containing instructions and metadata.
+This repository contains custom skills for document processing, visualization, design, development workflow, productivity, domain expertise, and cloud deployment. Each skill is self-contained in its own folder with a `SKILL.md` file containing instructions and metadata.
 
 ## Available Skills
+
+### agent-browser
+
+Browser automation CLI for AI agents. Navigate pages, fill forms, click buttons, take screenshots, and extract data programmatically.
+
+**Key Features:**
+- Page navigation and interaction (click, type, scroll)
+- Screenshot capture and visual validation
+- Form filling and data extraction
+- Web application testing automation
+
+### aipoint-brand-guide
+
+Apply AIPoint brand guidelines to presentations, documents, and designs.
+
+**Key Features:**
+- Gradient cyan-green color palette and Inter typography
+- Dark mode design system with logo guidelines
+- Consistent brand identity across all artifacts
+
+### clawpilot
+
+ClawPilot — your OpenClaw copilot. Security-first agent skill for AI coding assistants. Self-hosted AI gateway connecting chat apps (WhatsApp, Telegram, Discord, Slack, iMessage, Signal, LINE, Matrix, Teams, Google Chat, BlueBubbles) to AI agents.
+
+**Key Features:**
+- Installation, configuration, and troubleshooting for OpenClaw gateway
+- Security hardening with bundled audit scripts (security audit, config inspector, prompt checker, session scanner)
+- Multi-agent routing, session management, and agent isolation
+- Cloud deployment guides (AWS, GCP, Fly.io, Docker) and remote access (Tailscale/SSH)
+- Channel setup for 14+ chat platforms
+- ClawHub skill discovery and installation
+
+### crisp-reading
+
+CRISP Reading — AI deep reading companion. Analyzes books and produces interactive HTML reading reports.
+
+**Three ways to read:**
+
+| Input | What happens |
+|-------|-------------|
+| PDF / EPUB file | Extract full text → deep analysis → HTML report |
+| Book title only | Auto-search 70,000+ public domain books via Gutendex API → download full text → same deep analysis |
+| Book title (not in library) | Analyze based on Claude's knowledge, clearly labeled |
+
+The public domain library includes 444+ Chinese classics (Romance of the Three Kingdoms, Journey to the West, Dream of the Red Chamber, etc.) and tens of thousands of English works. CJK title search is fully supported.
+
+**Key Features:**
+- Integrates multiple reading methodologies (Adler, TIPS, Zettelkasten, Steel-Manning)
+- TIPS four-dimension scoring (Toolability, Inspirability, Practicality, Scientificity)
+- PDF/EPUB text extraction with automatic chunking for large books
+- Interactive HTML report with dark mode and Copy as Markdown
+
+### docx
+
+Comprehensive Word document creation, editing, and analysis.
+
+**Key Features:**
+- Tracked changes workflow and comment support
+- Formatting preservation during edits
+- Text extraction with pandoc integration
 
 ### document-to-markdown
 
@@ -124,52 +184,6 @@ The following 5 examples demonstrate the unique capabilities of this skill. Open
 | Network Topology | `network-topology-icons` |
 | CI/CD | `devops-icons`, `technology-logos` |
 
-### smart-water-treatment
-
-Water treatment system architect for semiconductor UPW, municipal, industrial, desalination, and reuse applications.
-
-**Key Features:**
-- Process design and troubleshooting for RO, EDI, IX, UF, MBR, AOP, and more
-- AI/ML modeling with PINNs and time-series models
-- SCADA/OT integration with OPC UA/MQTT and IEC 62443 cybersecurity
-- ESG reporting and ISA-101 HMI design
-
-### aipoint-brand-guide
-
-Apply AIPoint brand guidelines to presentations, documents, and designs.
-
-**Key Features:**
-- Gradient cyan-green color palette and Inter typography
-- Dark mode design system with logo guidelines
-- Consistent brand identity across all artifacts
-
-### docx
-
-Comprehensive Word document creation, editing, and analysis.
-
-**Key Features:**
-- Tracked changes workflow and comment support
-- Formatting preservation during edits
-- Text extraction with pandoc integration
-
-### pdf
-
-Comprehensive PDF manipulation toolkit for extraction, creation, merging, splitting, and form handling.
-
-**Key Features:**
-- Multiple Python libraries (pypdf, pdfplumber, reportlab)
-- OCR support for scanned documents
-- Encryption/decryption and form filling
-
-### xlsx
-
-Spreadsheet creation, editing, and analysis with formulas, formatting, and visualization.
-
-**Key Features:**
-- Formula-driven design (no hardcoded values)
-- Financial color-coding standards
-- LibreOffice recalculation and error detection
-
 ### frontend-design
 
 Create distinctive, production-grade frontend interfaces with high design quality.
@@ -179,33 +193,6 @@ Create distinctive, production-grade frontend interfaces with high design qualit
 - Motion and animation strategies
 - Anti-generic-AI-aesthetics approach
 
-### ui-ux-pro-max
-
-UI/UX design intelligence with comprehensive searchable database.
-
-**Key Features:**
-- 50 styles, 21 color palettes, 50 font pairings, 20 chart types
-- 8 tech stacks (React, Next.js, Vue, Svelte, SwiftUI, React Native, Flutter, Tailwind)
-- Pre-delivery checklist for quality assurance
-
-### web-design-guidelines
-
-Review UI code for Web Interface Guidelines compliance.
-
-**Key Features:**
-- Automated fetching of latest web design guidelines
-- File-by-file compliance checking
-- Terse, actionable output format
-
-### vscode-extension-uiux
-
-Build secure, elegant, and accessible VS Code extensions with excellent UI/UX.
-
-**Key Features:**
-- Native API-first design (webviews, tree views, custom editors)
-- Security patterns (CSP, message validation)
-- Theme integration with VS Code CSS variables
-
 ### model-thinking
 
 Mental models toolkit for clearer thinking, better decisions, and problem-solving.
@@ -214,73 +201,6 @@ Mental models toolkit for clearer thinking, better decisions, and problem-solvin
 - Multiple response modes (Guided, Direct, Teaching)
 - Domain-specific model selection across 10+ domains
 - Structured analysis templates and critical checking
-
-### planning-with-files
-
-File-based planning system for complex multi-step tasks using persistent markdown files.
-
-**Key Features:**
-- Structured tracking with task_plan.md, findings.md, and progress.md
-- 2-action rule and 3-strike error protocol
-- Read/write decision matrix for task management
-
-### quality-check
-
-Validation gate before marking coding tasks complete.
-
-**Key Features:**
-- IDE diagnostics error detection
-- Code review validation via subagent
-- Test execution with short-circuit on first failure
-
-### skill-creator
-
-Guide for creating effective skills that extend Claude's capabilities.
-
-**Key Features:**
-- Progressive disclosure design (metadata → SKILL.md → resources)
-- 6-step creation process with validation
-- Best practices for conciseness and packaging
-
-### theme-factory
-
-Toolkit for applying professional font and color themes to artifacts.
-
-**Key Features:**
-- 10 pre-set themes (Ocean Depths, Sunset Boulevard, etc.)
-- Custom theme generation on-the-fly
-- Theme showcase PDF reference
-
-### remotion-best-practices
-
-Best practices for Remotion video creation in React.
-
-**Key Features:**
-- 28 rule files covering animations, audio, assets, 3D, captions
-- Timing, transitions, and text effects guidance
-- Chart and data visualization in video
-
-### clawpilot
-
-ClawPilot — your OpenClaw copilot. Security-first agent skill for AI coding assistants. Self-hosted AI gateway connecting chat apps (WhatsApp, Telegram, Discord, Slack, iMessage, Signal, LINE, Matrix, Teams, Google Chat) to AI agents.
-
-**Key Features:**
-- Installation, configuration, and troubleshooting for OpenClaw gateway
-- Security hardening with bundled audit scripts (security audit, config inspector, prompt checker, session scanner)
-- Multi-agent routing, session management, and agent isolation
-- Cloud deployment guides (AWS, GCP, Fly.io, Docker) and remote access (Tailscale/SSH)
-- Channel setup for 14+ chat platforms
-- ClawHub skill discovery and installation
-
-### agent-browser
-
-Browser automation CLI for AI agents. Navigate pages, fill forms, click buttons, take screenshots, and extract data programmatically.
-
-**Key Features:**
-- Page navigation and interaction (click, type, scroll)
-- Screenshot capture and visual validation
-- Form filling and data extraction
-- Web application testing automation
 
 ### obsidian-vault-manager
 
@@ -292,35 +212,23 @@ Obsidian vault maintenance and personal knowledge management consultant. Flexibl
 - Map of Content (MOC) generation
 - Simplified Chinese to Traditional Chinese conversion (zh-CN → zh-TW)
 
-### tsmc-research-notes
+### pdf
 
-Semiconductor CuCMP research note organizer. Transforms analysis results into standalone, self-contained Obsidian knowledge notes from a senior fab engineer + AI expert perspective.
-
-**Key Features:**
-- First-person research narrative style
-- Cross-domain knowledge transfer documentation
-- Obsidian-native formatting with wikilinks and tags
-- CuCMP dosing research notebook structuring
-
-### crisp-reading
-
-CRISP Reading — AI deep reading companion. Analyzes books and produces interactive HTML reading reports.
-
-**Three ways to read:**
-
-| Input | What happens |
-|-------|-------------|
-| PDF / EPUB file | Extract full text → deep analysis → HTML report |
-| Book title only | Auto-search 70,000+ public domain books via Gutendex API → download full text → same deep analysis |
-| Book title (not in library) | Analyze based on Claude's knowledge, clearly labeled |
-
-The public domain library includes 444+ Chinese classics (Romance of the Three Kingdoms, Journey to the West, Dream of the Red Chamber, etc.) and tens of thousands of English works. CJK title search is fully supported.
+Comprehensive PDF manipulation toolkit for extraction, creation, merging, splitting, and form handling.
 
 **Key Features:**
-- Integrates multiple reading methodologies (Adler, TIPS, Zettelkasten, Steel-Manning)
-- TIPS four-dimension scoring (Toolability, Inspirability, Practicality, Scientificity)
-- PDF/EPUB text extraction with automatic chunking for large books
-- Interactive HTML report with dark mode and Copy as Markdown
+- Multiple Python libraries (pypdf, pdfplumber, reportlab)
+- OCR support for scanned documents
+- Encryption/decryption and form filling
+
+### planning-with-files
+
+File-based planning system for complex multi-step tasks using persistent markdown files.
+
+**Key Features:**
+- Structured tracking with task_plan.md, findings.md, and progress.md
+- 2-action rule and 3-strike error protocol
+- Read/write decision matrix for task management
 
 ### pptx
 
@@ -331,6 +239,98 @@ Comprehensive PowerPoint creation, editing, and analysis.
 - Template-based editing preserving layouts and styles
 - Speaker notes, comments, and slide manipulation
 - Multiple creation approaches for different complexity levels
+
+### quality-check
+
+Validation gate before marking coding tasks complete.
+
+**Key Features:**
+- IDE diagnostics error detection
+- Code review validation via subagent
+- Test execution with short-circuit on first failure
+
+### remotion-best-practices
+
+Best practices for Remotion video creation in React.
+
+**Key Features:**
+- 28 rule files covering animations, audio, assets, 3D, captions
+- Timing, transitions, and text effects guidance
+- Chart and data visualization in video
+
+### skill-creator
+
+Guide for creating effective skills that extend Claude's capabilities.
+
+**Key Features:**
+- Progressive disclosure design (metadata → SKILL.md → resources)
+- 6-step creation process with validation
+- Best practices for conciseness and packaging
+
+### smart-water-treatment
+
+Water treatment system architect for semiconductor UPW, municipal, industrial, desalination, and reuse applications.
+
+**Key Features:**
+- Process design and troubleshooting for RO, EDI, IX, UF, MBR, AOP, and more
+- AI/ML modeling with PINNs and time-series models
+- SCADA/OT integration with OPC UA/MQTT and IEC 62443 cybersecurity
+- ESG reporting and ISA-101 HMI design
+
+### theme-factory
+
+Toolkit for applying professional font and color themes to artifacts.
+
+**Key Features:**
+- 10 pre-set themes (Ocean Depths, Sunset Boulevard, etc.)
+- Custom theme generation on-the-fly
+- Theme showcase PDF reference
+
+### tsmc-research-notes
+
+Semiconductor CuCMP research note organizer. Transforms analysis results into standalone, self-contained Obsidian knowledge notes from a senior fab engineer + AI expert perspective.
+
+**Key Features:**
+- First-person research narrative style
+- Cross-domain knowledge transfer documentation
+- Obsidian-native formatting with wikilinks and tags
+- CuCMP dosing research notebook structuring
+
+### ui-ux-pro-max
+
+UI/UX design intelligence with comprehensive searchable database.
+
+**Key Features:**
+- 50 styles, 21 color palettes, 50 font pairings, 20 chart types
+- 8 tech stacks (React, Next.js, Vue, Svelte, SwiftUI, React Native, Flutter, Tailwind)
+- Pre-delivery checklist for quality assurance
+
+### vscode-extension-uiux
+
+Build secure, elegant, and accessible VS Code extensions with excellent UI/UX.
+
+**Key Features:**
+- Native API-first design (webviews, tree views, custom editors)
+- Security patterns (CSP, message validation)
+- Theme integration with VS Code CSS variables
+
+### web-design-guidelines
+
+Review UI code for Web Interface Guidelines compliance.
+
+**Key Features:**
+- Automated fetching of latest web design guidelines
+- File-by-file compliance checking
+- Terse, actionable output format
+
+### xlsx
+
+Spreadsheet creation, editing, and analysis with formulas, formatting, and visualization.
+
+**Key Features:**
+- Formula-driven design (no hardcoded values)
+- Financial color-coding standards
+- LibreOffice recalculation and error detection
 
 ### zeabur
 
@@ -387,9 +387,69 @@ Skills 是包含指令、腳本和資源的資料夾，Claude 會動態載入以
 
 ## 關於本儲存庫
 
-本儲存庫包含文件處理、視覺化、設計、開發工作流程和生產力任務的自訂技能。每個技能都獨立存放於各自的資料夾中，並包含 `SKILL.md` 檔案描述指令和中繼資料。
+本儲存庫包含文件處理、視覺化、設計、開發工作流程、生產力、領域專業知識和雲端部署的自訂技能。每個技能都獨立存放於各自的資料夾中，並包含 `SKILL.md` 檔案描述指令和中繼資料。
 
 ## 可用技能
+
+### agent-browser
+
+瀏覽器自動化 CLI，專為 AI 代理設計。支援頁面導航、表單填寫、按鈕點擊、截圖擷取與資料提取。
+
+**主要特色：**
+- 頁面導航與互動（點擊、輸入、捲動）
+- 截圖擷取與視覺驗證
+- 表單填寫與資料提取
+- 網頁應用程式測試自動化
+
+### aipoint-brand-guide
+
+將 AIPoint 品牌規範套用至簡報、文件與設計。
+
+**主要特色：**
+- 漸層青綠配色與 Inter 字型
+- 深色模式設計系統與 Logo 規範
+- 跨所有產出物維持一致品牌識別
+
+### clawpilot
+
+ClawPilot — OpenClaw 的 AI 副駕。安全優先的 Agent 技能，適用於所有 AI 編碼助手。自託管 AI 閘道器，連接聊天應用程式（WhatsApp、Telegram、Discord、Slack、iMessage、Signal、LINE、Matrix、Teams、Google Chat、BlueBubbles）至 AI 代理。
+
+**主要特色：**
+- OpenClaw 閘道器的安裝、設定與故障排除
+- 安全強化，附帶稽核腳本（安全稽核、設定檢查、提示詞檢查、對話掃描）
+- 多代理路由、工作階段管理與代理隔離
+- 雲端部署指南（AWS、GCP、Fly.io、Docker）與遠端存取（Tailscale/SSH）
+- 支援 14+ 聊天平台的頻道設定
+- ClawHub 技能探索與安裝
+
+### crisp-reading
+
+CRISP Reading — AI 深度閱讀夥伴。分析書籍並產出互動式 HTML 閱讀報告。
+
+**三種閱讀方式：**
+
+| 輸入 | 發生什麼事 |
+|------|-----------|
+| PDF / EPUB 檔案 | 提取全文 → 深度分析 → HTML 報告 |
+| 僅輸入書名 | 自動搜尋 70,000+ 冊公共領域書籍（Gutendex API）→ 下載全文 → 同樣的深度分析 |
+| 僅書名（書庫無收錄） | 依 Claude 知識分析，報告中明確標示 |
+
+公共領域書庫收錄 444+ 冊中文古典文學（三國演義、西遊記、紅樓夢、老殘遊記等）及數萬冊英文作品。完整支援中日韓書名搜尋。
+
+**主要特色：**
+- 整合多種閱讀分析方法論（Adler、TIPS、Zettelkasten、Steel-Manning）
+- TIPS 四維度評分（工具性、啟發性、實用性、科學性）
+- PDF/EPUB 文字提取，支援大型書籍自動分塊處理
+- 互動式 HTML 報告，支援深色模式與 Copy as Markdown
+
+### docx
+
+全面的 Word 文件建立、編輯與分析。
+
+**主要特色：**
+- 追蹤修訂工作流程與註解支援
+- 編輯時保留格式
+- 透過 pandoc 擷取文字
 
 ### document-to-markdown
 
@@ -498,52 +558,6 @@ Skills 是包含指令、腳本和資源的資料夾，Claude 會動態載入以
 | 網路拓撲 | `network-topology-icons` |
 | CI/CD | `devops-icons`, `technology-logos` |
 
-### smart-water-treatment
-
-水處理系統架構師，適用於半導體超純水、市政、工業、海水淡化及再利用應用。
-
-**主要特色：**
-- RO、EDI、IX、UF、MBR、AOP 等製程設計與故障排除
-- AI/ML 建模，支援 PINNs 與時間序列模型
-- SCADA/OT 整合，支援 OPC UA/MQTT 與 IEC 62443 資安
-- ESG 報告與 ISA-101 HMI 設計
-
-### aipoint-brand-guide
-
-將 AIPoint 品牌規範套用至簡報、文件與設計。
-
-**主要特色：**
-- 漸層青綠配色與 Inter 字型
-- 深色模式設計系統與 Logo 規範
-- 跨所有產出物維持一致品牌識別
-
-### docx
-
-全面的 Word 文件建立、編輯與分析。
-
-**主要特色：**
-- 追蹤修訂工作流程與註解支援
-- 編輯時保留格式
-- 透過 pandoc 擷取文字
-
-### pdf
-
-全方位 PDF 操作工具，支援擷取、建立、合併、分割與表單處理。
-
-**主要特色：**
-- 多種 Python 函式庫（pypdf、pdfplumber、reportlab）
-- 掃描文件 OCR 支援
-- 加密/解密與表單填寫
-
-### xlsx
-
-試算表建立、編輯與分析，支援公式、格式與視覺化。
-
-**主要特色：**
-- 公式驅動設計（不寫死數值）
-- 財務色彩編碼標準
-- LibreOffice 重新計算與錯誤偵測
-
 ### frontend-design
 
 建立獨特、生產等級的前端介面，具備高品質設計。
@@ -553,33 +567,6 @@ Skills 是包含指令、腳本和資源的資料夾，Claude 會動態載入以
 - 動態與動畫策略
 - 避免 AI 通用美學
 
-### ui-ux-pro-max
-
-UI/UX 設計智慧，提供全面可搜尋的資料庫。
-
-**主要特色：**
-- 50 種風格、21 種配色、50 種字型搭配、20 種圖表類型
-- 8 種技術棧（React、Next.js、Vue、Svelte、SwiftUI、React Native、Flutter、Tailwind）
-- 交付前品質檢查清單
-
-### web-design-guidelines
-
-檢查 UI 程式碼是否符合 Web Interface Guidelines。
-
-**主要特色：**
-- 自動取得最新網頁設計規範
-- 逐檔合規性檢查
-- 簡潔可執行的輸出格式
-
-### vscode-extension-uiux
-
-建立安全、優雅且無障礙的 VS Code 擴充功能。
-
-**主要特色：**
-- 原生 API 優先設計（webview、tree view、自訂編輯器）
-- 安全模式（CSP、訊息驗證）
-- 整合 VS Code CSS 變數的主題系統
-
 ### model-thinking
 
 心智模型工具，協助更清晰的思考、更好的決策與問題解決。
@@ -588,73 +575,6 @@ UI/UX 設計智慧，提供全面可搜尋的資料庫。
 - 多種回應模式（引導式、直接式、教學式）
 - 跨 10+ 領域的特定模型選擇
 - 結構化分析模板與批判性檢查
-
-### planning-with-files
-
-基於檔案的規劃系統，適用於複雜多步驟任務。
-
-**主要特色：**
-- 結構化追蹤：task_plan.md、findings.md、progress.md
-- 2 動作規則與 3 次錯誤協定
-- 任務管理的讀寫決策矩陣
-
-### quality-check
-
-程式碼任務完成前的驗證關卡。
-
-**主要特色：**
-- IDE 診斷錯誤偵測
-- 透過子代理進行程式碼審查
-- 測試執行，首次失敗即中斷
-
-### skill-creator
-
-建立有效 Skills 的指南，擴展 Claude 的能力。
-
-**主要特色：**
-- 漸進式揭露設計（metadata → SKILL.md → resources）
-- 6 步驟建立流程與驗證
-- 簡潔性與封裝的最佳實踐
-
-### theme-factory
-
-將專業字型與配色主題套用至各種產出物的工具。
-
-**主要特色：**
-- 10 種預設主題（Ocean Depths、Sunset Boulevard 等）
-- 即時自訂主題生成
-- 主題展示 PDF 參考
-
-### remotion-best-practices
-
-Remotion（React 影片製作）最佳實踐。
-
-**主要特色：**
-- 28 個規則檔案，涵蓋動畫、音訊、素材、3D、字幕
-- 時間控制、轉場與文字特效指引
-- 影片中的圖表與資料視覺化
-
-### clawpilot
-
-ClawPilot — OpenClaw 的 AI 副駕。安全優先的 Agent 技能，適用於所有 AI 編碼助手。自託管 AI 閘道器，連接聊天應用程式（WhatsApp、Telegram、Discord、Slack、iMessage、Signal、LINE、Matrix、Teams、Google Chat）至 AI 代理。
-
-**主要特色：**
-- OpenClaw 閘道器的安裝、設定與故障排除
-- 安全強化，附帶稽核腳本（安全稽核、設定檢查、提示詞檢查、對話掃描）
-- 多代理路由、工作階段管理與代理隔離
-- 雲端部署指南（AWS、GCP、Fly.io、Docker）與遠端存取（Tailscale/SSH）
-- 支援 14+ 聊天平台的頻道設定
-- ClawHub 技能探索與安裝
-
-### agent-browser
-
-瀏覽器自動化 CLI，專為 AI 代理設計。支援頁面導航、表單填寫、按鈕點擊、截圖擷取與資料提取。
-
-**主要特色：**
-- 頁面導航與互動（點擊、輸入、捲動）
-- 截圖擷取與視覺驗證
-- 表單填寫與資料提取
-- 網頁應用程式測試自動化
 
 ### obsidian-vault-manager
 
@@ -666,35 +586,23 @@ Obsidian 保管庫維運與個人知識管理顧問。靈活運用 Obsidian CLI 
 - 內容地圖（MOC）自動生成
 - 簡體中文轉繁體中文（zh-CN → zh-TW）
 
-### tsmc-research-notes
+### pdf
 
-半導體 CuCMP 研究筆記整理工具。以資深廠務工程師加 AI 專家的第一人稱視角，將研究過程中的分析成果轉化為獨立、自足的 Obsidian 知識筆記。
-
-**主要特色：**
-- 第一人稱研究敘事風格
-- 跨域知識傳承文件化
-- Obsidian 原生格式（wikilinks 與標籤）
-- CuCMP 加藥研究筆記結構化
-
-### crisp-reading
-
-CRISP Reading — AI 深度閱讀夥伴。分析書籍並產出互動式 HTML 閱讀報告。
-
-**三種閱讀方式：**
-
-| 輸入 | 發生什麼事 |
-|------|-----------|
-| PDF / EPUB 檔案 | 提取全文 → 深度分析 → HTML 報告 |
-| 僅輸入書名 | 自動搜尋 70,000+ 冊公共領域書籍（Gutendex API）→ 下載全文 → 同樣的深度分析 |
-| 僅書名（書庫無收錄） | 依 Claude 知識分析，報告中明確標示 |
-
-公共領域書庫收錄 444+ 冊中文古典文學（三國演義、西遊記、紅樓夢、老殘遊記等）及數萬冊英文作品。完整支援中日韓書名搜尋。
+全方位 PDF 操作工具，支援擷取、建立、合併、分割與表單處理。
 
 **主要特色：**
-- 整合多種閱讀分析方法論（Adler、TIPS、Zettelkasten、Steel-Manning）
-- TIPS 四維度評分（工具性、啟發性、實用性、科學性）
-- PDF/EPUB 文字提取，支援大型書籍自動分塊處理
-- 互動式 HTML 報告，支援深色模式與 Copy as Markdown
+- 多種 Python 函式庫（pypdf、pdfplumber、reportlab）
+- 掃描文件 OCR 支援
+- 加密/解密與表單填寫
+
+### planning-with-files
+
+基於檔案的規劃系統，適用於複雜多步驟任務。
+
+**主要特色：**
+- 結構化追蹤：task_plan.md、findings.md、progress.md
+- 2 動作規則與 3 次錯誤協定
+- 任務管理的讀寫決策矩陣
 
 ### pptx
 
@@ -705,6 +613,98 @@ CRISP Reading — AI 深度閱讀夥伴。分析書籍並產出互動式 HTML �
 - 模板編輯保留原有版面與樣式
 - 講者備註、註解與投影片操作
 - 多種建立方式對應不同複雜度需求
+
+### quality-check
+
+程式碼任務完成前的驗證關卡。
+
+**主要特色：**
+- IDE 診斷錯誤偵測
+- 透過子代理進行程式碼審查
+- 測試執行，首次失敗即中斷
+
+### remotion-best-practices
+
+Remotion（React 影片製作）最佳實踐。
+
+**主要特色：**
+- 28 個規則檔案，涵蓋動畫、音訊、素材、3D、字幕
+- 時間控制、轉場與文字特效指引
+- 影片中的圖表與資料視覺化
+
+### skill-creator
+
+建立有效 Skills 的指南，擴展 Claude 的能力。
+
+**主要特色：**
+- 漸進式揭露設計（metadata → SKILL.md → resources）
+- 6 步驟建立流程與驗證
+- 簡潔性與封裝的最佳實踐
+
+### smart-water-treatment
+
+水處理系統架構師，適用於半導體超純水、市政、工業、海水淡化及再利用應用。
+
+**主要特色：**
+- RO、EDI、IX、UF、MBR、AOP 等製程設計與故障排除
+- AI/ML 建模，支援 PINNs 與時間序列模型
+- SCADA/OT 整合，支援 OPC UA/MQTT 與 IEC 62443 資安
+- ESG 報告與 ISA-101 HMI 設計
+
+### theme-factory
+
+將專業字型與配色主題套用至各種產出物的工具。
+
+**主要特色：**
+- 10 種預設主題（Ocean Depths、Sunset Boulevard 等）
+- 即時自訂主題生成
+- 主題展示 PDF 參考
+
+### tsmc-research-notes
+
+半導體 CuCMP 研究筆記整理工具。以資深廠務工程師加 AI 專家的第一人稱視角，將研究過程中的分析成果轉化為獨立、自足的 Obsidian 知識筆記。
+
+**主要特色：**
+- 第一人稱研究敘事風格
+- 跨域知識傳承文件化
+- Obsidian 原生格式（wikilinks 與標籤）
+- CuCMP 加藥研究筆記結構化
+
+### ui-ux-pro-max
+
+UI/UX 設計智慧，提供全面可搜尋的資料庫。
+
+**主要特色：**
+- 50 種風格、21 種配色、50 種字型搭配、20 種圖表類型
+- 8 種技術棧（React、Next.js、Vue、Svelte、SwiftUI、React Native、Flutter、Tailwind）
+- 交付前品質檢查清單
+
+### vscode-extension-uiux
+
+建立安全、優雅且無障礙的 VS Code 擴充功能。
+
+**主要特色：**
+- 原生 API 優先設計（webview、tree view、自訂編輯器）
+- 安全模式（CSP、訊息驗證）
+- 整合 VS Code CSS 變數的主題系統
+
+### web-design-guidelines
+
+檢查 UI 程式碼是否符合 Web Interface Guidelines。
+
+**主要特色：**
+- 自動取得最新網頁設計規範
+- 逐檔合規性檢查
+- 簡潔可執行的輸出格式
+
+### xlsx
+
+試算表建立、編輯與分析，支援公式、格式與視覺化。
+
+**主要特色：**
+- 公式驅動設計（不寫死數值）
+- 財務色彩編碼標準
+- LibreOffice 重新計算與錯誤偵測
 
 ### zeabur
 
