@@ -202,6 +202,8 @@ Mental models toolkit for clearer thinking, better decisions, and problem-solvin
 - Domain-specific model selection across 10+ domains
 - Structured analysis templates and critical checking
 
+> **Quick Install (Claude Web):** [安裝說明](docs/install-model-thinking.md)
+
 ### obsidian-vault-manager
 
 Obsidian vault maintenance and personal knowledge management consultant. Flexibly combines Obsidian CLI and Claude Code tools to automate vault operations.
@@ -575,6 +577,8 @@ CRISP Reading — AI 深度閱讀夥伴。分析書籍並產出互動式 HTML �
 - 多種回應模式（引導式、直接式、教學式）
 - 跨 10+ 領域的特定模型選擇
 - 結構化分析模板與批判性檢查
+
+> **快速安裝（Claude Web）：** [安裝說明](docs/install-model-thinking.md)
 
 ### obsidian-vault-manager
 
