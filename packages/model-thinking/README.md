@@ -43,7 +43,7 @@ npx skills add kcchien/model-thinking
 |------|-----------|
 | *「A 公司開年薪 200 萬但要 relocate，B 公司 150 萬但能遠端，怎麼選？」* | 用可逆性、機會成本、10/10/10 法則交叉分析兩個選項的長期影響 |
 | *「我們的客服工單量每季都翻倍，加人卻沒改善」* | 用系統基模（轉嫁負擔 + 成長極限）找出加人只是症狀處理的根因 |
-| *「越南半導體廠用水市場，我們該第一個進去嗎？」* | 用先行者優勢、網路效應、肥尾風險三角驗證，給出進入策略與下注規模 |
+| *「公司考慮進入東南亞市場，該第一個去還是等競爭者先踩坑？」* | 用先行者優勢、網路效應、肥尾風險三角驗證，給出進入策略與下注規模 |
 | *「教我什麼是二階思考，用產品定價當例子」* | 教學模式：概念定義 → 定價的一階/二階/三階效應 → 常見陷阱 → 練習題 |
 | *「用 Pre-Mortem 分析我們 Q3 的產品上線計畫」* | 直接套用事前驗屍法，列出「已經失敗了，為什麼？」的風險清單 |
 | *「團隊要決定技術棧，五個人五種意見，怎麼收斂？」* | 引導模式：先釐清決策可逆性與關鍵權重，再用加權決策矩陣 + 六頂思考帽結構化討論 |
@@ -260,7 +260,7 @@ Just talk to your AI assistant naturally:
 |---------|-------------|
 | *"Company A offers $150K but requires relocation; B offers $120K remote. How to decide?"* | Cross-analyzes with Reversibility, Opportunity Cost, and 10/10/10 Rule for long-term impact |
 | *"Our support tickets double every quarter — hiring more agents isn't helping"* | Diagnoses with system archetypes (Shifting the Burden + Limits to Growth) to find the real bottleneck |
-| *"Vietnam semiconductor fab water market — should we be first in?"* | Triangulates First Mover Advantage, Network Effects, and Fat Tail Risk; recommends entry strategy and bet size |
+| *"We're considering entering Southeast Asia — go first or wait for competitors to test the waters?"* | Triangulates First Mover Advantage, Network Effects, and Fat Tail Risk; recommends entry strategy and bet size |
 | *"Teach me second-order thinking using product pricing as the example"* | Teaching mode: definition → first/second/third-order effects of pricing → common pitfalls → practice prompt |
 | *"Run a Pre-Mortem on our Q3 product launch plan"* | Directly applies Pre-Mortem: "It's 6 months later and we failed — why?" risk inventory |
 | *"Team needs to pick a tech stack — 5 people, 5 opinions. How to converge?"* | Guided mode: clarifies reversibility and key criteria, then applies Weighted Decision Matrix + Six Thinking Hats |
