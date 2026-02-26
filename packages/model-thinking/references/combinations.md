@@ -10,6 +10,8 @@ Strategies and examples for combining mental models across domains to triangulat
 - [Scenario 4: Hiring a Key Role](#scenario-4-hiring-a-key-role)
 - [Scenario 5: Entering a New Market](#scenario-5-entering-a-new-market)
 - [Cross-Domain Pairing Matrix](#cross-domain-pairing-matrix)
+- [Combination Anti-Patterns](#combination-anti-patterns)
+- [Combination Heuristics](#combination-heuristics)
 
 ---
 
@@ -115,3 +117,45 @@ Common high-value model pairings for recurring problem types:
 | Behavior change | Incentives | Commitment Devices | Hanlon's Razor |
 | Long-term planning | Regret Minimization | Compounding | Map vs Territory |
 | Negotiation | BATNA | Asymmetric Information | Reciprocity |
+| Career decision | Regret Minimization | Explore/Exploit | Opportunity Cost |
+| Technology selection | Two-Way vs One-Way Door | Path Dependence | Second-Order Thinking |
+| Team/culture issues | Incentives | Fundamental Attribution Error | Shifting the Burden |
+| Product pivot | Disruptive Innovation | Reinforcing Feedback Loops | Sunk Cost Fallacy |
+| Crisis management | Inversion | Cascade Failures | Precautionary Principle |
+| Learning/growth | T-Shaped Knowledge | Compounding Knowledge | Deliberate Practice |
+| Persuasion | Framing Effects | Commitment and Consistency | Signaling |
+| Scaling challenges | Limits to Growth | Dunbar's Number | Unintended Consequences |
+| Partnership/M&A | Information Asymmetry | Repeated Games | Survivorship Bias |
+| Innovation vs stability | Barbell Strategy | Red Queen Effect | Small Bets |
+| Pricing strategy | Price Elasticity | Price Discrimination | Anchoring |
+| Talent development | Zone of Proximal Development | Deliberate Practice | Principal-Agent Problem |
+
+---
+
+## Combination Anti-Patterns
+
+Common mistakes when combining models — and how to fix them:
+
+| Anti-Pattern | Problem | Fix |
+|---|---|---|
+| Three models from the same domain | Confirmation bias — no fresh perspective | Draw from at least 2 different domains |
+| Stacking optimization models on irreversible decisions | Ignores path dependence; optimizes the wrong target | Apply a reversibility check first (Two-Way Door) |
+| Pre-Mortem + Inversion used together | Both invert toward failure — redundant overlap | Use one; fill the third slot with a systems or statistical model |
+| Base Rates without Selection Bias check | Wrong reference class makes rigorous-looking analysis misleading | Pair with Map vs Territory to validate the reference class |
+
+---
+
+## Combination Heuristics
+
+When you spot these signals, reach for these models first:
+
+| Signal | Start With | Then Add |
+|---|---|---|
+| Same fix keeps being applied but the problem keeps returning | Shifting the Burden | Incentives |
+| Decision feels urgent AND irreversible | Two-Way Door (is it really?) | Pre-Mortem |
+| Everyone agrees and no one dissents | Devil's Advocate | Falsifiability |
+| Potential payoff is huge but fuzzy | Base Rates | Fat Tails |
+| What used to work no longer does | Path Dependence | Second-Order Thinking |
+| Must act fast or miss the window | Explore/Exploit | Opportunity Cost |
+| The other party knows more than you do | Information Asymmetry | Signaling |
+| Growing fast but everything is starting to break | Limits to Growth | Dunbar's Number |
