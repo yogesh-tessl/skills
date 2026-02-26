@@ -68,6 +68,8 @@ The public domain library includes 444+ Chinese classics (Romance of the Three K
 - PDF/EPUB text extraction with automatic chunking for large books
 - Interactive HTML report with dark mode and Copy as Markdown
 
+> **Quick Install (Claude Web):** [安裝說明](docs/install-crisp-reading.md)
+
 ### docx
 
 Comprehensive Word document creation, editing, and analysis.
@@ -443,6 +445,8 @@ CRISP Reading — AI 深度閱讀夥伴。分析書籍並產出互動式 HTML �
 - TIPS 四維度評分（工具性、啟發性、實用性、科學性）
 - PDF/EPUB 文字提取，支援大型書籍自動分塊處理
 - 互動式 HTML 報告，支援深色模式與 Copy as Markdown
+
+> **快速安裝（Claude Web）：** [安裝說明](docs/install-crisp-reading.md)
 
 ### docx
 
