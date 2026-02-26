@@ -33,7 +33,7 @@ npx skills add kcchien/model-thinking
 
 就這樣。當你請 AI 助手幫你分析問題、做決策、或學習思維模型時，它會自動啟用。
 
-> **不用 Terminal？** 下載 [model-thinking.skill](https://books.kcchien.com/skills/model-thinking.skill)，到 [claude.ai/customize/skills](https://claude.ai/customize/skills) 上傳即可。詳見 [圖文安裝說明](https://github.com/kcchien/skills/blob/main/docs/install-model-thinking.md)。
+> **使用 Claude.ai 桌面版？** 下載 [model-thinking.skill](https://books.kcchien.com/skills/model-thinking.skill)，到 [claude.ai/customize/skills](https://claude.ai/customize/skills) 上傳即可。詳見 [圖文安裝說明](https://github.com/kcchien/skills/blob/main/docs/install-model-thinking.md)。
 
 ## 💬 你可以怎麼用？
 
@@ -250,7 +250,7 @@ npx skills add kcchien/model-thinking
 
 That's it. Your AI agent will automatically activate when you ask it to analyze problems, make decisions, or learn about mental models.
 
-> **No terminal?** Download [model-thinking.skill](https://books.kcchien.com/skills/model-thinking.skill), then upload at [claude.ai/customize/skills](https://claude.ai/customize/skills). See [step-by-step guide](https://github.com/kcchien/skills/blob/main/docs/install-model-thinking.md).
+> **Using Claude.ai desktop?** Download [model-thinking.skill](https://books.kcchien.com/skills/model-thinking.skill), then upload at [claude.ai/customize/skills](https://claude.ai/customize/skills). See [step-by-step guide](https://github.com/kcchien/skills/blob/main/docs/install-model-thinking.md).
 
 ## 💬 What Can You Do With It?
 

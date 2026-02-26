@@ -1,4 +1,4 @@
-# Model Thinking Skill 安裝 (Claude Web)
+# Model Thinking Skill 安裝 (Claude.ai 桌面版)
 
 > **Author**：簡光正 Kuang Cheng, Chien
 > **Email**：gzjian@gmail.com
