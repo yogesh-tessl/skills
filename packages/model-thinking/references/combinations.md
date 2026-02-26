@@ -91,15 +91,15 @@ Single models reveal one dimension. Combining 2-3 models from **different domain
 
 ## Scenario 5: Entering a New Market
 
-**Problem**: Should a Taiwanese water treatment company expand into Southeast Asian semiconductor fabs?
+**Problem**: Should a mid-sized B2B SaaS company expand into Southeast Asian markets before competitors do?
 
 | Model | Domain | Insight |
 |-------|--------|---------|
-| **Game Theory — First Mover** (strategy) | Primary | Few local competitors with ultrapure water expertise. First mover can lock in relationships and set standards. But: first mover also bears education costs |
-| **Network Effects** (networks) | Complementary | Each successful project → reference customer → easier next sale. The network of references compounds. But network is geography-bounded — must build in-region |
-| **Fat Tails** (risk) | Check | Geopolitical risk, currency risk, regulatory shifts are fat-tailed. A single policy change could invalidate the entire investment. Size the bet so ruin is impossible |
+| **Game Theory — First Mover** (strategy) | Primary | Few localized competitors in this vertical. First mover can lock in enterprise relationships and shape buyer expectations. But: first mover also bears localization and education costs |
+| **Network Effects** (networks) | Complementary | Each successful deployment → reference customer → easier next sale. The network of references compounds. But network is geography-bounded — must build in-region presence |
+| **Fat Tails** (risk) | Check | Regulatory shifts, currency risk, and political instability are fat-tailed. A single policy change could invalidate the entire investment. Size the bet so ruin is impossible |
 
-**Synthesis**: Strategy says move first. Network effects say each win compounds. Risk analysis says size the bet carefully — don't bet the company. **Decision**: Enter with a joint venture (limits downside) targeting one country first (Vietnam or Malaysia), build reference customers, then expand.
+**Synthesis**: Strategy says move first. Network effects say each win compounds. Risk analysis says size the bet carefully — don't bet the company. **Decision**: Enter with a local partnership (limits downside) targeting one country first, build reference customers, then expand.
 
 ---
 
