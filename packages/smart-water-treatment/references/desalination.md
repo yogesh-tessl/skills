@@ -506,7 +506,7 @@ At pH 10: >85% as B(OH)₄⁻ (charged — rejected by RO)
 | 設施（Facility） | 地點（Location） | 處理量 (m³/d) | 技術（Technology） | 特色（Notable Feature） |
 |---|---|---|---|---|
 | Ras Al Khair | Saudi Arabia | 1,036,000 | MSF + SWRO hybrid | Largest desalination plant globally |
-| Sorek B | Israel | 548,000 | SWRO | Among lowest LCOW (~$0.41/m³) |
+| Sorek B | Israel | 548,000 | SWRO | Among lowest LCOW (~$0.41/m³, contract price, 不含土地及取水權等外部成本) |
 | Taweelah | UAE | 909,000 | SWRO | Largest single SWRO plant |
 | Carlsbad | California, USA | 189,000 | SWRO + UF pretreatment | US West Coast benchmark |
 | Perth (Southern Seawater) | Australia | 274,000 | SWRO | 100% renewable energy powered |

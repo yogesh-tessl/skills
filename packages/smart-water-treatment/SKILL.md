@@ -81,21 +81,21 @@ description: "Water treatment system architect. Use for: (1) Process troubleshoo
 只載入與問題直接相關的最少必要檔案，避免載入不相關的內容。
 
 **依產業關鍵字：**
-- 半導體/fab/UPW/CMP → [references/semiconductor.md](references/semiconductor.md) — 半導體超純水系統：SEMI 標準、UPW 規格、晶圓廠用水系統（159 行）
-- 飲用水/污水處理/自來水 → [references/municipal.md](references/municipal.md) — 市政給水與污水：飲用水與廢水標準、法規框架（188 行）
-- 冷卻水/鍋爐/ZLD → [references/industrial.md](references/industrial.md) — 工業用水：冷卻水、鍋爐水、製程用水、零液體排放（179 行）
-- 海水淡化/RO/SWRO/BWRO → [references/desalination.md](references/desalination.md) — 海水淡化系統：SWRO/BWRO 設計、能量回收、前處理、熱法淡化、濃縮液管理（495 行；用 `SWRO|BWRO|ERD|CIP|concentrate|thermal` 定位章節）
-- 再生水/回收/reuse/potable reuse → [references/reuse.md](references/reuse.md) — 再生水系統：市政對工業供水、廠內回收、飲用水再利用、多重屏障設計（333 行；用 `potable|DPR|IPR|multi-barrier|reclaim` 定位章節）
+- 半導體/fab/UPW/CMP → [references/semiconductor.md](references/semiconductor.md) — 半導體超純水系統：SEMI 標準、UPW 規格、晶圓廠用水系統（314 行）
+- 飲用水/污水處理/自來水 → [references/municipal.md](references/municipal.md) — 市政給水與污水：飲用水與廢水標準、法規框架（207 行）
+- 冷卻水/鍋爐/ZLD → [references/industrial.md](references/industrial.md) — 工業用水：冷卻水、鍋爐水、製程用水、零液體排放（196 行）
+- 海水淡化/RO/SWRO/BWRO → [references/desalination.md](references/desalination.md) — 海水淡化系統：SWRO/BWRO 設計、能量回收、前處理、熱法淡化、濃縮液管理（516 行；用 `SWRO|BWRO|ERD|CIP|concentrate|thermal` 定位章節）
+- 再生水/回收/reuse/potable reuse → [references/reuse.md](references/reuse.md) — 再生水系統：市政對工業供水、廠內回收、飲用水再利用、多重屏障設計（351 行；用 `potable|DPR|IPR|multi-barrier|reclaim` 定位章節）
 
 **依問題類型：**
-- 故障排除/異常/性能下降 → [references/troubleshooting.md](references/troubleshooting.md) — 故障診斷：診斷框架、常見故障模式、根因分析（227 行）
-- AI/ML/模型/控制/MPC → [references/ai-and-control.md](references/ai-and-control.md) — AI 與控制：PINNs、時序模型、MPC、邊緣部署、數位孿生（329 行；用 `PINN|MPC|PatchTST|digital twin|edge` 定位章節）
-- 資安/ESG/合規/IEC 62443 → [references/cybersecurity-and-sustainability.md](references/cybersecurity-and-sustainability.md) — 資安與永續：IEC 62443、SEMI E187、零信任、ESG 自動化、LCA（311 行；用 `IEC 62443|SEMI E187|zero trust|ESG|LCA` 定位章節）
-- HMI/部署/DevOps/GitOps → [references/delivery-and-ops.md](references/delivery-and-ops.md) — 交付與維運：ISA-101/18.2 人機介面標準、IaC/GitOps 模式、知識工程（466 行；用 `ISA-101|GitOps|IaC|HMI|knowledge graph` 定位章節）
-- 特定技術細節 (RO/EDI/IX/UF/MBR/AOP) → [references/technologies.md](references/technologies.md) — 處理技術百科：各項處理技術的原理與設計參數（248 行；用 `RO|EDI|IX|UF|MBR|AOP` 定位章節）
+- 故障排除/異常/性能下降 → [references/troubleshooting.md](references/troubleshooting.md) — 故障診斷：診斷框架、常見故障模式、根因分析（311 行）
+- AI/ML/模型/控制/MPC → [references/ai-and-control.md](references/ai-and-control.md) — AI 與控制：PINNs、時序模型、MPC、邊緣部署、數位孿生（465 行；用 `PINN|MPC|PatchTST|digital twin|edge` 定位章節）
+- 資安/ESG/合規/IEC 62443 → [references/cybersecurity-and-sustainability.md](references/cybersecurity-and-sustainability.md) — 資安與永續：IEC 62443、SEMI E187、零信任、ESG 自動化、LCA（336 行；用 `IEC 62443|SEMI E187|zero trust|ESG|LCA` 定位章節）
+- HMI/部署/DevOps/GitOps → [references/delivery-and-ops.md](references/delivery-and-ops.md) — 交付與維運：ISA-101/18.2 人機介面標準、IaC/GitOps 模式、知識工程（492 行；用 `ISA-101|GitOps|IaC|HMI|knowledge graph` 定位章節）
+- 特定技術細節 (RO/EDI/IX/UF/MBR/AOP) → [references/technologies.md](references/technologies.md) — 處理技術百科：各項處理技術的原理與設計參數（262 行；用 `RO|EDI|IX|UF|MBR|AOP` 定位章節）
 
 **深入運作框架**（討論整體設計哲學或跨維度協調時載入）：
-- [references/framework.md](references/framework.md) — 六維運作框架詳細指引（140 行）
+- [references/framework.md](references/framework.md) — 六維運作框架詳細指引（153 行）
 
 **思維工具**（執行壓力測試步驟、處理不可逆決策、或分析系統動力學時載入）：
 - [references/thinking-tools.md](references/thinking-tools.md) — 反證檢查清單、系統原型、回饋迴路辨識、槓桿點分析（用 `stress-test|inversion|pre-mortem|feedback|leverage|archetype|fat tail` 定位章節）
