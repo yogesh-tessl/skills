@@ -1,0 +1,80 @@
+#!/bin/bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$SCRIPT_DIR"
+
+# ────────────────────────────────────────────────
+# sync.sh — 一鍵同步 git ↔ skills ↔ agents
+#
+# 使用方式：
+#   ./sync.sh              # 完整同步（提交 + 拉 + 推 + 分發）
+#   ./sync.sh --pull       # 只拉取遠端，不推送本地變更
+#   ./sync.sh --local      # 只分發到本機 Agent，不碰 git
+# ────────────────────────────────────────────────
+
+MODE="full"
+if [ "${1:-}" = "--pull" ]; then
+    MODE="pull"
+elif [ "${1:-}" = "--local" ]; then
+    MODE="local"
+fi
+
+# ── 1. 先提交本地變更（僅 full 模式）──
+#    先提交再拉取，避免 autostash 在複雜狀態下失敗
+if [ "$MODE" = "full" ]; then
+    CHANGES=$(git status --porcelain -- packages/ agents.yaml install.sh bootstrap.sh sync.sh 2>/dev/null || true)
+
+    if [ -n "$CHANGES" ]; then
+        echo "📦 偵測到本地變更："
+        echo "$CHANGES" | while IFS= read -r line; do
+            echo "   $line"
+        done
+        echo ""
+
+        # 收集新增/異動的 skill 名稱作為 commit message
+        SKILL_NAMES=$(echo "$CHANGES" \
+            | grep -oE 'packages/[^/]+' \
+            | sed 's|packages/||' \
+            | sort -u \
+            | tr '\n' ', ' \
+            | sed 's/,$//')
+
+        if [ -n "$SKILL_NAMES" ]; then
+            MSG="sync: update skills — $SKILL_NAMES"
+        else
+            MSG="sync: update skill config"
+        fi
+
+        git add -- packages/ agents.yaml install.sh bootstrap.sh sync.sh
+        git commit -m "$MSG" || true
+        echo ""
+    else
+        echo "✅ 本地無變更"
+        echo ""
+    fi
+fi
+
+# ── 2. 拉取遠端（--local 跳過）──
+if [ "$MODE" != "local" ]; then
+    echo "⬇️  拉取遠端變更..."
+    git pull --rebase
+    git submodule update --init --recursive
+    echo ""
+fi
+
+# ── 3. 推送到遠端（僅 full 模式，且有東西可推）──
+if [ "$MODE" = "full" ]; then
+    LOCAL=$(git rev-parse HEAD 2>/dev/null)
+    REMOTE=$(git rev-parse @{u} 2>/dev/null || echo "")
+
+    if [ "$LOCAL" != "$REMOTE" ]; then
+        echo "⬆️  推送到遠端..."
+        git push
+        echo ""
+    fi
+fi
+
+# ── 4. 分發 skill 到本機各 Agent ──
+echo "🔗 分發 skill 到本機 Agent..."
+"$SCRIPT_DIR/install.sh"

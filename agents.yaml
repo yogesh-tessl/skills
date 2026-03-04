@@ -1,0 +1,71 @@
+# ────────────────────────────────────────────────
+# Skill 分發策略
+# Agent 路徑由 install.sh 的 AGENT_REGISTRY 提供
+# 這裡只定義：skill 群組 + Agent 歸屬
+# ────────────────────────────────────────────────
+
+# Skill 群組定義
+groups:
+  core:                        # 幾乎所有 Agent 都適用的基礎能力
+    - pdf
+    - docx
+    - xlsx
+    - pptx
+    - planning-with-files
+    - skill-creator
+    - document-to-markdown
+
+  design:                      # 前端/設計相關
+    - frontend-design
+    - ui-ux-pro-max
+    - web-design-guidelines
+    - theme-factory
+    - excalidraw
+    - aipoint-brand-guide
+
+  domain:                      # 領域專業
+    - smart-water-treatment
+    - tsmc-research-notes
+    - obsidian-vault-manager
+    - crisp-reading
+    - model-thinking
+
+  devops:                      # 開發工具鏈
+    - quality-check
+    - vscode-extension-uiux
+    - zeabur
+    - remotion-best-practices
+
+  full:                        # 全部 skill（繼承所有群組 + 額外 skill）
+    inherit: [core, design, domain, devops]
+    extra:
+      - agent-browser
+      - clawpilot
+
+# Agent 歸屬（agent key 對應 AGENT_REGISTRY 的 agent ID）
+agents:
+  # 值可以是：群組名、群組陣列、"*"、all、或留空（null）
+  # "*" / all / 留空 = 同步 packages/ 下所有 skill（動態掃描）
+  # ── 主力 Agent：給最完整的 skill 集 ──
+  claude-code:    "*"          # 同步所有 skill
+  cursor:         [core, design]
+  windsurf:       [core, design]
+  codex:          [core, devops]
+  gemini-cli:     [core, design]
+
+  # ── 次要 Agent：只給基礎 skill ──
+  github-copilot: core
+  cline:          core
+  continue:       core
+  augment:        core
+  goose:          core
+  kiro-cli:       core
+  opencode:       core
+  openhands:      core
+  junie:          core
+  antigravity:    core
+  roo:            core
+  trae:           core
+
+  # ── 預設：未列出的 Agent 若偵測到已安裝，給 core ──
+  _default:       core

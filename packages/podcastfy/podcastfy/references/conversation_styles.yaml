@@ -1,0 +1,53 @@
+# Podcastfy conversation style presets
+# Each style defines conversation_config overrides passed to generate_podcast()
+
+deep-dive:
+  word_count: 3000
+  conversation_style:
+    - "analytical"
+    - "thorough"
+    - "insightful"
+  roles_person1: "主持人，負責提出深入問題並引導討論方向"
+  roles_person2: "專家來賓，提供深度見解、數據和獨特觀點"
+  dialogue_structure:
+    - "Opening: 簡要介紹主題背景"
+    - "Deep Analysis: 逐層剖析核心觀點"
+    - "Debate: 探討不同角度和爭議點"
+    - "Synthesis: 整合洞見並展望未來"
+  podcast_name: "Deep Dive Podcast"
+  podcast_tagline: "深入探索每一個重要議題"
+  creativity: 0.7
+
+casual:
+  word_count: 2000
+  conversation_style:
+    - "casual"
+    - "humorous"
+    - "friendly"
+  roles_person1: "好奇的朋友，用輕鬆方式分享發現的有趣內容"
+  roles_person2: "健談的夥伴，補充想法並加入有趣的類比"
+  dialogue_structure:
+    - "Hook: 用一個有趣的切入點開場"
+    - "Story: 像聊天一樣分享內容重點"
+    - "React: 自然的反應和討論"
+    - "Takeaway: 輕鬆總結值得記住的點"
+  podcast_name: "Casual Chat"
+  podcast_tagline: "跟朋友聊聊最近看到的酷東西"
+  creativity: 0.8
+
+news-brief:
+  word_count: 1200
+  conversation_style:
+    - "professional"
+    - "concise"
+    - "informative"
+  roles_person1: "新聞主播，簡潔專業地傳達重點"
+  roles_person2: "評論員，提供快速但有價值的分析"
+  dialogue_structure:
+    - "Headlines: 快速點出核心事實"
+    - "Context: 簡要背景說明"
+    - "Analysis: 專家快評"
+    - "Wrap: 一句話總結"
+  podcast_name: "News Brief"
+  podcast_tagline: "三分鐘掌握重點"
+  creativity: 0.4

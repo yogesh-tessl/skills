@@ -1,0 +1,3 @@
+[submodule "packages/clawpilot"]
+	path = packages/clawpilot
+	url = git@github.com:kcchien/clawpilot.git
