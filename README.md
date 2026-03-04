@@ -370,9 +370,16 @@ cp -r skills/packages/<skill-name> ~/.claude/skills/
 
 That's it! Claude will automatically discover the skill and handle dependencies when needed.
 
-### Multi-Agent Sync (`install.sh`)
+### Multi-Agent Sync
 
-For managing skill distribution across multiple AI coding agents (Claude Code, Cursor, Windsurf, etc.), use `install.sh` with `agents.yaml`.
+For managing skill distribution across multiple AI coding agents (Claude Code, Cursor, Windsurf, etc.), this repo provides a set of scripts:
+
+| Script | Purpose | When to use |
+|--------|---------|-------------|
+| `bootstrap.sh` | Fresh machine setup | Run once on new machines |
+| `add.sh` | Install third-party skills from npm/GitHub | Adding external skills |
+| `sync.sh` | Daily sync (git + distribute) | After any change |
+| `install.sh` | Low-level distribution engine | Called by other scripts |
 
 #### Fresh macOS Setup
 
@@ -411,6 +418,36 @@ cd ~/Downloads/Codebase/playground/skills
 | Teammate pushed new skills | `./sync.sh` | Pull changes, distribute to your agents |
 | Changed `agents.yaml` config | `./sync.sh` | Commit config change, push, re-distribute |
 | Just want local agents updated | `./sync.sh --local` | Re-run `install.sh` only, no git operations |
+
+#### Adding Third-Party Skills — `add.sh`
+
+Install skills from [skills.sh](https://skills.sh/) or any GitHub repo and automatically integrate them into `packages/` for centralized management:
+
+```bash
+cd ~/Downloads/Codebase/playground/skills
+
+# By owner/repo
+./add.sh vercel-labs/agent-skills
+
+# By GitHub URL
+./add.sh https://github.com/author/cool-skill
+
+# Pick specific skills from a multi-skill repo
+./add.sh author/repo --skill pr-review commit
+
+# Install all skills from a repo
+./add.sh author/repo --all
+```
+
+`add.sh` is fully compatible with `npx skills add` parameters. Behind the scenes:
+
+```
+npx skills add (install to temp dir)
+        ↓
+Move to packages/ (centralized management)
+        ↓
+sync.sh (commit + push + distribute to all agents)
+```
 
 #### How `install.sh` Handles Edge Cases
 
@@ -832,9 +869,16 @@ cp -r skills/packages/<skill-name> ~/.claude/skills/
 
 完成！Claude 會自動探索此技能，並在需要時處理相依套件。
 
-### 多 Agent 同步（`install.sh`）
+### 多 Agent 同步
 
-跨多個 AI 編碼助手（Claude Code、Cursor、Windsurf 等）統一管理 skill 分發。
+跨多個 AI 編碼助手（Claude Code、Cursor、Windsurf 等）統一管理 skill 分發。本 repo 提供以下腳本：
+
+| 腳本 | 用途 | 何時用 |
+|------|------|--------|
+| `bootstrap.sh` | 全新機器初始化 | 新機器只跑一次 |
+| `add.sh` | 從 npm/GitHub 安裝第三方 skill | 要加外部 skill 時 |
+| `sync.sh` | 日常同步（git + 分發） | 有任何變更時 |
+| `install.sh` | 底層分發引擎 | 被其他腳本呼叫 |
 
 #### 全新 macOS 設定
 
@@ -873,6 +917,36 @@ cd ~/Downloads/Codebase/playground/skills
 | 隊友推了新的 skill | `./sync.sh` | 拉取變更、分發到本機 Agent |
 | 改了 `agents.yaml` 設定 | `./sync.sh` | 提交設定變更、推送、重新分發 |
 | 只想更新本機 Agent | `./sync.sh --local` | 僅執行 `install.sh`，不碰 git |
+
+#### 安裝第三方 Skill — `add.sh`
+
+從 [skills.sh](https://skills.sh/) 或任何 GitHub repo 安裝 skill，自動納入 `packages/` 集中管理：
+
+```bash
+cd ~/Downloads/Codebase/playground/skills
+
+# 以 owner/repo 安裝
+./add.sh vercel-labs/agent-skills
+
+# 以 GitHub URL 安裝
+./add.sh https://github.com/author/cool-skill
+
+# 從多 skill 的 repo 中只挑特定幾個
+./add.sh author/repo --skill pr-review commit
+
+# 安裝 repo 中所有 skill
+./add.sh author/repo --all
+```
+
+`add.sh` 完全相容 `npx skills add` 的參數。背後流程：
+
+```
+npx skills add（安裝到暫存目錄）
+        ↓
+搬進 packages/（納入集中管理）
+        ↓
+sync.sh（提交 + 推送 + 分發到所有 Agent）
+```
 
 #### `install.sh` 對異常狀態的處理
 
