@@ -370,6 +370,90 @@ cp -r skills/packages/<skill-name> ~/.claude/skills/
 
 That's it! Claude will automatically discover the skill and handle dependencies when needed.
 
+### Multi-Agent Sync (`install.sh`)
+
+For managing skill distribution across multiple AI coding agents (Claude Code, Cursor, Windsurf, etc.), use `install.sh` with `agents.yaml`.
+
+#### Fresh macOS Setup
+
+```bash
+# 1. Install Xcode Command Line Tools (provides git)
+xcode-select --install
+
+# 2. Install Homebrew (required for yq)
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# 3. Clone the repository
+git clone git@github.com:kcchien/skills.git ~/Downloads/Codebase/playground/skills
+
+# 4. One-command setup (installs yq → init submodules → distribute skills)
+cd ~/Downloads/Codebase/playground/skills
+./bootstrap.sh
+```
+
+#### Daily Workflow — `sync.sh`
+
+After initial setup, use `sync.sh` for all syncing needs. One command handles: pull remote → commit local changes → push → distribute to agents.
+
+```bash
+cd ~/Downloads/Codebase/playground/skills
+
+./sync.sh              # Full sync (pull + push + distribute)
+./sync.sh --pull       # Pull-only (get remote changes, distribute, no push)
+./sync.sh --local      # Local-only (just distribute to agents, no git)
+```
+
+**Common scenarios:**
+
+| What you did | Command | What happens |
+|-------------|---------|-------------|
+| Added a new skill to `packages/` | `./sync.sh` | Auto-commit with skill name, push, distribute |
+| Teammate pushed new skills | `./sync.sh` | Pull changes, distribute to your agents |
+| Changed `agents.yaml` config | `./sync.sh` | Commit config change, push, re-distribute |
+| Just want local agents updated | `./sync.sh --local` | Re-run `install.sh` only, no git operations |
+
+#### How `install.sh` Handles Edge Cases
+
+`install.sh` is **idempotent** — safe to re-run at any time:
+
+| Scenario | What happens |
+|----------|-------------|
+| Old whole-directory symlink | Migrates to per-skill symlinks |
+| Stale symlinks from removed skills | Clears all old symlinks before re-creating |
+| Newly added skills (with `"*"`) | Automatically included via directory scan |
+| Agent not installed on this machine | Silently skipped |
+| Agent config changed in `agents.yaml` | Next run applies the new assignment |
+
+#### `agents.yaml` Configuration
+
+The `agents.yaml` file defines **skill groups** and **agent assignments**:
+
+```yaml
+groups:
+  core:
+    - pdf
+    - docx
+    - xlsx
+  design:
+    - frontend-design
+    - ui-ux-pro-max
+
+agents:
+  claude-code:    "*"              # Sync ALL skills (dynamic scan)
+  cursor:         [core, design]   # Multiple groups
+  codex:          core             # Single group
+```
+
+#### Agent Assignment Syntax
+
+| Syntax | Behavior | Example |
+|--------|----------|---------|
+| `"*"` / `all` / empty (null) | Dynamically scan `packages/` and sync **all** skills | `claude-code: "*"` |
+| Group name | Sync skills defined in that group | `codex: core` |
+| Group array | Sync skills from multiple groups | `cursor: [core, design]` |
+
+**`"*"` vs `full` group:** The `full` group uses a static list (`inherit` + `extra`) that must be manually updated when adding new skills. `"*"` dynamically scans the `packages/` directory, so newly added skills are automatically included without config changes.
+
 ## License
 
 MIT License
@@ -747,6 +831,90 @@ cp -r skills/packages/<skill-name> ~/.claude/skills/
 ```
 
 完成！Claude 會自動探索此技能，並在需要時處理相依套件。
+
+### 多 Agent 同步（`install.sh`）
+
+跨多個 AI 編碼助手（Claude Code、Cursor、Windsurf 等）統一管理 skill 分發。
+
+#### 全新 macOS 設定
+
+```bash
+# 1. 安裝 Xcode 命令列工具（提供 git）
+xcode-select --install
+
+# 2. 安裝 Homebrew（bootstrap.sh 用它來裝 yq）
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# 3. 下載儲存庫
+git clone git@github.com:kcchien/skills.git ~/Downloads/Codebase/playground/skills
+
+# 4. 一鍵完成（安裝 yq → 初始化 submodule → 分發 skill）
+cd ~/Downloads/Codebase/playground/skills
+./bootstrap.sh
+```
+
+#### 日常操作 — `sync.sh`
+
+初始設定完成後，所有同步需求都用 `sync.sh`。一個指令完成：拉取遠端 → 提交本地變更 → 推送 → 分發到各 Agent。
+
+```bash
+cd ~/Downloads/Codebase/playground/skills
+
+./sync.sh              # 完整同步（拉 + 推 + 分發）
+./sync.sh --pull       # 只拉取（取得遠端變更並分發，不推送）
+./sync.sh --local      # 只分發（更新本機 Agent，不碰 git）
+```
+
+**常見操作情境：**
+
+| 你做了什麼 | 指令 | 會發生什麼 |
+|-----------|------|-----------|
+| 在 `packages/` 新增了 skill | `./sync.sh` | 自動以 skill 名稱提交、推送、分發 |
+| 隊友推了新的 skill | `./sync.sh` | 拉取變更、分發到本機 Agent |
+| 改了 `agents.yaml` 設定 | `./sync.sh` | 提交設定變更、推送、重新分發 |
+| 只想更新本機 Agent | `./sync.sh --local` | 僅執行 `install.sh`，不碰 git |
+
+#### `install.sh` 對異常狀態的處理
+
+`install.sh` 具備**冪等性**（idempotent），可隨時安全重跑：
+
+| 情境 | 處理方式 |
+|------|----------|
+| 舊架構的整目錄 symlink | 自動遷移為逐個 skill 的 symlink |
+| 已移除 skill 留下的過期 symlink | 先清除所有舊 symlink 再重建 |
+| 新增的 skill（搭配 `"*"` 語法） | 透過目錄掃描自動涵蓋 |
+| 本機未安裝的 Agent | 靜默跳過 |
+| `agents.yaml` 中變更了 Agent 設定 | 下次執行時套用新的歸屬 |
+
+#### `agents.yaml` 設定說明
+
+`agents.yaml` 定義了 **skill 群組**與 **Agent 歸屬**：
+
+```yaml
+groups:
+  core:
+    - pdf
+    - docx
+    - xlsx
+  design:
+    - frontend-design
+    - ui-ux-pro-max
+
+agents:
+  claude-code:    "*"              # 同步所有 skill（動態掃描）
+  cursor:         [core, design]   # 多群組
+  codex:          core             # 單一群組
+```
+
+#### Agent 歸屬語法
+
+| 語法 | 行為 | 範例 |
+|------|------|------|
+| `"*"` / `all` / 留空（null） | 動態掃描 `packages/` 目錄，同步**所有** skill | `claude-code: "*"` |
+| 群組名稱 | 同步該群組定義的 skill | `codex: core` |
+| 群組陣列 | 同步多個群組的 skill | `cursor: [core, design]` |
+
+**`"*"` 與 `full` 群組的差異：** `full` 群組使用靜態清單（`inherit` + `extra`），新增 skill 時需手動加入。`"*"` 會動態掃描 `packages/` 目錄，新增的 skill 自動涵蓋，無需修改設定。
 
 ## 授權
 

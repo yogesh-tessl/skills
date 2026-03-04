@@ -23,7 +23,7 @@ fi
 # ── 1. 先提交本地變更（僅 full 模式）──
 #    先提交再拉取，避免 autostash 在複雜狀態下失敗
 if [ "$MODE" = "full" ]; then
-    CHANGES=$(git status --porcelain -- packages/ agents.yaml install.sh bootstrap.sh sync.sh 2>/dev/null || true)
+    CHANGES=$(git status --porcelain 2>/dev/null || true)
 
     if [ -n "$CHANGES" ]; then
         echo "📦 偵測到本地變更："
@@ -46,7 +46,7 @@ if [ "$MODE" = "full" ]; then
             MSG="sync: update skill config"
         fi
 
-        git add -- packages/ agents.yaml install.sh bootstrap.sh sync.sh
+        git add -A
         git commit -m "$MSG" || true
         echo ""
     else
