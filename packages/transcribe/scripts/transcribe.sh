@@ -1,15 +1,17 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
 # ── Defaults ──────────────────────────────────
-MODEL="mlx-community/whisper-large-v3-turbo"
+INPUT=""
+MODEL=""
 LANGUAGE="zh"
 FORMAT="txt"
 TASK="transcribe"
 OUTPUT_DIR=""
-INPUT=""
-
-VENV_DIR="$HOME/.local/share/transcribe/venv"
+BACKEND="auto"
+PROMPT=""
 
 # ── Parse args ────────────────────────────────
 while [[ $# -gt 0 ]]; do
@@ -20,6 +22,8 @@ while [[ $# -gt 0 ]]; do
     --format)   FORMAT="$2";     shift 2 ;;
     --output)   OUTPUT_DIR="$2"; shift 2 ;;
     --task)     TASK="$2";       shift 2 ;;
+    --backend)  BACKEND="$2";    shift 2 ;;
+    --prompt)   PROMPT="$2";     shift 2 ;;
     *)
       echo "{\"tool\":\"transcribe\",\"error\":\"Unknown argument: $1\"}" >&2
       exit 1
@@ -38,71 +42,68 @@ if [[ ! -f "$INPUT" ]]; then
   exit 1
 fi
 
-# Validate format
 case "$FORMAT" in
   txt|srt|vtt|json) ;;
   *) echo "{\"tool\":\"transcribe\",\"error\":\"Invalid format: $FORMAT. Use txt, srt, vtt, or json\"}" >&2; exit 1 ;;
 esac
 
-# Validate task
 case "$TASK" in
   transcribe|translate) ;;
   *) echo "{\"tool\":\"transcribe\",\"error\":\"Invalid task: $TASK. Use transcribe or translate\"}" >&2; exit 1 ;;
 esac
 
-# ── Bootstrap venv (once) ─────────────────────
-if [[ ! -f "$VENV_DIR/bin/mlx_whisper" ]]; then
-  echo "First run: setting up mlx-whisper environment..." >&2
-  mkdir -p "$(dirname "$VENV_DIR")"
-  uv venv "$VENV_DIR" >&2
-  uv pip install --python "$VENV_DIR/bin/python" mlx-whisper >&2
-  echo "Setup complete." >&2
-fi
+case "$BACKEND" in
+  auto|mlx|groq) ;;
+  *) echo "{\"tool\":\"transcribe\",\"error\":\"Invalid backend: $BACKEND. Use auto, mlx, or groq\"}" >&2; exit 1 ;;
+esac
 
-# ── Resolve output ────────────────────────────
+# ── Resolve output dir ────────────────────────
 if [[ -z "$OUTPUT_DIR" ]]; then
   OUTPUT_DIR="$(dirname "$INPUT")"
 fi
 
 BASENAME="$(basename "${INPUT%.*}")"
 
-# ── Run transcription ────────────────────────
-# mlx_whisper writes output files to --output-dir
-"$VENV_DIR/bin/mlx_whisper" \
-  "$INPUT" \
-  --model "$MODEL" \
-  --language "$LANGUAGE" \
-  --task "$TASK" \
-  --output-dir "$OUTPUT_DIR" \
-  --output-format "$FORMAT" \
-  >&2
+# ── Export shared state for backends ──────────
+export INPUT MODEL LANGUAGE FORMAT TASK OUTPUT_DIR BASENAME PROMPT
 
-OUTPUT_FILE="$OUTPUT_DIR/$BASENAME.$FORMAT"
-
-# ── Read result and output JSON ───────────────
-if [[ ! -f "$OUTPUT_FILE" ]]; then
-  echo "{\"tool\":\"transcribe\",\"error\":\"Output file not created: $OUTPUT_FILE\"}" >&2
-  exit 1
-fi
-
-# Use Python to safely build JSON output (avoids shell injection in text content)
-export OUTPUT_FILE INPUT MODEL LANGUAGE TASK
-"$VENV_DIR/bin/python" -c "
-import json, sys, os
-
-output_file = os.environ['OUTPUT_FILE']
-with open(output_file, 'r', encoding='utf-8') as f:
-    text = f.read().strip()
-
-result = {
-    'tool': 'transcribe',
-    'input': os.environ['INPUT'],
-    'output': output_file,
-    'model': os.environ['MODEL'],
-    'language': os.environ['LANGUAGE'],
-    'task': os.environ['TASK'],
-    'text': text
+# ── Backend selection ─────────────────────────
+run_mlx() {
+  if [[ -z "$MODEL" ]]; then MODEL="mlx-community/whisper-large-v3-turbo"; fi
+  export MODEL
+  bash "$SCRIPT_DIR/backend_mlx.sh"
 }
-json.dump(result, sys.stdout, ensure_ascii=False, indent=2)
-print()
-"
+
+run_groq() {
+  if [[ -z "$MODEL" ]]; then MODEL="whisper-large-v3-turbo"; fi
+  export MODEL
+  bash "$SCRIPT_DIR/backend_groq.sh"
+}
+
+case "$BACKEND" in
+  mlx)
+    run_mlx
+    ;;
+  groq)
+    run_groq
+    ;;
+  auto)
+    # Strategy: local first (free, offline), cloud fallback
+    if sysctl -n machdep.cpu.brand_string 2>/dev/null | grep -q "Apple"; then
+      echo "Backend: mlx (Apple Silicon detected)" >&2
+      if run_mlx; then
+        exit 0
+      else
+        echo "MLX failed, falling back to Groq..." >&2
+      fi
+    fi
+    # Fallback to Groq
+    if [[ -n "${GROQ_API_KEY:-}" ]]; then
+      echo "Backend: groq (cloud fallback)" >&2
+      run_groq
+    else
+      echo '{"tool":"transcribe","error":"MLX unavailable and GROQ_API_KEY not set. No backend available."}' >&2
+      exit 1
+    fi
+    ;;
+esac

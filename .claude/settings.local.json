@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__filesystem__read_text_file",
+      "mcp__filesystem__list_allowed_directories",
+      "Bash(wc:*)",
+      "Bash(git remote:*)",
+      "Bash(git add:*)",
+      "Bash(git subtree:*)"
+    ]
+  }
+}

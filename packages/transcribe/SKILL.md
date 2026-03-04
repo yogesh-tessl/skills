@@ -1,9 +1,9 @@
 ---
 name: transcribe
 description: >
-  On-device speech-to-text using MLX Whisper on Apple Silicon. Supports 99 languages, defaults to
-  Traditional Chinese (zh-TW). Use for transcribing audio/video files to text, generating subtitles
-  (SRT/VTT), or translating speech to English.
+  Speech-to-text with automatic backend selection: local MLX Whisper (Apple Silicon) or Groq cloud API.
+  Supports 99 languages, defaults to Traditional Chinese (zh-TW).
+  Use for transcribing audio/video files to text, generating subtitles (SRT/VTT), or translating speech to English.
   Triggers: "transcribe", "語音轉文字", "轉錄", "聽打", "ASR", "speech to text", "whisper",
   "字幕", "subtitle", "逐字稿"
 allowed-tools: Bash(transcribe:*)
@@ -11,7 +11,8 @@ allowed-tools: Bash(transcribe:*)
 
 # Transcribe
 
-On-device speech-to-text via [MLX Whisper](https://github.com/ml-explore/mlx-examples/tree/main/whisper) on Apple Silicon.
+Speech-to-text with two backends: **MLX Whisper** (local, Apple Silicon) and **Groq API** (cloud).
+Default mode `auto` uses local first, cloud as fallback.
 
 ## Usage
 
@@ -24,13 +25,23 @@ bash scripts/transcribe.sh --input "/path/to/audio.m4a"
 | Flag | Description | Default |
 |------|-------------|---------|
 | `--input FILE` | Audio/video file path (required) | — |
-| `--model MODEL` | Whisper model name | `mlx-community/whisper-large-v3-turbo` |
-| `--language LANG` | Language code (`zh`, `en`, `ja`, `ko`, etc.) | `zh` |
+| `--backend MODE` | `auto`, `mlx`, or `groq` | `auto` |
+| `--model MODEL` | Whisper model name | Per backend |
+| `--language LANG` | Language code (`zh`, `en`, `ja`, etc.) | `zh` |
 | `--format FORMAT` | Output: `txt`, `srt`, `vtt`, `json` | `txt` |
 | `--output DIR` | Output directory | Same as input file |
 | `--task TASK` | `transcribe` or `translate` (to English) | `transcribe` |
+| `--prompt TEXT` | Context hint for better accuracy (Groq only) | — |
 
-### Models
+### Backends
+
+| Backend | Where | Speed | Cost | Offline | SRT/VTT |
+|---------|-------|-------|------|---------|---------|
+| `mlx` | Local (Apple Silicon) | Fast | Free | Yes | Yes |
+| `groq` | Groq Cloud API | Very Fast | Free tier 16k req/mo | No | No |
+| `auto` | MLX first, Groq fallback | — | — | Degrades gracefully | — |
+
+### MLX Models
 
 | Model | Speed | Accuracy | VRAM |
 |-------|-------|----------|------|
@@ -41,14 +52,17 @@ bash scripts/transcribe.sh --input "/path/to/audio.m4a"
 ### Examples
 
 ```bash
-# zh-TW transcription (default)
+# Default: auto backend, zh-TW
 bash scripts/transcribe.sh --input "meeting.m4a"
 
-# English transcription
-bash scripts/transcribe.sh --input "interview.wav" --language en
+# Force local
+bash scripts/transcribe.sh --input "meeting.m4a" --backend mlx
 
-# SRT subtitles
-bash scripts/transcribe.sh --input "video.mp4" --format srt
+# Force cloud (with context hint)
+bash scripts/transcribe.sh --input "meeting.m4a" --backend groq --prompt "技術術語: Bitcoin, DeFi"
+
+# English, SRT subtitles (requires mlx)
+bash scripts/transcribe.sh --input "video.mp4" --language en --format srt
 
 # Translate any language to English
 bash scripts/transcribe.sh --input "講座.m4a" --task translate
@@ -61,14 +75,17 @@ JSON on stdout:
 ```json
 {
   "tool": "transcribe",
+  "backend": "mlx",
   "input": "/path/to/audio.m4a",
   "output": "/path/to/audio.txt",
   "model": "mlx-community/whisper-large-v3-turbo",
   "language": "zh",
+  "task": "transcribe",
   "text": "轉錄的文字內容..."
 }
 ```
 
-## First Run
+## Setup
 
-The script auto-bootstraps a venv at `~/.local/share/transcribe/venv` using `uv` and installs `mlx-whisper`. Model weights are cached by HuggingFace after first download.
+- **MLX**: Auto-bootstraps venv at `~/.local/share/transcribe/venv` on first run (requires `uv`).
+- **Groq**: Set `GROQ_API_KEY` env var, or configure in `openclaw.json` under `skills.entries.transcribe.apiKey`.
