@@ -90,17 +90,18 @@ resolve_skills() {
     local skills=""
 
     # 檢查是否為「全部同步」語法（"*"、all、null/空）
-    local value=""
+    # 僅對 agents.yaml 中明確列出的 Agent 才生效
     if [ "$has_agent" = "true" ]; then
+        local value
         value=$(yq ".agents.\"${agent_id}\"" "$CONFIG" 2>/dev/null)
-    fi
 
-    if [ "$value" = "*" ] || [ "$value" = "all" ] || [ "$value" = "null" ] || [ -z "$value" ]; then
-        # 動態掃描 packages/ 下所有子目錄（排除隱藏目錄）
-        local all_skills
-        all_skills=$(find "$SOURCE_DIR" -maxdepth 1 -mindepth 1 -type d -not -name ".*" -exec basename {} \; | sort | tr '\n' ' ')
-        echo "$all_skills"
-        return
+        if [ "$value" = "*" ] || [ "$value" = "all" ] || [ "$value" = "null" ] || [ -z "$value" ]; then
+            # 動態掃描 packages/ 下所有子目錄（排除隱藏目錄）
+            local all_skills
+            all_skills=$(find "$SOURCE_DIR" -maxdepth 1 -mindepth 1 -type d -not -name ".*" -exec basename {} \; | sort | tr '\n' ' ')
+            echo "$all_skills"
+            return
+        fi
     fi
 
     local is_array
