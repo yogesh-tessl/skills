@@ -23,7 +23,7 @@ fi
 # ── 1. 先提交本地變更（僅 full 模式）──
 #    先提交再拉取，避免 autostash 在複雜狀態下失敗
 if [ "$MODE" = "full" ]; then
-    CHANGES=$(git status --porcelain 2>/dev/null || true)
+    CHANGES=$(git status --porcelain --ignore-submodules=dirty 2>/dev/null || true)
 
     if [ -n "$CHANGES" ]; then
         echo "📦 偵測到本地變更："
@@ -47,6 +47,14 @@ if [ "$MODE" = "full" ]; then
         fi
 
         git add -A
+        # 還原 submodule 的 staging，避免誤提交 submodule 狀態變更
+        if [ -f .gitmodules ]; then
+            git config --file .gitmodules --get-regexp path \
+                | awk '{print $2}' \
+                | while read -r sm_path; do
+                    git reset HEAD -- "$sm_path" 2>/dev/null || true
+                done
+        fi
         git commit -m "$MSG" || true
         echo ""
     else
