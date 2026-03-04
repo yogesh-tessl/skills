@@ -171,8 +171,14 @@ for ENTRY in "${AGENT_REGISTRY[@]}"; do
         mkdir -p "$TARGET"
     fi
 
-    # 4. 清除 target 下由本工具建立的舊 symlink（只清 symlink，保留實體目錄）
+    # 4. 清除 target 下的舊 symlink 和來源可追溯的實體目錄
     find "$TARGET" -maxdepth 1 -type l -delete
+    # 移除與 packages/ 同名的實體目錄（舊的手動安裝殘留）
+    for SKILL in $SKILLS; do
+        if [ -d "$TARGET/$SKILL" ] && [ ! -L "$TARGET/$SKILL" ]; then
+            rm -rf "$TARGET/$SKILL"
+        fi
+    done
 
     # 5. 建立逐個 skill 的 symlink
     SKILL_COUNT=0
