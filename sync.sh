@@ -38,7 +38,7 @@ if [ "$MODE" = "full" ]; then
             | sed 's|packages/||' \
             | sort -u \
             | tr '\n' ', ' \
-            | sed 's/,$//')
+            | sed 's/,$//' || true)
 
         if [ -n "$SKILL_NAMES" ]; then
             MSG="sync: update skills — $SKILL_NAMES"
