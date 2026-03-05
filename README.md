@@ -336,6 +336,17 @@ Spreadsheet creation, editing, and analysis with formulas, formatting, and visua
 - Financial color-coding standards
 - LibreOffice recalculation and error detection
 
+### youtube-to-mp4
+
+Download YouTube videos and convert to MP4 format using yt-dlp and ffmpeg.
+
+**Key Features:**
+- Native MP4 stream selection to avoid unnecessary transcoding
+- Single video, multiple URLs, and playlist support
+- Optional subtitle download (SRT format, multiple languages)
+- PPTX-optimized encoding (H.264 + AAC, faststart)
+- Automatic codec detection — skips ffmpeg if already H.264 MP4
+
 ### zeabur
 
 Zeabur cloud platform deployment assistant. Manage deployments, services, domains, and templates via CLI and GraphQL API.
@@ -834,6 +845,17 @@ UI/UX 設計智慧，提供全面可搜尋的資料庫。
 - 公式驅動設計（不寫死數值）
 - 財務色彩編碼標準
 - LibreOffice 重新計算與錯誤偵測
+
+### youtube-to-mp4
+
+下載 YouTube 影片並轉換為 MP4 格式，使用 yt-dlp 和 ffmpeg。
+
+**主要特色：**
+- 優先取得原生 MP4 串流，避免不必要的轉檔
+- 支援單一影片、多網址與播放清單
+- 選擇性下載字幕（SRT 格式，多語言）
+- 針對 PPTX 嵌入最佳化的編碼設定（H.264 + AAC、faststart）
+- 自動偵測編碼格式，已是 H.264 MP4 則跳過 ffmpeg
 
 ### zeabur
 
