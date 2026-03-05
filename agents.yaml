@@ -48,10 +48,10 @@ agents:
   # "*" / all / 留空 = 同步 packages/ 下所有 skill（動態掃描）
   # ── 主力 Agent：給最完整的 skill 集 ──
   claude-code:    "*"          # 同步所有 skill
-  cursor:         [core, design]
+  cursor:         [core, design, domain]
   windsurf:       [core, design]
-  codex:          [core, devops]
-  gemini-cli:     [core, design]
+  codex:          [core, devops, domain]
+  gemini-cli:     [core, design, domain]
 
   # ── 次要 Agent：只給基礎 skill ──
   github-copilot: core
@@ -63,7 +63,7 @@ agents:
   opencode:       core
   openhands:      core
   junie:          core
-  antigravity:    core
+  antigravity:    [core, design, domain]
   roo:            core
   trae:           core
 
