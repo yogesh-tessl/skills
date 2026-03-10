@@ -6,7 +6,15 @@
       "Bash(wc:*)",
       "Bash(git remote:*)",
       "Bash(git add:*)",
-      "Bash(git subtree:*)"
+      "Bash(git subtree:*)",
+      "mcp__perplexity__perplexity_research",
+      "mcp__perplexity__perplexity_search",
+      "WebFetch(domain:docs.iotechsys.com)",
+      "Bash(chmod +x:*)",
+      "Bash(ls:*)",
+      "Bash(do printf:*)",
+      "Bash(ln -sfn /Users/kc/Downloads/Codebase/playground/skills/packages/iotech-expert /Users/kc/.claude/skills/iotech-expert)",
+      "Read(//Users/kc/.claude/skills/**)"
     ]
   }
 }

@@ -1,0 +1,451 @@
+{
+  "base_url": "https://docs.iotechsys.com",
+  "last_updated": "2026-03-07",
+  "product_versions": {
+    "edge_central": "4.0",
+    "edge_connect": "2.2",
+    "edge_manager": "3.1",
+    "alarm_service": "1.0"
+  },
+  "files": [
+    {
+      "output": "ec-architecture.md",
+      "description": "Edge Central 4.0 架構總覽",
+      "urls": [
+        "https://docs.iotechsys.com/edge-central40/introduction/introduction.html",
+        "https://docs.iotechsys.com/edge-central40/introduction/architecture.html"
+      ]
+    },
+    {
+      "output": "ec-getting-started.md",
+      "description": "安裝、授權、先決條件、升級",
+      "urls": [
+        "https://docs.iotechsys.com/edge-central40/installation/overview.html",
+        "https://docs.iotechsys.com/edge-central40/installation/prerequisites/docker-installation.html",
+        "https://docs.iotechsys.com/edge-central40/installation/prerequisites/podman-installation.html",
+        "https://docs.iotechsys.com/edge-central40/installation/installation.html",
+        "https://docs.iotechsys.com/edge-central40/installation/upgrade.html",
+        "https://docs.iotechsys.com/edge-central40/installation/licensing.html"
+      ]
+    },
+    {
+      "output": "ec-tutorial.md",
+      "description": "Quick Start 與 Chemical Tank 教學",
+      "urls": [
+        "https://docs.iotechsys.com/edge-central40/tutorials/quick-start/index.html",
+        "https://docs.iotechsys.com/edge-central40/tutorials/chemical-tank/overview.html",
+        "https://docs.iotechsys.com/edge-central40/tutorials/chemical-tank/installation.html",
+        "https://docs.iotechsys.com/edge-central40/tutorials/chemical-tank/simulators.html",
+        "https://docs.iotechsys.com/edge-central40/tutorials/chemical-tank/starting.html",
+        "https://docs.iotechsys.com/edge-central40/tutorials/chemical-tank/onboard-devices.html",
+        "https://docs.iotechsys.com/edge-central40/tutorials/chemical-tank/time-series-storage.html",
+        "https://docs.iotechsys.com/edge-central40/tutorials/chemical-tank/dashboarding.html",
+        "https://docs.iotechsys.com/edge-central40/tutorials/chemical-tank/edge-rules.html",
+        "https://docs.iotechsys.com/edge-central40/tutorials/chemical-tank/cloud-integration.html",
+        "https://docs.iotechsys.com/edge-central40/tutorials/chemical-tank/stopping.html",
+        "https://docs.iotechsys.com/edge-central40/tutorials/chemical-tank/automated-provisioning.html"
+      ]
+    },
+    {
+      "output": "ec-ui.md",
+      "description": "Edge Central Web UI 操作指南",
+      "urls": [
+        "https://docs.iotechsys.com/edge-central40/ui/ui-overview.html",
+        "https://docs.iotechsys.com/edge-central40/ui/dashboard.html",
+        "https://docs.iotechsys.com/edge-central40/ui/service-control.html",
+        "https://docs.iotechsys.com/edge-central40/ui/opc-ua-browser.html",
+        "https://docs.iotechsys.com/edge-central40/ui/devices/device-mgmt.html",
+        "https://docs.iotechsys.com/edge-central40/ui/devices/device-profile-mgmt.html",
+        "https://docs.iotechsys.com/edge-central40/ui/devices/device-service-mgmt.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/discovery/auto-discovery-ui.html",
+        "https://docs.iotechsys.com/edge-central40/ui/devices/mass-devices-onboarding.html",
+        "https://docs.iotechsys.com/edge-central40/ui/data-center/data-center.html",
+        "https://docs.iotechsys.com/edge-central40/ui/app-services/application-services.html",
+        "https://docs.iotechsys.com/edge-central40/supporting-services/scheduler/ui-schedules.html",
+        "https://docs.iotechsys.com/edge-central40/ui/usersandrolepolicy.html",
+        "https://docs.iotechsys.com/edge-central40/ui/system-config.html",
+        "https://docs.iotechsys.com/edge-central40/ui/secure.html",
+        "https://docs.iotechsys.com/edge-central40/ui/rebranding.html"
+      ]
+    },
+    {
+      "output": "ec-cli.md",
+      "description": "CLI 操作、Docker Compose、組態、環境變數",
+      "urls": [
+        "https://docs.iotechsys.com/edge-central40/cli/cli-overview.html",
+        "https://docs.iotechsys.com/edge-central40/cli/cli-docker-tools.html",
+        "https://docs.iotechsys.com/edge-central40/cli/cli-configuration-files.html",
+        "https://docs.iotechsys.com/edge-central40/cli/cli-commands.html",
+        "https://docs.iotechsys.com/edge-central40/cli/cli-services.html",
+        "https://docs.iotechsys.com/edge-central40/cli/cli-service-ports.html",
+        "https://docs.iotechsys.com/edge-central40/cli/cli-environment-variables.html"
+      ]
+    },
+    {
+      "output": "ec-core-services.md",
+      "description": "Core Data/Metadata/Command、Config & Registry、資料庫",
+      "urls": [
+        "https://docs.iotechsys.com/edge-central40/core-services/core-services-overview.html",
+        "https://docs.iotechsys.com/edge-central40/core-services/core-data.html",
+        "https://docs.iotechsys.com/edge-central40/core-services/event-filter.html",
+        "https://docs.iotechsys.com/edge-central40/core-services/core-metadata.html",
+        "https://docs.iotechsys.com/edge-central40/core-services/core-command.html",
+        "https://docs.iotechsys.com/edge-central40/core-services/core-config.html",
+        "https://docs.iotechsys.com/edge-central40/core-services/database.html",
+        "https://docs.iotechsys.com/edge-central40/core-services/database-external-drive-postgres.html"
+      ]
+    },
+    {
+      "output": "ec-device-services-overview.md",
+      "description": "Device Service 通用概念、Profile、轉換、探索、調校",
+      "urls": [
+        "https://docs.iotechsys.com/edge-central40/device-services/device-services-overview.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/device-profiles.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/device-profile-reference.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/lua-scripting.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/discovery/auto-discovery.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/discovery/auto-discovery-rest.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/discovery/default-provision-watchers.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/operating-state.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/multiple-instance.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/tuning.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/provisioning-examples.html"
+      ]
+    },
+    {
+      "output": "ec-ds-modbus.md",
+      "description": "Modbus TCP/RTU 完整指南",
+      "urls": [
+        "https://docs.iotechsys.com/edge-central40/device-services/modbus/modbus-overview.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/modbus/modbus-swap-operations.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/modbus/modbus-precision.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/modbus/modbus-discovery.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/modbus/modbus-simulator.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/modbus/modbus-tcp-example.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/modbus/modbus-rtu-example.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/modbus/modbus-rtu-device.html"
+      ]
+    },
+    {
+      "output": "ec-ds-opcua.md",
+      "description": "OPC UA 連接、安全、探索、監控項目",
+      "urls": [
+        "https://docs.iotechsys.com/edge-central40/device-services/opc-ua/opc-ua-overview.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/opc-ua/opc-ua-security.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/opc-ua/opc-ua-discovery.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/opc-ua/opc-ua-profile-generation.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/opc-ua/opc-ua-browse-service.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/opc-ua/opc-ua-monitored-items.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/opc-ua/opc-ua-prosys.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/opc-ua/opc-ua-general-example.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/opc-ua/opc-ua-security-example.html"
+      ]
+    },
+    {
+      "output": "ec-ds-bacnet.md",
+      "description": "BACnet/IP、MSTP、COV、探索",
+      "urls": [
+        "https://docs.iotechsys.com/edge-central40/device-services/bacnet/bacnet-overview.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/bacnet/bacnet-sim.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/bacnet/bacnet-bbmd.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/bacnet/bacnet-discovery.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/bacnet/bacnet-profile-generation.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/bacnet/bacnet-cov.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/bacnet/bacnet-env-variables.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/bacnet/bacnet-example-ip.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/bacnet/bacnet-example-mstp.html"
+      ]
+    },
+    {
+      "output": "ec-ds-mqtt.md",
+      "description": "MQTT Device Service",
+      "urls": [
+        "https://docs.iotechsys.com/edge-central40/device-services/mqtt/overview/mqtt-overview.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/mqtt/overview/asyncread.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/mqtt/overview/getcommand.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/mqtt/overview/setcommand.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/mqtt/mqtt-sim.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/mqtt/mqtt-example.html"
+      ]
+    },
+    {
+      "output": "ec-ds-ethernetip.md",
+      "description": "EtherNet/IP 隱式/顯式通訊",
+      "urls": [
+        "https://docs.iotechsys.com/edge-central40/device-services/ethernet-ip/ethernet-ip-overview.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/ethernet-ip/ethernet-ip-implicit.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/ethernet-ip/ethernet-ip-explicit.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/ethernet-ip/ethernet-ip-logixtag.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/ethernet-ip/ethernet-ip-example.html"
+      ]
+    },
+    {
+      "output": "ec-ds-s7.md",
+      "description": "Siemens S7 連接",
+      "urls": [
+        "https://docs.iotechsys.com/edge-central40/device-services/s7/s7-overview.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/s7/s7-example.html"
+      ]
+    },
+    {
+      "output": "ec-ds-others.md",
+      "description": "BLE、CANbus、GPS、REST、File、WebSocket、ONVIF、USB Camera、Virtual",
+      "urls": [
+        "https://docs.iotechsys.com/edge-central40/device-services/ble/ble-overview.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/canbus/canbus-overview.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/gps/gps-overview.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/rest/rest-overview.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/file/file-overview.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/websocket/websocket-overview.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/onvif-camera/onvif-overview.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/usb-camera/usb-camera-overview.html",
+        "https://docs.iotechsys.com/edge-central40/device-services/virtual/virtual-overview.html"
+      ]
+    },
+    {
+      "output": "ec-app-services.md",
+      "description": "Application Service、北向匯出",
+      "urls": [
+        "https://docs.iotechsys.com/edge-central40/app-services/app-services-overview.html",
+        "https://docs.iotechsys.com/edge-central40/app-services/edgecentral-app-services.html",
+        "https://docs.iotechsys.com/edge-central40/app-services/built-in-functions-overview.html",
+        "https://docs.iotechsys.com/edge-central40/app-services/trigger-enhancement.html",
+        "https://docs.iotechsys.com/edge-central40/app-services/run-app-services.html",
+        "https://docs.iotechsys.com/edge-central40/app-services/examples.html"
+      ]
+    },
+    {
+      "output": "ec-rules-engine.md",
+      "description": "規則引擎（Kuiper + Node-RED）",
+      "urls": [
+        "https://docs.iotechsys.com/edge-central40/supporting-services/rulesengine.html",
+        "https://docs.iotechsys.com/edge-central40/supporting-services/kuiper.html",
+        "https://docs.iotechsys.com/edge-central40/supporting-services/nodered.html"
+      ]
+    },
+    {
+      "output": "ec-supporting-services.md",
+      "description": "InfluxDB、Grafana、告警通知、排程、Provision、Sparkplug",
+      "urls": [
+        "https://docs.iotechsys.com/edge-central40/supporting-services/supporting-services-overview.html",
+        "https://docs.iotechsys.com/edge-central40/supporting-services/influxdb.html",
+        "https://docs.iotechsys.com/edge-central40/supporting-services/grafana.html",
+        "https://docs.iotechsys.com/edge-central40/supporting-services/notifications/alerts.html",
+        "https://docs.iotechsys.com/edge-central40/supporting-services/notifications/alertconfigprops.html",
+        "https://docs.iotechsys.com/edge-central40/supporting-services/notifications/mailconfig.html",
+        "https://docs.iotechsys.com/edge-central40/supporting-services/notifications/restnotifications.html",
+        "https://docs.iotechsys.com/edge-central40/supporting-services/scheduler/scheduler.html",
+        "https://docs.iotechsys.com/edge-central40/supporting-services/provision/provision.html",
+        "https://docs.iotechsys.com/edge-central40/supporting-services/provision/environment-variable-substitution.html",
+        "https://docs.iotechsys.com/edge-central40/supporting-services/sparkplug/sparkplug.html"
+      ]
+    },
+    {
+      "output": "ec-security.md",
+      "description": "API Gateway、JWT、Secret Store、內部服務安全",
+      "urls": [
+        "https://docs.iotechsys.com/edge-central40/security/security-overview.html",
+        "https://docs.iotechsys.com/edge-central40/security/nginx.html",
+        "https://docs.iotechsys.com/edge-central40/security/jwt-authentication.html",
+        "https://docs.iotechsys.com/edge-central40/security/access-control-list.html",
+        "https://docs.iotechsys.com/edge-central40/security/secret-store.html",
+        "https://docs.iotechsys.com/edge-central40/security/secretstore-setup.html",
+        "https://docs.iotechsys.com/edge-central40/security/get-existed-jwt-authentication.html",
+        "https://docs.iotechsys.com/edge-central40/security/tls-mqtt-broker.html",
+        "https://docs.iotechsys.com/edge-central40/security/securing-supporting-services.html"
+      ]
+    },
+    {
+      "output": "ec-opcua-server.md",
+      "description": "北向 OPC UA Server",
+      "urls": [
+        "https://docs.iotechsys.com/edge-central40/opc-ua-server/opc-ua-server-overview.html",
+        "https://docs.iotechsys.com/edge-central40/opc-ua-server/opc-ua-server-information-modelling.html",
+        "https://docs.iotechsys.com/edge-central40/opc-ua-server/opc-ua-server-security.html",
+        "https://docs.iotechsys.com/edge-central40/opc-ua-server/opc-ua-server-env-variables.html"
+      ]
+    },
+    {
+      "output": "ec-ai-inference.md",
+      "description": "AI Inference 推論服務",
+      "urls": [
+        "https://docs.iotechsys.com/edge-central40/ai-inference/overview.html",
+        "https://docs.iotechsys.com/edge-central40/ai-inference/getting-started.html",
+        "https://docs.iotechsys.com/edge-central40/ai-inference/ui.html"
+      ]
+    },
+    {
+      "output": "ec-system-management.md",
+      "description": "系統管理、EdgeX 整合",
+      "urls": [
+        "https://docs.iotechsys.com/edge-central40/system-management/sys-mgmt/overview.html",
+        "https://docs.iotechsys.com/edge-central40/system-management/sys-mgmt/executor.html",
+        "https://docs.iotechsys.com/edge-central40/edgex-integration/overview.html",
+        "https://docs.iotechsys.com/edge-central40/edgex-integration/device-service.html",
+        "https://docs.iotechsys.com/edge-central40/edgex-integration/app-service.html",
+        "https://docs.iotechsys.com/edge-central40/edgex-integration/support-sparkplug.html",
+        "https://docs.iotechsys.com/edge-central40/edgex-integration/edge-historian.html",
+        "https://docs.iotechsys.com/edge-central40/edgex-integration/alarm-service.html",
+        "https://docs.iotechsys.com/edge-central40/edgex-integration/opcua-server.html"
+      ]
+    },
+    {
+      "output": "ec-api-reference.md",
+      "description": "REST API 端點參考",
+      "urls": [
+        "https://docs.iotechsys.com/edge-central40/api/api-overview.html",
+        "https://docs.iotechsys.com/edge-central40/api/api-core-data.html",
+        "https://docs.iotechsys.com/edge-central40/api/api-core-metadata.html",
+        "https://docs.iotechsys.com/edge-central40/api/api-core-command.html",
+        "https://docs.iotechsys.com/edge-central40/api/api-core-keeper.html",
+        "https://docs.iotechsys.com/edge-central40/api/api-edge-historian.html",
+        "https://docs.iotechsys.com/edge-central40/api/api-support-notifications.html",
+        "https://docs.iotechsys.com/edge-central40/api/api-support-scheduler.html",
+        "https://docs.iotechsys.com/edge-central40/api/api-support-sparkplug.html",
+        "https://docs.iotechsys.com/edge-central40/api/api-system-management.html",
+        "https://docs.iotechsys.com/edge-central40/api/api-app-functions-sdk.html",
+        "https://docs.iotechsys.com/edge-central40/api/api-device-sdk.html",
+        "https://docs.iotechsys.com/edge-central40/api/api-proxy-auth.html",
+        "https://docs.iotechsys.com/edge-central40/api/api-ai-inference.html"
+      ]
+    },
+    {
+      "output": "ec-troubleshooting.md",
+      "description": "故障排除、已知問題、日誌、Core Dump、遷移",
+      "urls": [
+        "https://docs.iotechsys.com/edge-central40/troubleshooting/troubleshooting-overview.html",
+        "https://docs.iotechsys.com/edge-central40/troubleshooting/known-issues.html",
+        "https://docs.iotechsys.com/edge-central40/troubleshooting/view-logs.html",
+        "https://docs.iotechsys.com/edge-central40/troubleshooting/core-dump.html",
+        "https://docs.iotechsys.com/edge-central40/migration/general-migr.html",
+        "https://docs.iotechsys.com/edge-central40/release-notes/4.0.html"
+      ]
+    },
+    {
+      "output": "edge-connect-overview.md",
+      "description": "Edge Connect 2.2 架構、入門、元件總覽",
+      "urls": [
+        "https://docs.iotechsys.com/edge-xrt22/introduction/introduction.html",
+        "https://docs.iotechsys.com/edge-xrt22/getting-started/getting-started.html",
+        "https://docs.iotechsys.com/edge-xrt22/components/available-components.html"
+      ]
+    },
+    {
+      "output": "edge-connect-installation.md",
+      "description": "Edge Connect 2.2 安裝、Systemd、Docker",
+      "urls": [
+        "https://docs.iotechsys.com/edge-xrt22/installation/installation.html",
+        "https://docs.iotechsys.com/edge-xrt22/installation/systemd.html",
+        "https://docs.iotechsys.com/edge-xrt22/docker-container/introduction.html"
+      ]
+    },
+    {
+      "output": "edge-connect-device-services.md",
+      "description": "Edge Connect 2.2 Device Service 通用概念、Profile、Provisioning",
+      "urls": [
+        "https://docs.iotechsys.com/edge-xrt22/device-service-components/available-device-service-components.html",
+        "https://docs.iotechsys.com/edge-xrt22/device-service-components/device-profiles.html",
+        "https://docs.iotechsys.com/edge-xrt22/device-service-components/device-provisioning.html",
+        "https://docs.iotechsys.com/edge-xrt22/device-service-components/device-service-component-configuration.html",
+        "https://docs.iotechsys.com/edge-xrt22/device-service-components/schedule-the-publication-of-readings.html",
+        "https://docs.iotechsys.com/edge-xrt22/device-service-components/run-device-service-components.html",
+        "https://docs.iotechsys.com/edge-xrt22/device-service-components/run-multiple-device-service-components.html"
+      ]
+    },
+    {
+      "output": "edge-connect-ds-modbus.md",
+      "description": "Edge Connect 2.2 Modbus TCP/RTU",
+      "urls": [
+        "https://docs.iotechsys.com/edge-xrt22/device-service-components/modbus-device-service-component.html",
+        "https://docs.iotechsys.com/edge-xrt22/simulators/modbus/overview.html"
+      ]
+    },
+    {
+      "output": "edge-connect-ds-opcua.md",
+      "description": "Edge Connect 2.2 OPC UA",
+      "urls": [
+        "https://docs.iotechsys.com/edge-xrt22/device-service-components/opc-ua-device-service-component.html",
+        "https://docs.iotechsys.com/edge-xrt22/simulators/opc-ua/overview.html",
+        "https://docs.iotechsys.com/edge-xrt22/simulators/opc-ua/lua-scripting.html"
+      ]
+    },
+    {
+      "output": "edge-connect-ds-bacnet.md",
+      "description": "Edge Connect 2.2 BACnet/IP、MSTP",
+      "urls": [
+        "https://docs.iotechsys.com/edge-xrt22/device-service-components/bacnet-device-service-component.html",
+        "https://docs.iotechsys.com/edge-xrt22/device-service-components/device-service-component-details/bacnet-device-service-component-details.html",
+        "https://docs.iotechsys.com/edge-xrt22/simulators/bacnet/overview.html"
+      ]
+    },
+    {
+      "output": "edge-connect-ds-others.md",
+      "description": "Edge Connect 2.2 S7、EtherCAT、PROFINET、EtherNet/IP、BLE、Virtual",
+      "urls": [
+        "https://docs.iotechsys.com/edge-xrt22/device-service-components/s7-device-service-component.html",
+        "https://docs.iotechsys.com/edge-xrt22/device-service-components/ethercat-device-service-component.html",
+        "https://docs.iotechsys.com/edge-xrt22/device-service-components/profinet-device-service-component.html",
+        "https://docs.iotechsys.com/edge-xrt22/device-service-components/ethernet-ip-device-service-component.html",
+        "https://docs.iotechsys.com/edge-xrt22/device-service-components/ble-device-service-component.html",
+        "https://docs.iotechsys.com/edge-xrt22/device-service-components/virtual-device-service-component.html"
+      ]
+    },
+    {
+      "output": "edge-connect-exporters.md",
+      "description": "Edge Connect 2.2 匯出元件（REST、InfluxDB、Azure、AWS、Log）",
+      "urls": [
+        "https://docs.iotechsys.com/edge-xrt22/exporter-components/rest-exporter-component.html",
+        "https://docs.iotechsys.com/edge-xrt22/exporter-components/influxdb-exporter-component.html",
+        "https://docs.iotechsys.com/edge-xrt22/exporter-components/azure-exporter-component.html",
+        "https://docs.iotechsys.com/edge-xrt22/exporter-components/aws-sitewise-exporter-component.html",
+        "https://docs.iotechsys.com/edge-xrt22/exporter-components/log-exporter-component.html"
+      ]
+    },
+    {
+      "output": "edge-connect-bridges-server.md",
+      "description": "Edge Connect 2.2 MQTT Bridge、Redis Bridge、OPC UA Server、Lua Transform、核心元件",
+      "urls": [
+        "https://docs.iotechsys.com/edge-xrt22/bridge-components/mqtt-bridge-component.html",
+        "https://docs.iotechsys.com/edge-xrt22/bridge-components/redis-bridge-component.html",
+        "https://docs.iotechsys.com/edge-xrt22/server-components/opc-ua-server-component.html",
+        "https://docs.iotechsys.com/edge-xrt22/server-components/opc-ua-server-information-modelling.html",
+        "https://docs.iotechsys.com/edge-xrt22/transform-components/lua-transform-component.html",
+        "https://docs.iotechsys.com/edge-xrt22/core-components/bus-component.html",
+        "https://docs.iotechsys.com/edge-xrt22/core-components/logger-component.html",
+        "https://docs.iotechsys.com/edge-xrt22/core-components/scheduler-component.html",
+        "https://docs.iotechsys.com/edge-xrt22/core-components/config-component.html"
+      ]
+    },
+    {
+      "output": "edge-connect-management.md",
+      "description": "Edge Connect 2.2 MQTT Management API、遷移指南、Release Notes",
+      "urls": [
+        "https://docs.iotechsys.com/edge-xrt22/mqtt-management/mqtt-management.html",
+        "https://docs.iotechsys.com/edge-xrt22/migration/2.1-2.2.html",
+        "https://docs.iotechsys.com/edge-xrt22/releasenotes/changelog.html"
+      ]
+    },
+    {
+      "output": "edge-manager-overview.md",
+      "description": "Edge Manager 3.1 節點管理",
+      "urls": [
+        "https://docs.iotechsys.com/edge-manager31/"
+      ]
+    },
+    {
+      "output": "alarm-service-overview.md",
+      "description": "Alarm Service 1.0",
+      "urls": [
+        "https://docs.iotechsys.com/edge-alarm10/"
+      ]
+    },
+    {
+      "output": "tools-overview.md",
+      "description": "Device Config Tool + OPC-UA Browser",
+      "urls": [
+        "https://docs.iotechsys.com/edge-dct/",
+        "https://docs.iotechsys.com/edge-opcuabrowser11/"
+      ]
+    }
+  ]
+}
