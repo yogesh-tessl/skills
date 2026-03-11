@@ -46,6 +46,9 @@ if [ "$MODE" = "full" ]; then
             MSG="sync: update skill config"
         fi
 
+        # 確保所有 .sh 保持可執行，防止編輯器或同步工具意外移除 execute bit
+        find "$SCRIPT_DIR" -name '*.sh' ! -perm -u+x -exec chmod +x {} +
+
         git add -A
         # 還原 submodule 的 staging，避免誤提交 submodule 狀態變更
         if [ -f .gitmodules ]; then
