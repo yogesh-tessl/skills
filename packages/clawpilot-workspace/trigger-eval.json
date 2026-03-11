@@ -1,0 +1,82 @@
+[
+  {
+    "query": "我昨天用 ollama launch openclaw 把系統裝好了，目前用 kimi-k2.5:cloud 跑得不錯，但老闆說公司資料不能送到中國，我需要換成本地模型。我的機器是 M2 Ultra 192GB，有什麼推薦的模型嗎？要怎麼改 openclaw.json？",
+    "should_trigger": true
+  },
+  {
+    "query": "我的 WhatsApp bot 從昨天開始就不回訊息了，之前都好好的。我用的是 openclaw 連 anthropic 的 claude，gateway log 裡面一直出現 session timeout。有人遇過嗎？",
+    "should_trigger": true
+  },
+  {
+    "query": "幫我看一下 ~/.openclaw/openclaw.json 的安全性，我不確定我的 dmPolicy 設定對不對，之前是同事幫我設的，他已經離職了。另外我想知道有沒有什麼已知的 CVE 我需要注意。",
+    "should_trigger": true
+  },
+  {
+    "query": "我想在 openclaw 裡面設兩個 agent，一個處理客戶的 Telegram 訊息用 claude，另一個處理內部 Slack 用本地的 ollama 模型。兩個 agent 要完全隔離，各自有自己的 workspace 和 session。這要怎麼設定 routing rules？",
+    "should_trigger": true
+  },
+  {
+    "query": "公司要把 openclaw 部署到 AWS EC2 上面，目前在本地跑得好好的，但我不知道怎麼處理遠端存取的問題。直接 bind 0.0.0.0 感覺不太安全，有沒有比較好的做法？",
+    "should_trigger": true
+  },
+  {
+    "query": "我在 clawhub 上面看到一個叫 auto-translate 的 skill 看起來不錯，但之前聽說有惡意 skill 的問題。安裝之前要怎麼檢查它是不是安全的？openclaw skills scan 這個指令要怎麼用？",
+    "should_trigger": true
+  },
+  {
+    "query": "ollama launch openclaw 之後 tool calling 一直失敗，模型直接吐出 raw json 而不是執行工具。我用的是本地的 qwen2.5-coder，openclaw 版本是 2026.2.15",
+    "should_trigger": true
+  },
+  {
+    "query": "我想把 openclaw 從 2026.1.x 升級到最新版，但怕升級會壞掉現有的設定。有沒有什麼 breaking changes 要注意的？sessions 和 memory 會不會不見？",
+    "should_trigger": true
+  },
+  {
+    "query": "請幫我檢查 openclaw 的 session transcript 裡面有沒有洩漏 API key 或其他敏感資訊，我們最近做了一次內部資安稽核，需要確認 agent 對話紀錄的安全性",
+    "should_trigger": true
+  },
+  {
+    "query": "我用 signal 連 openclaw，但發現群組裡面 bot 一直回覆不相關的訊息，即使沒有 mention 它。是不是 requireMention 沒設好？還是 dmPolicy 的問題？",
+    "should_trigger": true
+  },
+  {
+    "query": "我想用 Botpress 做一個客服 chatbot，連接 WhatsApp Business API 和 LINE official account。需要支援中英文自動翻譯和 FAQ 知識庫。有沒有推薦的架構？",
+    "should_trigger": false
+  },
+  {
+    "query": "幫我寫一個 Python script 用 ollama 的 API 來批次處理一堆 PDF 文件，萃取裡面的表格資料存成 CSV。模型用 llama3.3 就好，不需要 tool calling",
+    "should_trigger": false
+  },
+  {
+    "query": "我在 docker compose 裡面有一個 nginx reverse proxy + 三個 node.js microservice + redis + postgres，最近 nginx 的 SSL 憑證快到期了，要怎麼用 certbot 自動更新？",
+    "should_trigger": false
+  },
+  {
+    "query": "我們公司想比較 Rasa、Dialogflow、和 Amazon Lex 這三個 conversational AI 平台，主要用在電商客服場景。哪個比較適合台灣市場？需要支援繁體中文",
+    "should_trigger": false
+  },
+  {
+    "query": "幫我用 Anthropic SDK 寫一個 claude agent，要能讀取 gmail 信件、自動分類、然後用 slack webhook 通知我。不需要用任何 gateway，直接 API call 就好",
+    "should_trigger": false
+  },
+  {
+    "query": "我想在我的 Mac 上用 ollama 跑 stable diffusion 來生成圖片，有沒有推薦的模型？VRAM 夠不夠？要怎麼裝？",
+    "should_trigger": false
+  },
+  {
+    "query": "kubernetes 上面跑的 chat application 一直 crash，pod log 顯示 OOMKilled。我設了 resources.limits.memory: 512Mi 但好像不夠。這個 golang 的 websocket server 大概需要多少 memory？",
+    "should_trigger": false
+  },
+  {
+    "query": "我用 n8n 做了一個自動化 workflow，裡面有一個 step 是呼叫 openai API 做文字摘要，但 rate limit 一直被觸發。有什麼方法可以做 retry with exponential backoff？",
+    "should_trigger": false
+  },
+  {
+    "query": "幫我做一個 Telegram bot，用 python-telegram-bot 套件，功能是每天早上 8 點自動發送天氣預報到群組。不需要 AI 功能，純粹是 API 串接",
+    "should_trigger": false
+  },
+  {
+    "query": "我在用 LangChain 建一個 RAG pipeline，vector store 用 ChromaDB，embeddings 用 ollama 的 nomic-embed-text。查詢的時候 recall 很低，有什麼調校的建議嗎？chunk size 和 overlap 要怎麼設？",
+    "should_trigger": false
+  }
+]
