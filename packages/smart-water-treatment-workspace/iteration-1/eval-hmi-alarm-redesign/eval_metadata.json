@@ -1,0 +1,37 @@
+{
+  "eval_id": 0,
+  "eval_name": "hmi-alarm-redesign",
+  "prompt": "我們廠區有一套反滲透（RO）海水淡化系統，目前人機介面畫面是十年前設計的，畫面上用了很多 3D 效果和彩色管線。警報系統也有問題，操作員反映每小時收到 20-30 個警報，很多都是重複的。我們想全面翻新人機介面並改善警報系統，請依據工業標準給出設計建議。",
+  "assertions": [
+    {
+      "id": "isa101-color",
+      "text": "Response references ISA-101 gray background principle and color-only-for-abnormal rule",
+      "type": "content_check"
+    },
+    {
+      "id": "isa55-simplification",
+      "text": "Response distinguishes ISA-5.5 HMI symbols from P&ID symbols (simplified representation principle)",
+      "type": "content_check"
+    },
+    {
+      "id": "isa182-metrics",
+      "text": "Response cites specific ISA-18.2 alarm rate thresholds (e.g., ≤6 alarms/hour steady state)",
+      "type": "content_check"
+    },
+    {
+      "id": "eemua191-maturity",
+      "text": "Response mentions EEMUA 191 maturity levels or performance benchmarks",
+      "type": "content_check"
+    },
+    {
+      "id": "ro-specific",
+      "text": "Recommendations are specific to RO desalination (e.g., CIP suppression, membrane pressure alarms)",
+      "type": "content_check"
+    },
+    {
+      "id": "actionable-steps",
+      "text": "Response includes concrete next steps with verifiable deliverables",
+      "type": "content_check"
+    }
+  ]
+}

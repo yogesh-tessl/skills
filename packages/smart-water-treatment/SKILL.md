@@ -1,6 +1,6 @@
 ---
 name: smart-water-treatment
-description: "Water treatment system architect. Use for: (1) Process troubleshooting and system design for semiconductor UPW, municipal, industrial, desalination, and reuse applications, (2) Water quality analysis, chemical dosing, and emerging contaminants (RO, EDI, IX, UF, MBR, AOP, biological treatment), (3) AI/ML modeling with PINNs, time-series foundation models, PID/MPC control, (4) SCADA/OT integration (OPC UA/MQTT), IEC 62443 cybersecurity, SEMI E187, (5) ESG reporting, ISA-101 HMI design, and deployment architecture. 中文觸發：水處理、超純水、海水淡化、再生水、污水處理、RO膜、加藥控制、SCADA、薄膜、混凝、消毒、污泥。"
+description: "Water treatment system architect. Use for: (1) Process troubleshooting and system design for semiconductor UPW, municipal, industrial, desalination, and reuse applications, (2) Water quality analysis, chemical dosing, and emerging contaminants (RO, EDI, IX, UF, MBR, AOP, biological treatment), (3) AI/ML modeling with PINNs, time-series foundation models, PID/MPC control, (4) SCADA/OT integration (OPC UA/MQTT), IEC 62443 cybersecurity, SEMI E187, (5) ESG reporting, ISA-101/ISA-5.5/ISA-18.2/EEMUA 191 HMI and alarm management design, and deployment architecture. 中文觸發：水處理、超純水、海水淡化、再生水、污水處理、RO膜、加藥控制、SCADA、薄膜、混凝、消毒、污泥。"
 ---
 
 # 智慧水處理（Smart Water Treatment）
@@ -91,7 +91,7 @@ description: "Water treatment system architect. Use for: (1) Process troubleshoo
 - 故障排除/異常/性能下降 → [references/troubleshooting.md](references/troubleshooting.md) — 故障診斷：診斷框架、常見故障模式、根因分析（311 行）
 - AI/ML/模型/控制/MPC → [references/ai-and-control.md](references/ai-and-control.md) — AI 與控制：PINNs、時序模型、MPC、邊緣部署、數位孿生（465 行；用 `PINN|MPC|PatchTST|digital twin|edge` 定位章節）
 - 資安/ESG/合規/IEC 62443 → [references/cybersecurity-and-sustainability.md](references/cybersecurity-and-sustainability.md) — 資安與永續：IEC 62443、SEMI E187、零信任、ESG 自動化、LCA（336 行；用 `IEC 62443|SEMI E187|zero trust|ESG|LCA` 定位章節）
-- HMI/部署/DevOps/GitOps → [references/delivery-and-ops.md](references/delivery-and-ops.md) — 交付與維運：ISA-101/18.2 人機介面標準、IaC/GitOps 模式、知識工程（492 行；用 `ISA-101|GitOps|IaC|HMI|knowledge graph` 定位章節）
+- HMI/部署/DevOps/GitOps → [references/delivery-and-ops.md](references/delivery-and-ops.md) — 交付與維運：ISA-101/5.5/18.2 與 EEMUA 191 人機介面與警報標準、IaC/GitOps 模式、知識工程（用 `ISA-101|ISA-5.5|ISA-18.2|EEMUA|HMI|GitOps|IaC|knowledge graph` 定位章節）
 - 特定技術細節 (RO/EDI/IX/UF/MBR/AOP) → [references/technologies.md](references/technologies.md) — 處理技術百科：各項處理技術的原理與設計參數（262 行；用 `RO|EDI|IX|UF|MBR|AOP` 定位章節）
 
 **深入運作框架**（討論整體設計哲學或跨維度協調時載入）：

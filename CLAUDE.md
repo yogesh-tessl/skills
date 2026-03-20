@@ -12,7 +12,6 @@ This repository contains custom skills for Claude Code. Skills are folders of in
 skills/                          ← git repo root
 ├── packages/                    ← all skill folders (symlink target)
 │   ├── .system/                 ← system-level tools (hidden)
-│   │   ├── skill-creator/
 │   │   └── skill-installer/
 │   ├── agent-browser/
 │   ├── aipoint-brand-guide/
