@@ -98,3 +98,73 @@ else
     log_info "[dry-run] 將備份到 ~/$BACKUP_DIR/"
     echo ""
 fi
+
+# ── 執行 copy 區塊 ──
+echo "📄 同步設定檔（copy）..."
+while IFS= read -r path; do
+    [[ -z "$path" ]] && continue
+    local_path="$(expand_local "$path")"
+
+    if [[ ! -f "$local_path" ]]; then
+        log_warn "$path 本機不存在，跳過"
+        FAILED+=("$path（本機不存在）")
+        COPY_FAIL=$((COPY_FAIL + 1))
+        continue
+    fi
+
+    if $DRY_RUN; then
+        log_info "[dry-run] $path"
+        COPY_OK=$((COPY_OK + 1))
+        continue
+    fi
+
+    remote_path="$(expand_remote "$path")"
+    remote_dir="$(dirname "$remote_path")"
+    ssh "$HOST" "mkdir -p \"$remote_dir\"" 2>/dev/null
+
+    if scp -q "$local_path" "$HOST:$remote_path" 2>/dev/null; then
+        log_ok "$path"
+        COPY_OK=$((COPY_OK + 1))
+    else
+        log_fail "$path"
+        FAILED+=("$path（scp 失敗）")
+        COPY_FAIL=$((COPY_FAIL + 1))
+    fi
+done < <(yq '.copy[]' "$MANIFEST" 2>/dev/null)
+echo ""
+
+# ── 執行 copy_verify_ssh 區塊（高風險：推送後驗證語法）──
+echo "🔐 同步 SSH 設定（推送後驗證）..."
+while IFS= read -r path; do
+    [[ -z "$path" ]] && continue
+    local_path="$(expand_local "$path")"
+
+    if [[ ! -f "$local_path" ]]; then
+        log_warn "$path 本機不存在，跳過"
+        FAILED+=("$path（本機不存在）")
+        COPY_FAIL=$((COPY_FAIL + 1))
+        continue
+    fi
+
+    if $DRY_RUN; then
+        log_info "[dry-run] $path（推送後將驗證語法）"
+        COPY_OK=$((COPY_OK + 1))
+        continue
+    fi
+
+    remote_path="$(expand_remote "$path")"
+    remote_dir="$(dirname "$remote_path")"
+    ssh "$HOST" "mkdir -p \"$remote_dir\"" 2>/dev/null
+    scp -q "$local_path" "$HOST:$remote_path" 2>/dev/null
+
+    if ssh "$HOST" "ssh -G localhost &>/dev/null" 2>/dev/null; then
+        log_ok "$path（語法驗證通過）"
+        COPY_OK=$((COPY_OK + 1))
+    else
+        log_fail "$path — SSH config 語法錯誤！正在從備份還原..."
+        ssh "$HOST" "cp \$HOME/$BACKUP_DIR/${path#\~/} \"$remote_path\" 2>/dev/null" || true
+        FAILED+=("$path（語法驗證失敗，已還原）")
+        COPY_FAIL=$((COPY_FAIL + 1))
+    fi
+done < <(yq '.copy_verify_ssh[]' "$MANIFEST" 2>/dev/null)
+echo ""
