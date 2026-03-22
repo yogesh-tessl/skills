@@ -11,7 +11,16 @@ cd "$SCRIPT_DIR"
 #   ./sync.sh              # 完整同步（提交 + 拉 + 推 + 分發）
 #   ./sync.sh --pull       # 只拉取遠端，不推送本地變更
 #   ./sync.sh --local      # 只分發到本機 Agent，不碰 git
+#   ./sync.sh --dotfiles <host>              # 同步設定檔到遠端
+#   ./sync.sh --dotfiles <host> --dry-run    # 預覽不執行
+#   ./sync.sh --dotfiles <host> --with-packages  # 含套件補裝
 # ────────────────────────────────────────────────
+
+# ── Dotfiles 同步模式（獨立於 skills 同步）──
+if [ "${1:-}" = "--dotfiles" ]; then
+    shift
+    exec "$SCRIPT_DIR/dotfiles/sync-dotfiles.sh" "$@"
+fi
 
 MODE="full"
 if [ "${1:-}" = "--pull" ]; then
