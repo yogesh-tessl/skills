@@ -90,7 +90,7 @@ if ! $DRY_RUN; then
     ssh "$HOST" "mkdir -p \$HOME/$BACKUP_DIR"
     for f in "${BACKUP_FILES[@]}"; do
         remote_f="$(expand_remote "$f")"
-        ssh "$HOST" "if [ -f \"$remote_f\" ]; then mkdir -p \"\$HOME/$BACKUP_DIR/\$(dirname \"${f#\~/}\")\" && cp \"$remote_f\" \"\$HOME/$BACKUP_DIR/${f#\~/}\" 2>/dev/null; fi" || true
+        ssh -n "$HOST" "if [ -f \"$remote_f\" ]; then mkdir -p \"\$HOME/$BACKUP_DIR/\$(dirname \"${f#\~/}\")\" && cp \"$remote_f\" \"\$HOME/$BACKUP_DIR/${f#\~/}\" 2>/dev/null; fi" || true
     done
     log_ok "已備份到 ~/$BACKUP_DIR/"
     echo ""
@@ -120,9 +120,10 @@ while IFS= read -r path; do
 
     remote_path="$(expand_remote "$path")"
     remote_dir="$(dirname "$remote_path")"
-    ssh "$HOST" "mkdir -p \"$remote_dir\"" 2>/dev/null
+    ssh -n "$HOST" "mkdir -p \"$remote_dir\"" 2>/dev/null
 
-    if scp -q "$local_path" "$HOST:$remote_path" 2>/dev/null; then
+    # scp 的遠端路徑用原始 ~ （scp 會自動展開），ssh mkdir 用 $HOME
+    if scp -q "$local_path" "$HOST:$path" 2>/dev/null; then
         log_ok "$path"
         COPY_OK=$((COPY_OK + 1))
     else
@@ -154,15 +155,15 @@ while IFS= read -r path; do
 
     remote_path="$(expand_remote "$path")"
     remote_dir="$(dirname "$remote_path")"
-    ssh "$HOST" "mkdir -p \"$remote_dir\"" 2>/dev/null
-    scp -q "$local_path" "$HOST:$remote_path" 2>/dev/null
+    ssh -n "$HOST" "mkdir -p \"$remote_dir\"" 2>/dev/null
+    scp -q "$local_path" "$HOST:$path" 2>/dev/null
 
-    if ssh "$HOST" "ssh -G localhost &>/dev/null" 2>/dev/null; then
+    if ssh -n "$HOST" "ssh -G localhost &>/dev/null" 2>/dev/null; then
         log_ok "${path}（語法驗證通過）"
         COPY_OK=$((COPY_OK + 1))
     else
         log_fail "$path — SSH config 語法錯誤！正在從備份還原..."
-        ssh "$HOST" "cp \$HOME/$BACKUP_DIR/${path#\~/} \"$remote_path\" 2>/dev/null" || true
+        ssh -n "$HOST" "cp \$HOME/$BACKUP_DIR/${path#\~/} \"$remote_path\" 2>/dev/null" || true
         FAILED+=("${path}（語法驗證失敗，已還原）")
         COPY_FAIL=$((COPY_FAIL + 1))
     fi
@@ -189,7 +190,7 @@ while IFS= read -r path; do
     fi
 
     remote_path="$(expand_remote "$path")"
-    ssh "$HOST" "mkdir -p \"$remote_path\"" 2>/dev/null
+    ssh -n "$HOST" "mkdir -p \"$remote_path\"" 2>/dev/null
 
     if rsync -av --quiet "$local_path" "$HOST:$path" 2>/dev/null; then
         log_ok "$path"
@@ -225,7 +226,8 @@ while IFS= read -r path; do
     TMP_REMOTE="/tmp/dotfiles-merge-remote-$$.json"
     TMP_MERGED="/tmp/dotfiles-merge-result-$$.json"
 
-    scp -q "$HOST:$remote_path" "$TMP_REMOTE" 2>/dev/null || true
+    # scp 用原始 ~ 路徑（scp 自動展開）
+    scp -q "$HOST:$path" "$TMP_REMOTE" 2>/dev/null || true
 
     python3 -c "
 import json, sys
@@ -244,13 +246,13 @@ json.dump(merged, open(sys.argv[3], 'w'), indent=2)
 
     if [[ -f "$TMP_MERGED" ]]; then
         remote_dir="$(dirname "$remote_path")"
-        ssh "$HOST" "mkdir -p \"$remote_dir\"" 2>/dev/null
-        scp -q "$TMP_MERGED" "$HOST:$remote_path" 2>/dev/null
+        ssh -n "$HOST" "mkdir -p \"$remote_dir\"" 2>/dev/null
+        scp -q "$TMP_MERGED" "$HOST:$path" 2>/dev/null
         log_ok "$path"
         MERGE_OK=$((MERGE_OK + 1))
     else
         log_warn "$path 合併失敗，改用主力機版本覆寫"
-        scp -q "$local_path" "$HOST:$remote_path" 2>/dev/null
+        scp -q "$local_path" "$HOST:$path" 2>/dev/null
         MERGE_OK=$((MERGE_OK + 1))
     fi
 
@@ -302,7 +304,7 @@ echo "════════════════════════�
 if [[ $TOTAL_FAIL -eq 0 ]]; then
     echo -e "  ${GREEN}Dotfiles 同步完成 → $HOST${NC}"
 else
-    echo -e "  ${YELLOW}Dotfiles 同步完成 → $HOST（有錯誤）${NC}"
+    echo -e "  ${YELLOW}Dotfiles 同步完成 → ${HOST}（有錯誤）${NC}"
 fi
 echo "══════════════════════════════════════"
 echo "  複製：  $COPY_OK 個檔案$([ $COPY_FAIL -gt 0 ] && echo "（$COPY_FAIL 失敗）" || echo " ✅")"
