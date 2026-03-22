@@ -107,7 +107,7 @@ while IFS= read -r path; do
 
     if [[ ! -f "$local_path" ]]; then
         log_warn "$path 本機不存在，跳過"
-        FAILED+=("$path（本機不存在）")
+        FAILED+=("${path}（本機不存在）")
         COPY_FAIL=$((COPY_FAIL + 1))
         continue
     fi
@@ -127,7 +127,7 @@ while IFS= read -r path; do
         COPY_OK=$((COPY_OK + 1))
     else
         log_fail "$path"
-        FAILED+=("$path（scp 失敗）")
+        FAILED+=("${path}（scp 失敗）")
         COPY_FAIL=$((COPY_FAIL + 1))
     fi
 done < <(yq '.copy[]' "$MANIFEST" 2>/dev/null)
@@ -141,13 +141,13 @@ while IFS= read -r path; do
 
     if [[ ! -f "$local_path" ]]; then
         log_warn "$path 本機不存在，跳過"
-        FAILED+=("$path（本機不存在）")
+        FAILED+=("${path}（本機不存在）")
         COPY_FAIL=$((COPY_FAIL + 1))
         continue
     fi
 
     if $DRY_RUN; then
-        log_info "[dry-run] $path（推送後將驗證語法）"
+        log_info "[dry-run] ${path}（推送後將驗證語法）"
         COPY_OK=$((COPY_OK + 1))
         continue
     fi
@@ -158,12 +158,12 @@ while IFS= read -r path; do
     scp -q "$local_path" "$HOST:$remote_path" 2>/dev/null
 
     if ssh "$HOST" "ssh -G localhost &>/dev/null" 2>/dev/null; then
-        log_ok "$path（語法驗證通過）"
+        log_ok "${path}（語法驗證通過）"
         COPY_OK=$((COPY_OK + 1))
     else
         log_fail "$path — SSH config 語法錯誤！正在從備份還原..."
         ssh "$HOST" "cp \$HOME/$BACKUP_DIR/${path#\~/} \"$remote_path\" 2>/dev/null" || true
-        FAILED+=("$path（語法驗證失敗，已還原）")
+        FAILED+=("${path}（語法驗證失敗，已還原）")
         COPY_FAIL=$((COPY_FAIL + 1))
     fi
 done < <(yq '.copy_verify_ssh[]' "$MANIFEST" 2>/dev/null)
@@ -177,7 +177,7 @@ while IFS= read -r path; do
 
     if [[ ! -d "$local_path" ]]; then
         log_warn "$path 本機不存在，跳過"
-        FAILED+=("$path（目錄不存在）")
+        FAILED+=("${path}（目錄不存在）")
         RSYNC_FAIL=$((RSYNC_FAIL + 1))
         continue
     fi
@@ -196,7 +196,7 @@ while IFS= read -r path; do
         RSYNC_OK=$((RSYNC_OK + 1))
     else
         log_fail "$path"
-        FAILED+=("$path（rsync 失敗）")
+        FAILED+=("${path}（rsync 失敗）")
         RSYNC_FAIL=$((RSYNC_FAIL + 1))
     fi
 done < <(yq '.rsync[]' "$MANIFEST" 2>/dev/null)
@@ -210,13 +210,13 @@ while IFS= read -r path; do
 
     if [[ ! -f "$local_path" ]]; then
         log_warn "$path 本機不存在，跳過"
-        FAILED+=("$path（本機不存在）")
+        FAILED+=("${path}（本機不存在）")
         MERGE_FAIL=$((MERGE_FAIL + 1))
         continue
     fi
 
     if $DRY_RUN; then
-        log_info "[dry-run] $path（合併主力機 ∪ 遠端獨有）"
+        log_info "[dry-run] ${path}（合併主力機 ∪ 遠端獨有）"
         MERGE_OK=$((MERGE_OK + 1))
         continue
     fi
