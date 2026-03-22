@@ -14,7 +14,15 @@
       "Bash(ls:*)",
       "Bash(do printf:*)",
       "Bash(ln -sfn /Users/kc/Downloads/Codebase/playground/skills/packages/iotech-expert /Users/kc/.claude/skills/iotech-expert)",
-      "Read(//Users/kc/.claude/skills/**)"
+      "Read(//Users/kc/.claude/skills/**)",
+      "Read(//Users/kc/.claude/plugins/**)",
+      "Read(//Users/kc/.claude/plugins/cache/claude-plugins-official/telegram/**)",
+      "Bash(curl:*)",
+      "Bash(bun --version)",
+      "Bash(bash)",
+      "Bash(export PATH=\"$HOME/.bun/bin:$PATH\")",
+      "Skill(telegram:configure)",
+      "mcp__plugin_telegram_telegram__reply"
     ]
   }
 }
