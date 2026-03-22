@@ -257,3 +257,69 @@ json.dump(merged, open(sys.argv[3], 'w'), indent=2)
     rm -f "$TMP_REMOTE" "$TMP_MERGED"
 done < <(yq '.merge_json[]' "$MANIFEST" 2>/dev/null)
 echo ""
+
+# ── 執行 packages 區塊（--with-packages）──
+if $WITH_PACKAGES; then
+    echo "📦 補裝缺少的套件..."
+
+    FORMULAS=$(yq '.packages.brew_formula[]' "$MANIFEST" 2>/dev/null | tr '\n' ' ')
+    if [[ -n "$FORMULAS" ]]; then
+        if $DRY_RUN; then
+            log_info "[dry-run] brew install $FORMULAS"
+        else
+            log_info "brew formula: $FORMULAS"
+            ssh "$HOST" "/opt/homebrew/bin/brew install $FORMULAS 2>&1 | tail -5" || true
+        fi
+    fi
+
+    CASKS=$(yq '.packages.brew_cask[]' "$MANIFEST" 2>/dev/null | tr '\n' ' ')
+    if [[ -n "$CASKS" ]]; then
+        if $DRY_RUN; then
+            log_info "[dry-run] brew install --cask $CASKS"
+        else
+            log_info "brew cask: $CASKS"
+            ssh "$HOST" "/opt/homebrew/bin/brew install --cask $CASKS 2>&1 | tail -5" || true
+        fi
+    fi
+
+    NPM_PKGS=$(yq '.packages.npm_global[]' "$MANIFEST" 2>/dev/null | tr '\n' ' ')
+    if [[ -n "$NPM_PKGS" ]]; then
+        if $DRY_RUN; then
+            log_info "[dry-run] npm install -g $NPM_PKGS"
+        else
+            log_info "npm global: $NPM_PKGS"
+            ssh "$HOST" "source ~/.nvm/nvm.sh && npm install -g $NPM_PKGS 2>&1 | tail -5" || true
+        fi
+    fi
+    echo ""
+fi
+
+# ── 摘要報告 ──
+TOTAL_OK=$((COPY_OK + RSYNC_OK + MERGE_OK))
+TOTAL_FAIL=${#FAILED[@]}
+
+echo "══════════════════════════════════════"
+if [[ $TOTAL_FAIL -eq 0 ]]; then
+    echo -e "  ${GREEN}Dotfiles 同步完成 → $HOST${NC}"
+else
+    echo -e "  ${YELLOW}Dotfiles 同步完成 → $HOST（有錯誤）${NC}"
+fi
+echo "══════════════════════════════════════"
+echo "  複製：  $COPY_OK 個檔案$([ $COPY_FAIL -gt 0 ] && echo "（$COPY_FAIL 失敗）" || echo " ✅")"
+echo "  rsync： $RSYNC_OK 個目錄$([ $RSYNC_FAIL -gt 0 ] && echo "（$RSYNC_FAIL 失敗）" || echo " ✅")"
+echo "  合併：  $MERGE_OK 個 JSON$([ $MERGE_FAIL -gt 0 ] && echo "（$MERGE_FAIL 失敗）" || echo " ✅")"
+if [[ -n "$BACKUP_DIR" ]] && ! $DRY_RUN; then
+    echo "  備份：  ~/$BACKUP_DIR/"
+fi
+
+if [[ $TOTAL_FAIL -gt 0 ]]; then
+    echo ""
+    echo -e "  ${YELLOW}⚠️  失敗項目：${NC}"
+    for f in "${FAILED[@]}"; do
+        echo "    - $f"
+    done
+fi
+echo "══════════════════════════════════════"
+echo ""
+
+[[ $TOTAL_FAIL -gt 0 ]] && exit 1 || exit 0
