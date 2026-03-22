@@ -1,0 +1,50 @@
+# dotfiles/manifest.yaml
+# Dotfiles 同步清單 — 定義哪些檔案以什麼方式同步到遠端
+# 路徑中的 ~ 由腳本展開：本機用 $HOME 替換，遠端 SSH 自動展開
+
+# ── 直接覆寫（scp）──
+copy:
+  - ~/.zshrc
+  - ~/.zprofile
+  - ~/.zshenv
+  - ~/.p10k.zsh
+  - ~/.gitconfig
+  - ~/.claude/settings.json
+  - ~/.claude/CLAUDE.md
+  - ~/.claude/LEARNINGS.md
+  - ~/.codex/config.toml
+  - ~/.codex/AGENTS.md
+  - ~/.gemini/settings.json
+  - ~/Library/Application Support/espanso/config/default.yml
+  - ~/Library/Application Support/espanso/match/base.yml
+  - ~/.config/gh/config.yml
+  - ~/.config/gh/hosts.yml
+
+# ── 高風險覆寫（推送後驗證 SSH config 語法）──
+copy_verify_ssh:
+  - ~/.ssh/config
+
+# ── 目錄同步（rsync 增量，不帶 --delete）──
+rsync:
+  - ~/.claude/plugins/cache/
+  - ~/.claude/plugins/marketplaces/
+  - ~/.config/ghostty/
+
+# ── JSON 合併（主力機為主，保留遠端獨有欄位）──
+merge_json:
+  - ~/.claude/plugins/installed_plugins.json
+
+# ── 套件（--with-packages 時觸發）──
+packages:
+  brew_formula:
+    - git-lfs
+    - tree
+    - tmux
+    - pyenv
+    - neovim
+    - powershell
+  brew_cask:
+    - copilot-cli
+  npm_global:
+    - "@openai/codex"
+    - "@google/gemini-cli"
