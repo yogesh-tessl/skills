@@ -168,3 +168,92 @@ while IFS= read -r path; do
     fi
 done < <(yq '.copy_verify_ssh[]' "$MANIFEST" 2>/dev/null)
 echo ""
+
+# ── 執行 rsync 區塊 ──
+echo "📂 同步目錄（rsync）..."
+while IFS= read -r path; do
+    [[ -z "$path" ]] && continue
+    local_path="$(expand_local "$path")"
+
+    if [[ ! -d "$local_path" ]]; then
+        log_warn "$path 本機不存在，跳過"
+        FAILED+=("$path（目錄不存在）")
+        RSYNC_FAIL=$((RSYNC_FAIL + 1))
+        continue
+    fi
+
+    if $DRY_RUN; then
+        log_info "[dry-run] $path"
+        RSYNC_OK=$((RSYNC_OK + 1))
+        continue
+    fi
+
+    remote_path="$(expand_remote "$path")"
+    ssh "$HOST" "mkdir -p \"$remote_path\"" 2>/dev/null
+
+    if rsync -av --quiet "$local_path" "$HOST:$path" 2>/dev/null; then
+        log_ok "$path"
+        RSYNC_OK=$((RSYNC_OK + 1))
+    else
+        log_fail "$path"
+        FAILED+=("$path（rsync 失敗）")
+        RSYNC_FAIL=$((RSYNC_FAIL + 1))
+    fi
+done < <(yq '.rsync[]' "$MANIFEST" 2>/dev/null)
+echo ""
+
+# ── 執行 merge_json 區塊 ──
+echo "🔀 合併 JSON..."
+while IFS= read -r path; do
+    [[ -z "$path" ]] && continue
+    local_path="$(expand_local "$path")"
+
+    if [[ ! -f "$local_path" ]]; then
+        log_warn "$path 本機不存在，跳過"
+        FAILED+=("$path（本機不存在）")
+        MERGE_FAIL=$((MERGE_FAIL + 1))
+        continue
+    fi
+
+    if $DRY_RUN; then
+        log_info "[dry-run] $path（合併主力機 ∪ 遠端獨有）"
+        MERGE_OK=$((MERGE_OK + 1))
+        continue
+    fi
+
+    remote_path="$(expand_remote "$path")"
+    TMP_REMOTE="/tmp/dotfiles-merge-remote-$$.json"
+    TMP_MERGED="/tmp/dotfiles-merge-result-$$.json"
+
+    scp -q "$HOST:$remote_path" "$TMP_REMOTE" 2>/dev/null || true
+
+    python3 -c "
+import json, sys
+primary = json.load(open(sys.argv[1]))
+try:
+    remote = json.load(open(sys.argv[2]))
+except (FileNotFoundError, json.JSONDecodeError):
+    json.dump(primary, open(sys.argv[3], 'w'), indent=2)
+    sys.exit(0)
+merged = dict(primary)
+for key, value in remote.get('plugins', {}).items():
+    if key not in merged.get('plugins', {}):
+        merged.setdefault('plugins', {})[key] = value
+json.dump(merged, open(sys.argv[3], 'w'), indent=2)
+" "$local_path" "$TMP_REMOTE" "$TMP_MERGED" 2>/dev/null
+
+    if [[ -f "$TMP_MERGED" ]]; then
+        remote_dir="$(dirname "$remote_path")"
+        ssh "$HOST" "mkdir -p \"$remote_dir\"" 2>/dev/null
+        scp -q "$TMP_MERGED" "$HOST:$remote_path" 2>/dev/null
+        log_ok "$path"
+        MERGE_OK=$((MERGE_OK + 1))
+    else
+        log_warn "$path 合併失敗，改用主力機版本覆寫"
+        scp -q "$local_path" "$HOST:$remote_path" 2>/dev/null
+        MERGE_OK=$((MERGE_OK + 1))
+    fi
+
+    rm -f "$TMP_REMOTE" "$TMP_MERGED"
+done < <(yq '.merge_json[]' "$MANIFEST" 2>/dev/null)
+echo ""
