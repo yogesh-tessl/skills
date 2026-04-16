@@ -1,132 +1,131 @@
 ---
 name: bolder
-description: Amplify safe or boring designs to make them more visually interesting and stimulating. Increases impact while maintaining usability.
-user-invokable: true
-args:
-  - name: target
-    description: The feature or component to make bolder (optional)
-    required: false
+description: "Amplifies safe or boring UI designs with bolder typography, stronger color contrast, dramatic spatial scale, intentional visual effects, and entrance animations. Use when the user says a design looks too plain, boring, bland, generic, or asks to make it pop, more exciting, more dramatic, spice it up, or make it visually memorable."
+metadata:
+  user-invocable: true
+  args:
+    - name: target
+      description: The feature or component to make bolder (optional)
+      required: false
 ---
 
-Increase visual impact and personality in designs that are too safe, generic, or visually underwhelming, creating more engaging and memorable experiences.
+Increase visual impact and personality in designs that are too safe, generic, or visually underwhelming.
 
-## MANDATORY PREPARATION
+## Mandatory Preparation
 
-### Context Gathering (Do This First)
+### Context Gathering
 
-You cannot do a great job without having necessary context, such as target audience (critical), desired use-cases (critical), brand personality/tone, and everything else that a great human designer would need as well.
+Gather from the current thread or codebase: target audience, desired use-cases, brand personality/tone, and constraints.
 
-Attempt to gather these from the current thread or codebase.
-
-1. If you don't find *exact* information and have to infer from existing design and functionality, you MUST STOP and STOP and call the AskUserQuestionTool to clarify. whether you got it right.
-2. Otherwise, if you can't fully infer or your level of confidence is medium or lower, you MUST STOP and call the AskUserQuestionTool to clarify. clarifying questions first to complete your context.
-
-Do NOT proceed until you have answers. Guessing leads to generic AI slop.
+1. If inferring from existing design, STOP and call AskUserQuestionTool to confirm assumptions.
+2. If confidence is medium or lower, STOP and call AskUserQuestionTool to clarify before proceeding.
 
 ### Use frontend-design skill
 
-Use the frontend-design skill for design principles and anti-patterns. Do NOT proceed until it has executed and you know all DO's and DON'Ts.
+Load the [frontend-design](../frontend-design/SKILL.md) skill for design principles and anti-patterns. Review ALL the DON'T guidelines before proceeding.
 
 ---
 
 ## Assess Current State
 
-Analyze what makes the design feel too safe or boring:
+Identify what makes the design feel too safe:
 
-1. **Identify weakness sources**:
-   - **Generic choices**: System fonts, basic colors, standard layouts
-   - **Timid scale**: Everything is medium-sized with no drama
-   - **Low contrast**: Everything has similar visual weight
-   - **Static**: No motion, no energy, no life
-   - **Predictable**: Standard patterns with no surprises
-   - **Flat hierarchy**: Nothing stands out or commands attention
+- **Generic choices**: System fonts, basic colors, standard layouts
+- **Timid scale**: Everything medium-sized with no drama
+- **Low contrast**: Everything has similar visual weight
+- **Static**: No motion, no energy
+- **Predictable**: Standard patterns with no surprises
+- **Flat hierarchy**: Nothing commands attention
 
-2. **Understand the context**:
-   - What's the brand personality? (How far can we push?)
-   - What's the purpose? (Marketing can be bolder than financial dashboards)
-   - Who's the audience? (What will resonate?)
-   - What are the constraints? (Brand guidelines, accessibility, performance)
-
-If any of these are unclear from the codebase, STOP and call the AskUserQuestionTool to clarify.
-
-**CRITICAL**: "Bolder" doesn't mean chaotic or garish. It means distinctive, memorable, and confident. Think intentional drama, not random chaos.
-
-**WARNING - AI SLOP TRAP**: When making things "bolder," AI defaults to the same tired tricks: cyan/purple gradients, glassmorphism, neon accents on dark backgrounds, gradient text on metrics. These are the OPPOSITE of bold—they're generic. Review ALL the DON'T guidelines in the frontend-design skill before proceeding. Bold means distinctive, not "more effects."
+**CRITICAL — AI Slop Trap**: When making things "bolder," AI defaults to the same tired tricks: cyan/purple gradients, glassmorphism, neon accents on dark backgrounds, gradient text on metrics. These are the OPPOSITE of bold — they are generic. Bold means distinctive, not "more effects." If the result looks like every other AI-generated design, start over.
 
 ## Plan Amplification
 
-Create a strategy to increase impact while maintaining coherence:
-
-- **Focal point**: What should be the hero moment? (Pick ONE, make it amazing)
+- **Focal point**: What should be the hero moment? Pick ONE, make it amazing.
 - **Personality direction**: Maximalist chaos? Elegant drama? Playful energy? Dark moody? Choose a lane.
-- **Risk budget**: How experimental can we be? Push boundaries within constraints.
-- **Hierarchy amplification**: Make big things BIGGER, small things smaller (increase contrast)
-
-**IMPORTANT**: Bold design must still be usable. Impact without function is just decoration.
+- **Risk budget**: How experimental can we be within constraints?
+- **Hierarchy amplification**: Make big things BIGGER, small things smaller.
 
 ## Amplify the Design
 
-Systematically increase impact across these dimensions:
+### Typography
 
-### Typography Amplification
-- **Replace generic fonts**: Swap system fonts for distinctive choices (see frontend-design skill for inspiration)
-- **Extreme scale**: Create dramatic size jumps (3x-5x differences, not 1.5x)
-- **Weight contrast**: Pair 900 weights with 200 weights, not 600 with 400
-- **Unexpected choices**: Variable fonts, display fonts for headlines, condensed/extended widths, monospace as intentional accent (not as lazy "dev tool" default)
+```css
+/* Dramatic scale: 3-5x jumps, not 1.5x */
+.hero-heading {
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+}
+.body-text {
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.6;
+}
+```
 
-### Color Intensification
-- **Increase saturation**: Shift to more vibrant, energetic colors (but not neon)
-- **Bold palette**: Introduce unexpected color combinations—avoid the purple-blue gradient AI slop
-- **Dominant color strategy**: Let one bold color own 60% of the design
-- **Sharp accents**: High-contrast accent colors that pop
-- **Tinted neutrals**: Replace pure grays with tinted grays that harmonize with your palette
-- **Rich gradients**: Intentional multi-stop gradients (not generic purple-to-blue)
+- Replace system fonts with distinctive choices (variable, display, or condensed fonts)
+- Pair 900 weights with 200 weights, not 600 with 400
+- Use monospace as intentional accent, not lazy default
+
+### Color
+
+```css
+/* Dominant color strategy: one bold color owns 60% */
+:root {
+  --dominant: oklch(55% 0.25 30);    /* rich saturated primary */
+  --accent: oklch(75% 0.2 150);      /* high-contrast complement */
+  --neutral: oklch(95% 0.01 30);     /* tinted gray, not pure gray */
+  --dark: oklch(20% 0.02 30);        /* tinted near-black */
+}
+```
+
+- Increase saturation — vibrant, not neon
+- Bold unexpected combinations, not purple-to-blue gradients
+- Sharp accent colors that pop
+- Rich intentional multi-stop gradients
 
 ### Spatial Drama
-- **Extreme scale jumps**: Make important elements 3-5x larger than surroundings
-- **Break the grid**: Let hero elements escape containers and cross boundaries
-- **Asymmetric layouts**: Replace centered, balanced layouts with tension-filled asymmetry
-- **Generous space**: Use white space dramatically (100-200px gaps, not 20-40px)
-- **Overlap**: Layer elements intentionally for depth
+- 3-5x scale jumps for important elements
+- Let hero elements break the grid and escape containers
+- Asymmetric layouts with intentional tension
+- Generous white space (100-200px gaps)
+- Overlapping layers for depth
 
 ### Visual Effects
-- **Dramatic shadows**: Large, soft shadows for elevation (but not generic drop shadows on rounded rectangles)
-- **Background treatments**: Mesh patterns, noise textures, geometric patterns, intentional gradients (not purple-to-blue)
-- **Texture & depth**: Grain, halftone, duotone, layered elements—NOT glassmorphism (it's overused AI slop)
-- **Borders & frames**: Thick borders, decorative frames, custom shapes (not rounded rectangles with colored border on one side)
-- **Custom elements**: Illustrative elements, custom icons, decorative details that reinforce brand
+- Large, soft shadows for elevation (not generic drop shadows on rounded rectangles)
+- Mesh patterns, noise textures, geometric backgrounds
+- Grain, halftone, duotone — NOT glassmorphism
+- Thick borders, decorative frames, custom shapes
+- Custom illustrative elements reinforcing brand
 
-### Motion & Animation
-- **Entrance choreography**: Staggered, dramatic page load animations with 50-100ms delays
-- **Scroll effects**: Parallax, reveal animations, scroll-triggered sequences
-- **Micro-interactions**: Satisfying hover effects, click feedback, state changes
-- **Transitions**: Smooth, noticeable transitions using ease-out-quart/quint/expo (not bounce or elastic—they cheapen the effect)
+### Motion
 
-### Composition Boldness
-- **Hero moments**: Create clear focal points with dramatic treatment
-- **Diagonal flows**: Escape horizontal/vertical rigidity with diagonal arrangements
-- **Full-bleed elements**: Use full viewport width/height for impact
-- **Unexpected proportions**: Golden ratio? Throw it out. Try 70/30, 80/20 splits
+```css
+/* Entrance choreography with stagger */
+.card { animation: fadeSlideIn 0.6s ease-out both; }
+.card:nth-child(1) { animation-delay: 0ms; }
+.card:nth-child(2) { animation-delay: 75ms; }
+.card:nth-child(3) { animation-delay: 150ms; }
 
-**NEVER**:
-- Add effects randomly without purpose (chaos ≠ bold)
-- Sacrifice readability for aesthetics (body text must be readable)
-- Make everything bold (then nothing is bold - need contrast)
-- Ignore accessibility (bold design must still meet WCAG standards)
-- Overwhelm with motion (animation fatigue is real)
-- Copy trendy aesthetics blindly (bold means distinctive, not derivative)
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+```
 
-## Verify Quality
+- Scroll-triggered reveals and parallax
+- Satisfying hover effects with ease-out-quart/quint/expo (not bounce or elastic)
+- Full-bleed viewport elements for impact
 
-Ensure amplification maintains usability and coherence:
+**NEVER**: Add effects randomly, sacrifice readability, make everything bold (contrast requires restraint), ignore accessibility, overwhelm with motion, or copy trendy aesthetics blindly.
 
-- **NOT AI slop**: Does this look like every other AI-generated "bold" design? If yes, start over.
-- **Still functional**: Can users accomplish tasks without distraction?
-- **Coherent**: Does everything feel intentional and unified?
-- **Memorable**: Will users remember this experience?
-- **Performant**: Do all these effects run smoothly?
-- **Accessible**: Does it still meet accessibility standards?
+## Verify
 
-**The test**: If you showed this to someone and said "AI made this bolder," would they believe you immediately? If yes, you've failed. Bold means distinctive, not "more AI effects."
-
-Remember: Bold design is confident design. It takes risks, makes statements, and creates memorable experiences. But bold without strategy is just loud. Be intentional, be dramatic, be unforgettable.
+- **Not AI slop**: Would someone immediately say "AI made this bolder"? If yes, redo it.
+- **Still functional**: Users can accomplish tasks without distraction
+- **Coherent**: Everything feels intentional and unified
+- **Memorable**: Users would remember this experience
+- **Performant**: All effects run smoothly at 60fps
+- **Accessible**: Meets WCAG contrast and motion standards

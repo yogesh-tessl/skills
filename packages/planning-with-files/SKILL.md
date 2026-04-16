@@ -1,36 +1,29 @@
 ---
 name: planning-with-files
-version: "2.1.2"
-description: Implements Manus-style file-based planning for complex tasks. Creates task_plan.md, findings.md, and progress.md. Use when starting complex multi-step tasks, research projects, or any task requiring >5 tool calls.
-user-invocable: true
-allowed-tools:
-  - Read
-  - Write
-  - Edit
-  - Bash
-  - Glob
-  - Grep
-  - WebFetch
-  - WebSearch
-hooks:
-  SessionStart:
-    - hooks:
-        - type: command
-          command: "echo '[planning-with-files] Ready. Auto-activates for complex tasks, or invoke manually with /planning-with-files'"
-  PreToolUse:
-    - matcher: "Write|Edit|Bash"
-      hooks:
-        - type: command
-          command: "cat task_plan.md 2>/dev/null | head -30 || true"
-  PostToolUse:
-    - matcher: "Write|Edit"
-      hooks:
-        - type: command
-          command: "echo '[planning-with-files] File updated. If this completes a phase, update task_plan.md status.'"
-  Stop:
-    - hooks:
-        - type: command
-          command: "${CLAUDE_PLUGIN_ROOT}/scripts/check-complete.sh"
+description: "Implements Manus-style file-based planning for complex tasks by creating persistent task_plan.md, findings.md, and progress.md files as working memory on disk. Tracks phases, logs errors, and stores research discoveries. Use when starting complex multi-step tasks, research projects, any task requiring >5 tool calls, building or creating projects, or resuming work after a context gap."
+allowed-tools: "Read, Write, Edit, Bash, Glob, Grep, WebFetch, WebSearch"
+metadata:
+  version: "2.1.2"
+  user-invocable: true
+  hooks:
+    SessionStart:
+      - hooks:
+          - type: command
+            command: "echo '[planning-with-files] Ready. Auto-activates for complex tasks, or invoke manually with /planning-with-files'"
+    PreToolUse:
+      - matcher: "Write|Edit|Bash"
+        hooks:
+          - type: command
+            command: "cat task_plan.md 2>/dev/null | head -30 || true"
+    PostToolUse:
+      - matcher: "Write|Edit"
+        hooks:
+          - type: command
+            command: "echo '[planning-with-files] File updated. If this completes a phase, update task_plan.md status.'"
+    Stop:
+      - hooks:
+          - type: command
+            command: "${CLAUDE_PLUGIN_ROOT}/scripts/check-complete.sh"
 ---
 
 # Planning with Files
